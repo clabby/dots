@@ -15,3 +15,14 @@ install:
 	(cd ~/.gm/codebase && cargo build --release)
 	cp ~/.gm/codebase/target/release/gm ~/.gm/bin/gm
 	rm -rf ~/.gm/codebase/target
+fresh-setup:
+	# Install rust
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	rustup update
+	rustup update +nightly
+	# Install nvm (v0.39.2)
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+	# Install foundry
+	curl -L https://foundry.paradigm.xyz | bash
+	# Install huff
+	curl -L get.huff.sh | bash
