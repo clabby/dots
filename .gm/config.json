@@ -1,0 +1,20 @@
+{
+	"api_uri": "http://api.quotable.io/random",
+	"commands": [
+		{
+			"command": "huffup",
+			"args": [],
+			"loading_text": "Updating huff-rs..."
+		},
+		{
+			"command": "foundryup",
+			"args": [],
+			"loading_text": "Updating Foundry..."
+		},
+		{
+			"command": "rustup",
+			"args": ["update", "nightly"],
+			"loading_text": "Updating the Rust nightly toolchain..."
+		}
+	]
+}
