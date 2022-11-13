@@ -12,3 +12,6 @@ install:
 	cp -R ./.config/* ~/.config/
 	# Install "gm" config folder
 	cp -R ./.gm ~/
+	(cd ~/.gm/codebase && cargo build --release)
+	cp ~/.gm/codebase/target/release/gm ~/.gm/bin/gm
+	rm -rf ~/.gm/codebase/target
