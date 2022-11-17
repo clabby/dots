@@ -10,7 +10,7 @@ install:
 	cp -R ./.tmux ~/
 	# Install .config folders
 	cp -R ./.config/* ~/.config/
-	# Install "gm" config folder
+	# Install "gm" config folder and build binary
 	cp -R ./.gm ~/
 	(cd ~/.gm/codebase && cargo build --release)
 	cp ~/.gm/codebase/target/release/gm ~/.gm/bin/gm
