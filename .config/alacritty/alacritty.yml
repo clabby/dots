@@ -8,12 +8,14 @@ font:
   italic:
     family: "JetBrainsMono Nerd Font Mono"
     style: Italic
-  size: 16
+  size: 14
   use_thin_strokes: false
 window:
   dimensions:
     columns: 256
     lines: 256
+  opacity: 0.92
+  decorations: none
 colors:
   primary:
     background: "#1E1E2E" # base

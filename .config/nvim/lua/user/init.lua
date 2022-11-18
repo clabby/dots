@@ -429,7 +429,7 @@ local config = {
           vim.g.catppuccin_flavour = "mocha"
           -- local colors = require("catppuccin.palettes").get_palette()
           require("catppuccin").setup {
-            transparent_background = false,
+            transparent_background = true,
             term_colors = true,
             styles = {
               comments = { "italic" },
@@ -728,6 +728,10 @@ local config = {
       function() require("telescope-tabs").list_tabs() end,
       { desc = "Search open tabs" }
     )
+
+    vim.cmd [[ hi Normal guibg=NONE ctermbg=NONE ]]
+    vim.cmd [[ hi NormalNC guibg=NONE ctermbg=NONE ]]
+    vim.cmd [[ hi NonText guibg=NONE ctermbg=NONE ]]
   end,
 }
 
