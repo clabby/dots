@@ -18,9 +18,9 @@ source $ZSH/oh-my-zsh.sh
 export MANPATH="/usr/local/man:$MANPATH"
 
 # Add local bins to path
-export PATH="$PATH:/Users/ben/.foundry/bin"
-export PATH="$PATH:/Users/ben/.huff/bin"
-export PATH="$PATH:/Users/ben/.local/bin"
+export PATH="$PATH:$HOME/.foundry/bin"
+export PATH="$PATH:$HOME/.huff/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
