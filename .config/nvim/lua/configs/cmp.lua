@@ -4,7 +4,7 @@ local lspkind_status_ok, lspkind = pcall(require, "lspkind")
 if not (cmp_status_ok and snip_status_ok) then return end
 local setup = cmp.setup
 local border_opts =
-{ border = "single", winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None" }
+{ border = "single", win_options = { winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None" } }
 
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
