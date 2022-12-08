@@ -59,11 +59,11 @@ alias n="nvim"
 # Cat
 alias cat="bat"
 
-# Exa aliases
-alias ls="exa"
-alias la="exa -lah"
-alias ll="exa -lh"
-alias lt="exa -lhT -L 2"
+# lsd aliases
+alias ls="lsd"
+alias la="lsd -lah"
+alias ll="lsd -lh"
+alias lt="lsd -la --tree --depth 2"
 
 # Clear git alias for gm bin to work
 unalias gm
@@ -75,3 +75,6 @@ alias gm="~/.gm/bin/gm"
 
 # tmux colors
 export TERM=xterm-256color
+
+# zoxide
+eval "$(zoxide init zsh)"
