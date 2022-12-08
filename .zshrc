@@ -14,14 +14,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 # ------------------
 
-# Set manpath
-export MANPATH="/usr/local/man:$MANPATH"
-
-# Add local bins to path
-export PATH="$PATH:$HOME/.foundry/bin"
-export PATH="$PATH:$HOME/.huff/bin"
-export PATH="$PATH:$HOME/.local/bin"
-
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -30,24 +22,36 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
+# zoxide
+eval "$(zoxide init zsh)"
 
 # -------
 # ENV
 # -------
 
+# Set preferred editor for local and remote sessions
+export EDITOR='nvim'
+
+# Set manpath
+export MANPATH="/usr/local/man:$MANPATH"
+
+# Add local bins to path
+export PATH="$PATH:$HOME/.foundry/bin"
+export PATH="$PATH:$HOME/.huff/bin"
+export PATH="$PATH:$HOME/.local/bin"
+
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/vH5TkOpQNJmiQgA0OUa83SpCP0kNVOAr
+
+# tmux colors
+export TERM=xterm-256color
 
 # -------
 # ALIASES
 # -------
+
+# Optimism Dev
+alias opr="yarn clean && yarn build && (cd op-bindings && make)"
 
 # Cargo
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
@@ -68,13 +72,3 @@ alias lt="lsd -la --tree --depth 2"
 # Clear git alias for gm bin to work
 unalias gm
 alias gm="~/.gm/bin/gm"
-
-# ----
-# MISC
-# ----
-
-# tmux colors
-export TERM=xterm-256color
-
-# zoxide
-eval "$(zoxide init zsh)"
