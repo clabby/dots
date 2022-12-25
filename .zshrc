@@ -51,7 +51,8 @@ export TERM=xterm-256color
 # -------
 
 # Optimism Dev
-alias opr="yarn clean && yarn build && (cd op-bindings && make)"
+alias opr="z ~/dev/op/monorepo/ && yarn clean && yarn build && (z ./op-bindings && make)"
+alias foundryup-op="foundryup -C c06b532"
 
 # Cargo
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
@@ -62,6 +63,9 @@ alias n="nvim"
 
 # Cat
 alias cat="bat"
+
+# Delta
+alias diff="delta"
 
 # lsd aliases
 alias ls="lsd"
