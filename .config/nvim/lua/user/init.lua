@@ -328,10 +328,10 @@ local config = {
                         nav_icon_bg = "#89b06d",
                         folder_icon_bg = "#ec5f67",
                         emoji_bg = "#4c7475",
-                        a = "#FAE8E0",
-                        b = "#E4B7A0",
-                        c = "#C38370",
-                        d = "#A45C40",
+                        a = "#3C2723",
+                        b = "#595421",
+                        c = "#BE783B",
+                        d = "#BC5C4C",
                 },
         },
 
@@ -351,12 +351,19 @@ local config = {
                                 event = "VimEnter",
                                 config = function()
                                         require("noice").setup {
+                                                presets = {
+                                                        bottom_search = true,
+                                                        command_palette = true
+                                                },
                                                 notify = {
                                                         -- Noice can be used as `vim.notify` so you can route any notification like other messages
                                                         -- Notification messages have their level and other properties set.
                                                         -- event is always "notify" and kind can be any log level as a string
                                                         -- The default routes will forward notifications to nvim-notify
                                                         -- Benefit of using Noice for this is the routing and consistent history view
+                                                        enabled = false,
+                                                },
+                                                messages = {
                                                         enabled = false,
                                                 },
                                         }
@@ -387,38 +394,37 @@ local config = {
                         ["wuwe1/vim-huff"] = {},
 
                         -- Lua copilot
-                        -- ["zbirenbaum/copilot.lua"] = {
-                        --         after = { "heirline" },
-                        --         event = "InsertEnter",
-                        --         config = function()
-                        --                 vim.defer_fn(function() require("copilot").setup({
-                        --                                 panel = {
-                        --                                         enabled = true,
-                        --                                         auto_refresh = true,
-                        --                                         ---@type table<'accept'|'next'|'prev'|'dismiss', false|string>
-                        --                                         keymap = {
-                        --                                                 jump_prev = "[[",
-                        --                                                 jump_next = "]]",
-                        --                                                 accept = "<CR>",
-                        --                                                 refresh = "gr",
-                        --                                                 open = "<M-CR>",
-                        --                                         },
-                        --                                 },
-                        --                                 suggestion = {
-                        --                                         enabled = true,
-                        --                                         auto_trigger = true,
-                        --                                         debounce = 50,
-                        --                                         keymap = {
-                        --                                                 accept = "<M-l>",
-                        --                                                 next = "<M-]>",
-                        --                                                 prev = "<M-[>",
-                        --                                                 dismiss = "<C-]>",
-                        --                                         },
-                        --                                 },
-                        --                         })
-                        --                 end, 100)
-                        --         end,
-                        -- },
+                        ["zbirenbaum/copilot.lua"] = {
+                                event = "VimEnter",
+                                config = function()
+                                        vim.defer_fn(function() require("copilot").setup({
+                                                        panel = {
+                                                                enabled = true,
+                                                                auto_refresh = true,
+                                                                ---@type table<'accept'|'next'|'prev'|'dismiss', false|string>
+                                                                keymap = {
+                                                                        jump_prev = "[[",
+                                                                        jump_next = "]]",
+                                                                        accept = "<CR>",
+                                                                        refresh = "gr",
+                                                                        open = "<M-CR>",
+                                                                },
+                                                        },
+                                                        suggestion = {
+                                                                enabled = true,
+                                                                auto_trigger = true,
+                                                                debounce = 50,
+                                                                keymap = {
+                                                                        accept = "<M-l>",
+                                                                        next = "<M-]>",
+                                                                        prev = "<M-[>",
+                                                                        dismiss = "<C-]>",
+                                                                },
+                                                        },
+                                                })
+                                        end, 100)
+                                end,
+                        },
 
                         -- Copilot CMP
                         -- ["zbirenbaum/copilot-cmp"] = {
@@ -653,10 +659,10 @@ local config = {
                                                 surround = { separator = "left_arrow", color = { main = "b", left = "c" } },
                                         },
                                         astronvim.status.component.builder {
-                                                { provider = "🍊🌴🍍" }, -- 🍊🌴🍍
-                                                hl = { fg = "#1b1b1b" },
+                                                { provider = " 🔴✨🌺🎋 " }, -- 🌳🌺🎋
+                                                hl = { fg = "#ffffff" },
                                                 -- add padding to the right to center the emojis
-                                                padding = { left = 1, right = 1 },
+                                                padding = { left = 2, right = 2 },
                                                 -- use the right separator and define the background color
                                                 -- as well as the color to the left of the separator
                                                 surround = { separator = "left_arrow", color = { main = "a", left = "b" } },
@@ -791,10 +797,6 @@ local config = {
                 --         desc = "[copilot] dismiss suggestion",
                 --         silent = true,
                 -- })
-
-                -- vim.cmd [[ hi Normal guibg=NONE ctermbg=NONE ]]
-                -- vim.cmd [[ hi NormalNC guibg=NONE ctermbg=NONE ]]
-                -- vim.cmd [[ hi NonText guibg=NONE ctermbg=NONE ]]
         end,
 }
 
