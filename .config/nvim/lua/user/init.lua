@@ -163,6 +163,14 @@ local config = {
       -- this is useful for naming menus
       ["<leader>b"] = { name = "Buffers" },
 
+      -- Obsidian
+      ["<leader>o"] = { name = "Obsidian" },
+      ["<leader>ot"] = { "<cmd>ObsidianToday<cr>", desc = "Open today's note" },
+      ["<leader>of"] = { "<cmd>ObsidianQuickSwitch<cr>", desc = "Search through Obsidian files" },
+      ["<leader>os"] = { "<cmd>ObsidianSearch<cr>", desc = "Search through note contents" },
+      ["<leader>ol"] = { "<cmd>ObsidianFollowLink<cr>", desc = "Follow link" },
+      ["<leader>oo"] = { "<cmd>ObsidianOpen<cr>", desc = "Open file in Obsidian" },
+
       -- ToggleTerm bindings
       ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
     },
@@ -186,17 +194,18 @@ local config = {
   -- Configure plugins
   plugins = {
     -- By adding to the which-key config and using our helper function you can add more which-key registered bindings
-    -- {
-    --   "folke/which-key.nvim",
-    --   config = function(plugin, opts)
-    --     plugin.default_config(opts)
-    --     -- Add bindings which show up as group name
-    --     local wk = require "which-key"
-    --     wk.register({
-    --       b = { name = "Buffer" },
-    --     }, { mode = "n", prefix = "<leader>" })
-    --   end,
-    -- },
+    {
+      "folke/which-key.nvim",
+      lazy = false,
+      config = function(plugin, opts)
+        plugin.default_config(opts)
+        -- Add bindings which show up as group name
+        local wk = require "which-key"
+        wk.register({
+          o = { name = "Obsidian" },
+        }, { mode = "n", prefix = "<leader>" })
+      end,
+    },
 
     -- Disable nvim-dap
     { "mfussenegger/nvim-dap", enabled = false },
@@ -234,6 +243,7 @@ local config = {
     -- Catppuccin
     {
       "catppuccin/nvim",
+      lazy = false,
       opt = false,
       as = "catppuccin",
       config = function()
@@ -255,6 +265,7 @@ local config = {
     -- lsp_lines (more in-depth diagnostics)
     {
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      lazy = false,
       after = "mason-lspconfig.nvim",
       module = "lsp_lines",
       config = function() require("lsp_lines").setup() end,
@@ -294,19 +305,35 @@ local config = {
     -- Leap
     {
       "ggandor/leap.nvim",
+      lazy = false,
       config = function()
         local leap = require "leap"
         leap.setup {
           highlight_unlabeled_phase_one_targets = false,
         }
-        -- Adding default mappings here doesn't work; Done in `polish`
-        -- leap.add_default_mappings()
+        leap.add_default_mappings()
       end,
+    },
+
+    -- Obsidian
+    {
+      "epwalsh/obsidian.nvim",
+      lazy = false,
+      as = "obsidian",
+      config = function()
+        require("obsidian").setup {
+          dir = "/Users/ben/obsidian/obsidian",
+          completion = {
+            nvim_cmp = true,
+          }
+        }
+      end
     },
 
     -- Lua copilot
     {
       "zbirenbaum/copilot.lua",
+      lazy = false,
       event = "VimEnter",
       config = function()
         vim.defer_fn(function() require("copilot").setup({
@@ -397,9 +424,6 @@ local config = {
       desc = "[copilot] accept suggestion",
       silent = true,
     })
-
-    -- Add default leap bindings
-    require("leap").add_default_mappings()
 
     -- Set up notify background color
     require("notify").setup({
