@@ -26,3 +26,5 @@ fresh-setup:
 	curl -L https://foundry.paradigm.xyz | bash
 	# Install huff
 	curl -L get.huff.sh | bash
+	# Install neovim
+	git clone git@github.com:neovim/neovim.git ~/.config/nvim
