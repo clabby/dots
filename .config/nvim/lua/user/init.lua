@@ -11,11 +11,10 @@ math.randomseed(os.time())
 -- ███    ███ ███    ███ ███   ███   ███        ███    ███    ███
 -- ████████▀   ▀██████▀   ▀█   █▀    ███        █▀     ████████▀
 local config = {
-
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
-    channel = "stable", -- "stable" or "nightly"
+    channel = "nightly", -- "stable" or "nightly"
     version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
     -- TEMP: Use `v3` branch
     branch = "v3", -- branch name (NIGHTLY ONLY)
@@ -36,12 +35,36 @@ local config = {
 
   -- Add highlight groups in any theme
   highlights = {
-    -- init = { -- this table overrides highlights in all themes
-    --   Normal = { bg = "#000000" },
+    -- The `init` table affects all themes
+    -- init = {
+    --
     -- }
-    -- duskfox = { -- a table of overrides/changes to the duskfox theme
-    --   Normal = { bg = "#000000" },
-    -- },
+
+    -- NvChad-esq Telescope Theme for Catppuccin
+    catppuccin = function()
+      -- Pull in the catppuccin mocha colors
+      local mocha = require("catppuccin.palettes").get_palette "mocha"
+      local fg, bg = mocha.text, mocha.base
+      local bg_alt = mocha.mantle
+      local mauve = mocha.mauve
+      local green = mocha.green
+
+      -- return a table of highlights for telescope based on colors gotten from highlight groups
+      return {
+        TelescopeBorder = { fg = bg_alt, bg = bg },
+        TelescopeNormal = { bg = bg },
+        TelescopePreviewBorder = { fg = bg, bg = bg },
+        TelescopePreviewNormal = { bg = bg },
+        TelescopePreviewTitle = { fg = bg, bg = mauve },
+        TelescopePromptBorder = { fg = bg_alt, bg = bg_alt },
+        TelescopePromptNormal = { fg = fg, bg = bg_alt },
+        TelescopePromptPrefix = { fg = green, bg = bg_alt },
+        TelescopePromptTitle = { fg = bg, bg = green },
+        TelescopeResultsBorder = { fg = bg, bg = bg },
+        TelescopeResultsNormal = { bg = bg },
+        TelescopeResultsTitle = { fg = bg, bg = bg },
+      }
+    end,
   },
 
   -- set vim options here (vim.<first_key>.<second_key> = value)
@@ -77,6 +100,7 @@ local config = {
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
+    virtual_lines = false,
     virtual_text = true,
     underline = true,
   },
@@ -85,7 +109,8 @@ local config = {
   lsp = {
     -- enable servers that you already have installed without mason
     servers = {
-      -- "pyright"
+      -- Nomic solidity LSP
+      "nomic_solidity"
     },
     formatting = {
       -- control auto formatting on save
@@ -142,6 +167,13 @@ local config = {
           },
         },
       },
+      -- Add custon Nomic solidity LSP
+      nomic_solidity = {
+        cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
+        root_dir = require("lspconfig.util").root_pattern("foundry.toml"),
+        filetypes = { "solidity" },
+        single_file_support = true,
+      }
     },
   },
 
@@ -172,7 +204,36 @@ local config = {
       ["<leader>oo"] = { "<cmd>ObsidianOpen<cr>", desc = "Open file in Obsidian" },
 
       -- ToggleTerm bindings
-      ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
+      ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+
+      -- ctrl+D / ctrl+U to scroll up and down
+      ["<C-d>"] = { "<C-d>zz", desc = "Scroll one half page down" },
+      ["<C-u>"] = { "<C-u>zz", desc = "Scroll one half page up" },
+
+      -- LSP Lines toggle
+      ["<leader>1"] = {
+        function()
+          require("lsp_lines").toggle()
+          local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
+          vim.diagnostic.config { virtual_text = not virtual_lines_enabled }
+        end,
+        desc = "Toggle LSP Lines diagnostics"
+      },
+
+      -- Grep in file
+      ["<leader>fv"] = {
+        function() require("telescope.builtin").live_grep { search_dirs = { vim.fn.expand "%:p" } } end,
+        desc = "Search words in file"
+      },
+    },
+    i = {
+      -- Copilot: Accept suggestion
+      ["<M-tab>"] = {
+        function()
+          require("copilot.suggestion").accept()
+        end,
+        desc = "[copilot] accept suggestion",
+      }
     },
     t = {
       -- setting a mapping to false will disable it
@@ -193,19 +254,23 @@ local config = {
 
   -- Configure plugins
   plugins = {
+    ----------------------------------------------------------------
+    --                      CONFIG OVERRIDES                      --
+    ----------------------------------------------------------------
+
     -- By adding to the which-key config and using our helper function you can add more which-key registered bindings
-    {
-      "folke/which-key.nvim",
-      lazy = false,
-      config = function(plugin, opts)
-        plugin.default_config(opts)
-        -- Add bindings which show up as group name
-        local wk = require "which-key"
-        wk.register({
-          o = { name = "Obsidian" },
-        }, { mode = "n", prefix = "<leader>" })
-      end,
-    },
+    -- {
+    --   "folke/which-key.nvim",
+    --   lazy = false,
+    --   config = function(plugin, opts)
+    --     plugin.default_config(opts)
+    --     -- Add bindings which show up as group name
+    --     local wk = require "which-key"
+    --     wk.register({
+    --       o = { name = "Obsidian" },
+    --     }, { mode = "n", prefix = "<leader>" })
+    --   end,
+    -- },
 
     -- Disable nvim-dap
     { "mfussenegger/nvim-dap", enabled = false },
@@ -222,7 +287,7 @@ local config = {
       end,
     },
 
-    -- ToggleTerm Mapping
+    -- Override ToggleTerm Mapping
     {
       "akinsho/toggleterm.nvim",
       opts = {
@@ -230,7 +295,7 @@ local config = {
       }
     },
 
-    -- NeoTree Position Config
+    -- Override NeoTree Position Config
     {
       "nvim-neo-tree/neo-tree.nvim",
       opts = {
@@ -239,6 +304,10 @@ local config = {
         }
       }
     },
+
+    ----------------------------------------------------------------
+    --                          PLUGINS                           --
+    ----------------------------------------------------------------
 
     -- Catppuccin
     {
@@ -262,7 +331,7 @@ local config = {
       end,
     },
 
-    -- lsp_lines (more in-depth diagnostics)
+    -- lsp_lines (pretty diagnostics)
     {
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       lazy = false,
@@ -364,9 +433,13 @@ local config = {
         end, 100)
       end,
     },
+
+    -- Huff syntax highlighting
+    { "wuwe1/vim-huff", lazy = false }
   },
 
   -- Customize Heirline options
+  -- TODO: Port v2 herline config
   -- heirline = {
   --   -- Customize different separators between sections
   --   separators = {
@@ -398,34 +471,7 @@ local config = {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    -- Toggle LSP Lines
-    vim.keymap.set("", "<Leader>1", function()
-      require("lsp_lines").toggle()
-      local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
-      vim.diagnostic.config { virtual_text = not virtual_lines_enabled }
-    end, { desc = "Toggle lsp_lines" })
-
-    -- Grep in file
-    vim.keymap.set(
-      "",
-      "<Leader>fv",
-      function() require("telescope.builtin").live_grep { search_dirs = { vim.fn.expand "%:p" } } end,
-      { desc = "Search words in file" }
-    )
-
-    -- Remap Ctrl+D / Ctrl+U to center the screen
-    vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true })
-
-    -- Copilot
-    vim.keymap.set("i", "<M-tab>", function()
-      require("copilot.suggestion").accept()
-    end, {
-      desc = "[copilot] accept suggestion",
-      silent = true,
-    })
-
-    -- Set up notify background color
+    -- Set up notify background color (Fixes warning)
     require("notify").setup({
       background_colour = "#000000",
     })
