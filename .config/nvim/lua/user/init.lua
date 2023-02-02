@@ -167,7 +167,7 @@ local config = {
           },
         },
       },
-      -- Add custon Nomic solidity LSP
+      -- Add custom Nomic solidity LSP
       nomic_solidity = {
         cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
         root_dir = require("lspconfig.util").root_pattern("foundry.toml"),

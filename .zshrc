@@ -39,6 +39,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$HOME/.foundry/bin"
 export PATH="$PATH:$HOME/.huff/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/vH5TkOpQNJmiQgA0OUa83SpCP0kNVOAr
@@ -46,13 +47,21 @@ export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/vH5TkOpQNJmiQgA0OUa83SpCP0kNV
 # tmux colors
 export TERM=xterm-256color
 
+export OP_MONOREPO="$HOME/dev/op/monorepo"
+
 # -------
 # ALIASES
 # -------
 
 # Optimism Dev
-alias opr="z ~/dev/op/monorepo/ && yarn clean && yarn build && (z ./op-bindings && make)"
-alias foundryup-op="foundryup -C c06b532"
+alias opr="z $OP_MONOREPO && yarn clean && yarn build && (z ./op-bindings && make)"
+alias foundryup-op="foundryup -C 2ff99025abade470a795724c10648c800a41025e"
+
+# Go
+alias gts="gotestsum --format=testname"
+
+# Graphite
+alias rsr="gt rs && gt sr"
 
 # Cargo
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
@@ -72,6 +81,16 @@ alias ls="lsd"
 alias la="lsd -lah"
 alias ll="lsd -lh"
 alias lt="lsd -la --tree --depth 2"
+
+# Wttr
+CITY="Utrecht"
+function wttr {
+  if [ "$1" = "-v2" ]; then
+    curl -L https://v2.wttr.in/$CITY
+  else
+    curl -L https://wttr.in/$CITY
+  fi
+}
 
 # Clear git alias for gm bin to work
 unalias gm

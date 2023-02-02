@@ -3,7 +3,7 @@ extern crate lazy_static;
 extern crate hyper;
 extern crate tokio;
 
-use ansi_term::Color::{Cyan, Green, Red};
+use eyre::Result;
 use home::home_dir;
 use hyper::{Client, Uri};
 use serde_derive::{Deserialize, Serialize};
@@ -12,6 +12,7 @@ use std::error::Error;
 use std::path::PathBuf;
 use std::str;
 use std::{fs, process};
+use yansi::Paint;
 
 lazy_static! {
     static ref CONFIG_PATH: PathBuf =
@@ -53,7 +54,7 @@ struct QuoteApiResponse<'a> {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
+async fn main() -> Result<()> {
     // Load our config
     let config_content =
         fs::read_to_string(CONFIG_PATH.as_path()).expect("Missing config at \"~/.gm/config.json\"");
@@ -65,15 +66,15 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .get(Uri::from_static("http://api.quotable.io/random"))
         .await?;
     let res = hyper::body::to_bytes(res).await?;
-    let quote: QuoteApiResponse<'_> = serde_json::from_str(str::from_utf8(&res).unwrap())?;
+    let quote: QuoteApiResponse<'_> = serde_json::from_str(str::from_utf8(&res)?)?;
 
     // Print GM Prompt
-    println!("{}", Green.paint(GM));
+    println!("{}", Paint::green(GM));
     // Print Quote
     println!(
         "\n 👉 \"{}\" - {}\n",
         quote.content,
-        Cyan.bold().paint(quote.author)
+        Paint::cyan(quote.author)
     );
 
     // Run commands
@@ -82,13 +83,13 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     }
 
     // Exit
-    println!("\n{} Have a good day!", Cyan.bold().paint("🎉 Done!"));
+    println!("\n{} Have a good day!", Paint::cyan("🎉 Done!"));
     Ok(())
 }
 
 /// Run a command and display a spinner while it is running
 fn run_command(message: String, command: String, args: Vec<String>) {
-    let mut sp = Spinner::new(Spinners::Aesthetic, Green.paint(message));
+    let mut sp = Spinner::new(Spinners::Aesthetic, Paint::green(message));
     sp.start();
     if let Err(err) = process::Command::new(command).args(args).output() {
         print_error_message(err);
@@ -99,6 +100,6 @@ fn run_command(message: String, command: String, args: Vec<String>) {
 
 /// Print an error message
 fn print_error_message<T: Error>(err: T) {
-    println!("\n\n{}", Red.paint("Uh oh! An error occurred:"));
+    eprintln!("\n\n{}", Paint::red("Uh oh! An error occurred:"));
     eprintln!("{}", err);
 }

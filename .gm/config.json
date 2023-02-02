@@ -1,5 +1,4 @@
 {
-  "api_uri": "http://api.quotable.io/random",
   "commands": [
     {
       "command": "huffup",
