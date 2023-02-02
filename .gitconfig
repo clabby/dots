@@ -1,6 +1,7 @@
 [user]
-	name = clabby
-	email = ben@clab.by
+    # Insert your user config
+    # name = your name
+    # email = your email
 
 [core]
     pager = delta
