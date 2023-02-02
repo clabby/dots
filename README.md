@@ -1,4 +1,4 @@
-# My Dot Files
+# Dots
 
 My personal dotfiles
 
@@ -29,6 +29,7 @@ My personal dotfiles
 * [bat](https://github.com/sharkdp/bat)
 * [bpytop](https://github.com/aristocratos/bpytop)
 * [hyperfine](https://github.com/sharkdp/hyperfine)
+* [graphite CLI](https://github.com/withgraphite/graphite-cli)
 
 ### Smart Contract Development
 * [foundry](https://github.com/foundry-rs/foundry)
