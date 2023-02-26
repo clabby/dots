@@ -1,5 +1,7 @@
+-- Load in the statusline config
+local statusline_config = require "user.heirline"
 -- Load in the headers
-local headers = require("user.headers")
+local headers = require "user.headers"
 math.randomseed(os.time())
 
 --  ▄████████  ▄██████▄  ███▄▄▄▄      ▄████████  ▄█     ▄██████▄
@@ -29,10 +31,8 @@ local config = {
     --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
     -- },
   },
-
   -- Set colorscheme to use
   colorscheme = "catppuccin",
-
   -- Add highlight groups in any theme
   highlights = {
     -- The `init` table affects all themes
@@ -66,7 +66,6 @@ local config = {
       }
     end,
   },
-
   -- set vim options here (vim.<first_key>.<second_key> = value)
   options = {
     opt = {
@@ -104,13 +103,12 @@ local config = {
     virtual_text = true,
     underline = true,
   },
-
   -- Extend LSP configuration
   lsp = {
     -- enable servers that you already have installed without mason
     servers = {
       -- Nomic solidity LSP
-      "nomic_solidity"
+      "nomic_solidity",
     },
     formatting = {
       -- control auto formatting on save
@@ -170,13 +168,12 @@ local config = {
       -- Add custom Nomic solidity LSP
       nomic_solidity = {
         cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
-        root_dir = require("lspconfig.util").root_pattern("foundry.toml"),
+        root_dir = require("lspconfig.util").root_pattern "foundry.toml",
         filetypes = { "solidity" },
         single_file_support = true,
-      }
+      },
     },
   },
-
   -- Mapping data with "desc" stored directly by vim.keymap.set().
   --
   -- Please use this mappings table to set keyboard mapping since this is the
@@ -217,30 +214,27 @@ local config = {
           local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
           vim.diagnostic.config { virtual_text = not virtual_lines_enabled }
         end,
-        desc = "Toggle LSP Lines diagnostics"
+        desc = "Toggle LSP Lines diagnostics",
       },
 
       -- Grep in file
       ["<leader>fv"] = {
         function() require("telescope.builtin").live_grep { search_dirs = { vim.fn.expand "%:p" } } end,
-        desc = "Search words in file"
+        desc = "Search words in file",
       },
     },
     i = {
       -- Copilot: Accept suggestion
-      ["<M-tab>"] = {
-        function()
-          require("copilot.suggestion").accept()
-        end,
+      ["<M-Tab>"] = {
+        function() require("copilot.suggestion").accept() end,
         desc = "[copilot] accept suggestion",
-      }
+      },
     },
     t = {
       -- setting a mapping to false will disable it
       -- ["<esc>"] = false,
     },
   },
-
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
@@ -251,7 +245,6 @@ local config = {
       },
     },
   },
-
   -- Configure plugins
   plugins = {
     ----------------------------------------------------------------
@@ -273,9 +266,9 @@ local config = {
     -- },
 
     -- Disable nvim-dap
-    { "mfussenegger/nvim-dap", enabled = false },
+    { "mfussenegger/nvim-dap",        enabled = false },
     { "jay-babu/mason-nvim-dap.nvim", enabled = false },
-    { "rcarriga/nvim-dap-ui", enabled = false },
+    { "rcarriga/nvim-dap-ui",         enabled = false },
 
     -- Alpha Dashboard Headers
     {
@@ -292,7 +285,7 @@ local config = {
       "akinsho/toggleterm.nvim",
       opts = {
         open_mapping = [[<C-\>]],
-      }
+      },
     },
 
     -- Override NeoTree Position Config
@@ -301,8 +294,14 @@ local config = {
       opts = {
         window = {
           position = "right",
-        }
-      }
+        },
+      },
+    },
+
+    -- Override Heirline Config
+    {
+      "rebelot/heirline.nvim",
+      opts = statusline_config,
     },
 
     ----------------------------------------------------------------
@@ -366,7 +365,7 @@ local config = {
             signature = {
               enabled = false,
             },
-          }
+          },
         }
       end,
     },
@@ -385,19 +384,19 @@ local config = {
     },
 
     -- Obsidian
-    {
-      "epwalsh/obsidian.nvim",
-      lazy = false,
-      as = "obsidian",
-      config = function()
-        require("obsidian").setup {
-          dir = "/Users/ben/obsidian/obsidian",
-          completion = {
-            nvim_cmp = true,
-          }
-        }
-      end
-    },
+    --    {
+    --      "epwalsh/obsidian.nvim",
+    --      lazy = false,
+    --      as = "obsidian",
+    --      config = function()
+    --        require("obsidian").setup {
+    --          dir = "/Users/ben/obsidian/obsidian",
+    --          completion = {
+    --            nvim_cmp = true,
+    --          }
+    --        }
+    --      end
+    --    },
 
     -- Lua copilot
     {
@@ -405,7 +404,8 @@ local config = {
       lazy = false,
       event = "VimEnter",
       config = function()
-        vim.defer_fn(function() require("copilot").setup({
+        vim.defer_fn(function()
+          require("copilot").setup {
             panel = {
               enabled = true,
               auto_refresh = true,
@@ -429,52 +429,46 @@ local config = {
                 dismiss = "<C-]>",
               },
             },
-          })
+          }
         end, 100)
       end,
     },
 
     -- Huff syntax highlighting
-    { "wuwe1/vim-huff", lazy = false }
+    { "wuwe1/vim-huff",       lazy = false },
+
+    -- Rainbow brackets
+    { "p00f/nvim-ts-rainbow", lazy = false },
   },
-
+  -- Custom icons
+  icons = {
+    VimIcon = "",
+  },
   -- Customize Heirline options
-  -- TODO: Port v2 herline config
-  -- heirline = {
-  --   -- Customize different separators between sections
-  --   separators = {
-  --     breadcrumbs = " > ",
-  --     tab = { "", "" },
-  --   },
-  --   -- Customize colors for each element each element has a `_fg` and a `_bg`
-  --   colors = function(colors)
-  --     colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
-  --     return colors
-  --   end,
-  --   -- Customize attributes of highlighting in Heirline components
-  --   attributes = {
-  --     -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-  --     git_branch = { bold = true }, -- bold the git branch statusline component
-  --   },
-  --   -- Customize if icons should be highlighted
-  --   icon_highlights = {
-  --     breadcrumbs = false, -- LSP symbols in the breadcrumbs
-  --     file_icon = {
-  --       winbar = false, -- Filetype icon in the winbar inactive windows
-  --       statusline = true, -- Filetype icon in the statusline
-  --       tabline = true, -- Filetype icon in the tabline
-  --     },
-  --   },
-  -- },
-
+  heirline = {
+    separators = {
+      left = { "", " " }, -- separator for the left side of the statusline
+      right = { " ", "" }, -- separator for the right side of the statusline,
+    },
+  },
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
     -- Set up notify background color (Fixes warning)
-    require("notify").setup({
+    require("notify").setup {
       background_colour = "#000000",
-    })
+    }
+
+    require("nvim-treesitter.configs").setup {
+      highlight = {
+        enable = true,
+      },
+      rainbow = {
+        enable = true,
+        extended_mode = true,
+      },
+    }
   end,
 }
 
