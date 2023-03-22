@@ -70,6 +70,9 @@ alias rock="cargo +nightly fmt"
 # Neovim
 alias n="nvim"
 
+# Tmux
+alias t="tmux new -s code"
+
 # Cat
 alias cat="bat"
 
@@ -90,6 +93,23 @@ function wttr {
   else
     curl -L https://wttr.in/$CITY
   fi
+}
+
+# Forge
+ft() {
+    if [ $# -eq 1 ]; then
+        forge test -vvv --match-test $1
+    elif [ $# -eq 0 ]; then
+        forge test -vvv
+    fi
+}
+
+ftc() {
+    if [ $# -eq 1 ]; then
+        forge test -vvv --match-contract $1
+    elif [ $# -eq 0 ]; then
+        forge test -vvv
+    fi
 }
 
 # Clear git alias for gm bin to work
