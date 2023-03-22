@@ -1,7 +1,7 @@
 -- Heirline statusline configuration
 
 local statusline_config = function(_, opts)
-  local status = require "core.utils.status"
+  local status = require "astronvim.utils.status"
   local mocha = require("catppuccin.palettes").get_palette "mocha"
   opts.statusline = {
     -- statusline

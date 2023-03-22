@@ -15,21 +15,15 @@ math.randomseed(os.time())
 local config = {
   -- Configure AstroNvim updates
   updater = {
-    remote = "origin", -- remote to use
-    channel = "nightly", -- "stable" or "nightly"
-    version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-    -- TEMP: Use `v3` branch
-    branch = "v3", -- branch name (NIGHTLY ONLY)
-    commit = nil, -- commit hash (NIGHTLY ONLY)
-    pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
-    skip_prompts = false, -- skip prompts about breaking changes
+    remote = "origin",     -- remote to use
+    channel = "nightly",   -- "stable" or "nightly"
+    version = "latest",    -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+    branch = "nightly",    -- branch name (NIGHTLY ONLY)
+    commit = nil,          -- commit hash (NIGHTLY ONLY)
+    pin_plugins = nil,     -- nil, true, false (nil will pin plugins on stable only)
+    skip_prompts = false,  -- skip prompts about breaking changes
     show_changelog = true, -- show the changelog after performing an update
-    auto_quit = false, -- automatically quit the current session after a successful update
-    -- remotes = { -- easily add new remotes to track
-    --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
-    --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
-    --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
-    -- },
+    auto_quit = false,     -- automatically quit the current session after a successful update
   },
   -- Set colorscheme to use
   colorscheme = "catppuccin",
@@ -71,20 +65,20 @@ local config = {
     opt = {
       -- set to true or false etc.
       relativenumber = true, -- sets vim.opt.relativenumber
-      number = true, -- sets vim.opt.number
-      spell = false, -- sets vim.opt.spell
-      signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-      wrap = false, -- sets vim.opt.wrap
+      number = true,         -- sets vim.opt.number
+      spell = false,         -- sets vim.opt.spell
+      signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
+      wrap = false,          -- sets vim.opt.wrap
     },
     g = {
-      mapleader = " ", -- sets vim.g.mapleader
-      autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-      cmp_enabled = true, -- enable completion at start
-      autopairs_enabled = true, -- enable autopairs at start
-      diagnostics_enabled = true, -- enable diagnostics at start
+      mapleader = " ",                   -- sets vim.g.mapleader
+      autoformat_enabled = true,         -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+      cmp_enabled = true,                -- enable completion at start
+      autopairs_enabled = true,          -- enable autopairs at start
+      diagnostics_enabled = true,        -- enable diagnostics at start
       status_diagnostics_enabled = true, -- enable diagnostics in statusline
-      icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
-      ui_notifications_enabled = true, -- disable notifications when toggling UI elements
+      icons_enabled = true,              -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+      ui_notifications_enabled = true,   -- disable notifications when toggling UI elements
     },
   },
   -- If you need more control, you can use the function()...end notation
@@ -113,7 +107,7 @@ local config = {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = true, -- enable or disable format on save globally
+        enabled = true,     -- enable or disable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- "go",
         },
@@ -135,26 +129,28 @@ local config = {
         -- ["<leader>lf"] = false -- disable formatting keymap
       },
     },
-
     -- add to the global LSP on_attach function
     -- on_attach = function(client, bufnr)
     -- end,
 
     -- override the LSP setup handler function based on server name
-    -- setup_handlers = {
-    --   -- first function changes the default setup handler
-    --   function(server, opts) require("lspconfig")[server].setup(opts) end,
-    --   -- keys for a specific server name will be used for that LSP
-    --   sumneko_lua = function(server, opts)
-    --     -- custom sumneko_lua setup handler
-    --     require("lspconfig")["sumneko_lua"].setup(opts)
-    --   end,
-    -- },
-
+    setup_handlers = {
+      -- first function changes the default setup handler
+      -- function(server, opts)
+      --   require("lspconfig")[server].setup(opts)
+      -- end,
+      -- -- keys for a specific server name will be used for that LSP
+      -- sumneko_lua = function(server, opts)
+      --   -- custom sumneko_lua setup handler
+      --   require("lspconfig")["sumneko_lua"].setup(opts)
+      -- end,
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
+    },
     -- Add overrides for LSP server settings, the keys are the name of the server
     config = {
       -- example for addings schemas to yamlls
-      yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
+      yamlls = {
+        -- override table for require("lspconfig").yamlls.setup({...})
         settings = {
           yaml = {
             schemas = {
@@ -171,6 +167,16 @@ local config = {
         root_dir = require("lspconfig.util").root_pattern "foundry.toml",
         filetypes = { "solidity" },
         single_file_support = true,
+      },
+      -- Rust Analyzer
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              -- features = { "optimism" },
+            },
+          },
+        },
       },
     },
   },
@@ -191,22 +197,11 @@ local config = {
       -- tables with the `name` key will be registered with which-key if it's installed
       -- this is useful for naming menus
       ["<leader>b"] = { name = "Buffers" },
-
-      -- Obsidian
-      ["<leader>o"] = { name = "Obsidian" },
-      ["<leader>ot"] = { "<cmd>ObsidianToday<cr>", desc = "Open today's note" },
-      ["<leader>of"] = { "<cmd>ObsidianQuickSwitch<cr>", desc = "Search through Obsidian files" },
-      ["<leader>os"] = { "<cmd>ObsidianSearch<cr>", desc = "Search through note contents" },
-      ["<leader>ol"] = { "<cmd>ObsidianFollowLink<cr>", desc = "Follow link" },
-      ["<leader>oo"] = { "<cmd>ObsidianOpen<cr>", desc = "Open file in Obsidian" },
-
       -- ToggleTerm bindings
       ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
-
       -- ctrl+D / ctrl+U to scroll up and down
       ["<C-d>"] = { "<C-d>zz", desc = "Scroll one half page down" },
       ["<C-u>"] = { "<C-u>zz", desc = "Scroll one half page up" },
-
       -- LSP Lines toggle
       ["<leader>1"] = {
         function()
@@ -216,10 +211,9 @@ local config = {
         end,
         desc = "Toggle LSP Lines diagnostics",
       },
-
       -- Grep in file
       ["<leader>fv"] = {
-        function() require("telescope.builtin").live_grep { search_dirs = { vim.fn.expand "%:p" } } end,
+        function() require("telescope.builtin").current_buffer_fuzzy_find() end,
         desc = "Search words in file",
       },
     },
@@ -361,7 +355,6 @@ local config = {
             hover = {
               enabled = false,
             },
-
             signature = {
               enabled = false,
             },
@@ -382,21 +375,6 @@ local config = {
         leap.add_default_mappings()
       end,
     },
-
-    -- Obsidian
-    --    {
-    --      "epwalsh/obsidian.nvim",
-    --      lazy = false,
-    --      as = "obsidian",
-    --      config = function()
-    --        require("obsidian").setup {
-    --          dir = "/Users/ben/obsidian/obsidian",
-    --          completion = {
-    --            nvim_cmp = true,
-    --          }
-    --        }
-    --      end
-    --    },
 
     -- Lua copilot
     {
@@ -434,11 +412,14 @@ local config = {
       end,
     },
 
+    -- Rust tools
+    { "simrat39/rust-tools.nvim", lazy = false },
+
     -- Huff syntax highlighting
-    { "wuwe1/vim-huff",       lazy = false },
+    { "wuwe1/vim-huff",           lazy = false },
 
     -- Rainbow brackets
-    { "p00f/nvim-ts-rainbow", lazy = false },
+    { "p00f/nvim-ts-rainbow",     lazy = false },
   },
   -- Custom icons
   icons = {
