@@ -1,4 +1,4 @@
-SPECIAL=""
+SPECIAL="%T"
 
 # Show different prefix if last command succeeded/failed
 PROMPT="%(?:"

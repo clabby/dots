@@ -4,6 +4,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # THEME
 ZSH_THEME="robbyrussell"
 
+# Arch or Mac
+IS_DARWIN=false
+
 # PLUGINS
 plugins=(git)
 
@@ -34,6 +37,11 @@ export EDITOR='nvim'
 
 # Set manpath
 export MANPATH="/usr/local/man:$MANPATH"
+
+# If we're not on Mac OSX, include the go binary in `/usr/local/go/bin`
+if [ "$IS_DARWIN" = false ]; then
+    export PATH="$PATH:/usr/local/go/bin"
+fi
 
 # Add local bins to path
 export PATH="$PATH:$HOME/.foundry/bin"
@@ -71,7 +79,13 @@ alias rock="cargo +nightly fmt"
 alias n="nvim"
 
 # Tmux
-alias t="tmux new -s code"
+function t {
+    if [ -n "$1" ]; then
+        tmux new -s "$1"
+    else
+        tmux new -s code
+    fi
+}
 
 # Cat
 alias cat="bat"
@@ -86,8 +100,8 @@ alias ll="lsd -lh"
 alias lt="lsd -la --tree --depth 2"
 
 # Wttr
-CITY="Utrecht"
-function wttr {
+CITY="Portimao"
+wttr() {
   if [ "$1" = "-v2" ]; then
     curl -L https://v2.wttr.in/$CITY
   else
@@ -96,7 +110,7 @@ function wttr {
 }
 
 # Forge
-ft() {
+ftt() {
     if [ $# -eq 1 ]; then
         forge test -vvv --match-test $1
     elif [ $# -eq 0 ]; then
