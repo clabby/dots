@@ -22,6 +22,7 @@ My personal dotfiles
 
 ### CLI Tools
 * [gm](./.gm/codebase)
+* [onefetch](https://github.com/o2sh/onefetch)
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [delta](https://github.com/dandavison/delta)
 * [lsd](https://github.com/Peltoche/lsd)
