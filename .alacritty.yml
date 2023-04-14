@@ -1,0 +1,92 @@
+font:
+  normal:
+    family: MesloLGS NF
+
+window:
+  decorations: Transparent
+  padding:
+    x: 8
+    y: 30
+
+selection:
+  save_to_clipboard: true
+
+cursor:
+  style:
+    shape: Beam
+    blinking: On
+
+key_bindings:
+  - { key: Right, mods: Alt, chars: "\x1BF" }
+  - { key: Left, mods: Alt, chars: "\x1BB" }
+
+# Adapted Night Owl Color Scheme
+colors:
+  # Default colors
+  primary:
+    background: "0x192330" # "0x162331"
+    foreground: "0xe6eefb"
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: "0xffffff"
+    cursor: "0x7e57c2"
+
+  # Normal colors
+  normal:
+    black: "0x000000"
+    red: "0xef5350"
+    green: "0x72b498"
+    yellow: "0xaddb67"
+    blue: "0x82aaff"
+    magenta: "0xc792ea"
+    cyan: "0x23cfd0"
+    white: "0xffffff"
+
+  # Bright colors
+  bright:
+    black: "0x575656"
+    red: "0xef5350"
+    green: "0x22da6e"
+    yellow: "0xffeb95"
+    blue: "0x82aaff"
+    magenta: "0xc792ea"
+    cyan: "0x7fdbca"
+    white: "0xffffff"
+# colors:
+#   primary:
+#     background: '#1d222b' # '#282c34'
+#     foreground: '#abb2bf'
+#   cursor:
+#     text:       CellBackground
+#     cursor:     '#528bff' # syntax-cursor-color
+#   selection:
+#     text:       CellForeground
+#     background: '#3e4451' # syntax-selection-color
+#   normal:
+#     black:      '#5c6370' # mono-3
+#     red:        '#e06c75' # red 1
+#     green:      '#98c379'
+#     yellow:     '#e5c07b' # orange 2
+#     blue:       '#61afef'
+#     magenta:    '#c678dd'
+#     cyan:       '#56b6c2'
+#     white:      '#828997' # mono-2
+#   bright:
+#     black: "#7f8c8d"
+#     red: "#c0392b"
+#     green: "#1cdc9a"
+#     yellow: "#fdbc4b"
+#     blue: "#3daee9"
+#     magenta: "#8e44ad"
+#     cyan: "#16a085"
+#     white: "#ffffff"
+#   dim:
+#     black: "#31363b"
+#     red: "#783228"
+#     green: "#17a262"
+#     yellow: "#b65619"
+#     blue: "#1b668f"
+#     magenta: "#614a73"
+#     cyan: "#186c60"
+#     white: "#63686d"
