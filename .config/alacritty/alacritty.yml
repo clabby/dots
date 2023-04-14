@@ -14,7 +14,8 @@ window:
   dimensions:
     columns: 256
     lines: 256
-  opacity: 0.92
+  opacity: 0.98
+  decorations: none
 colors:
   primary:
     background: "#1E1E2E" # base

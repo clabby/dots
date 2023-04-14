@@ -1,7 +1,7 @@
 -- Load in the statusline config
-local statusline_config = require "user.heirline"
+local statusline_config = require("user.heirline")
 -- Load in the headers
-local headers = require "user.headers"
+local headers = require("user.headers")
 math.randomseed(os.time())
 
 --  ▄████████  ▄██████▄  ███▄▄▄▄      ▄████████  ▄█     ▄██████▄
@@ -13,444 +13,518 @@ math.randomseed(os.time())
 -- ███    ███ ███    ███ ███   ███   ███        ███    ███    ███
 -- ████████▀   ▀██████▀   ▀█   █▀    ███        █▀     ████████▀
 local config = {
-  -- Configure AstroNvim updates
-  updater = {
-    remote = "origin",     -- remote to use
-    channel = "nightly",   -- "stable" or "nightly"
-    version = "latest",    -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-    branch = "nightly",    -- branch name (NIGHTLY ONLY)
-    commit = nil,          -- commit hash (NIGHTLY ONLY)
-    pin_plugins = nil,     -- nil, true, false (nil will pin plugins on stable only)
-    skip_prompts = false,  -- skip prompts about breaking changes
-    show_changelog = true, -- show the changelog after performing an update
-    auto_quit = false,     -- automatically quit the current session after a successful update
-  },
-  -- Set colorscheme to use
-  colorscheme = "catppuccin",
-  -- Add highlight groups in any theme
-  highlights = {
-    -- The `init` table affects all themes
-    -- init = {
-    --
-    -- }
+	-- Configure AstroNvim updates
+	updater = {
+		remote = "origin",   -- remote to use
+		channel = "nightly", -- "stable" or "nightly"
+		version = "latest",  -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+		branch = "nightly",  -- branch name (NIGHTLY ONLY)
+		commit = nil,        -- commit hash (NIGHTLY ONLY)
+		pin_plugins = nil,   -- nil, true, false (nil will pin plugins on stable only)
+		skip_prompts = false, -- skip prompts about breaking changes
+		show_changelog = true, -- show the changelog after performing an update
+		auto_quit = false,   -- automatically quit the current session after a successful update
+	},
+	-- Set colorscheme to use
+	colorscheme = "catppuccin",
+	-- Add highlight groups in any theme
+	highlights = {
+		-- The `init` table affects all themes
+		-- init = {
+		--
+		-- }
 
-    -- NvChad-esq Telescope Theme for Catppuccin
-    catppuccin = function()
-      -- Pull in the catppuccin mocha colors
-      local mocha = require("catppuccin.palettes").get_palette "mocha"
-      local fg, bg = mocha.text, mocha.base
-      local bg_alt = mocha.mantle
-      local mauve = mocha.mauve
-      local green = mocha.green
+		-- NvChad-esq Telescope Theme for Catppuccin
+		catppuccin = function()
+			-- Pull in the catppuccin mocha colors
+			local mocha = require("catppuccin.palettes").get_palette("mocha")
+			local fg, bg = mocha.text, mocha.base
+			local bg_alt = mocha.mantle
+			local mauve = mocha.mauve
+			local green = mocha.green
 
-      -- return a table of highlights for telescope based on colors gotten from highlight groups
-      return {
-        TelescopeBorder = { fg = bg_alt, bg = bg },
-        TelescopeNormal = { bg = bg },
-        TelescopePreviewBorder = { fg = bg, bg = bg },
-        TelescopePreviewNormal = { bg = bg },
-        TelescopePreviewTitle = { fg = bg, bg = mauve },
-        TelescopePromptBorder = { fg = bg_alt, bg = bg_alt },
-        TelescopePromptNormal = { fg = fg, bg = bg_alt },
-        TelescopePromptPrefix = { fg = green, bg = bg_alt },
-        TelescopePromptTitle = { fg = bg, bg = green },
-        TelescopeResultsBorder = { fg = bg, bg = bg },
-        TelescopeResultsNormal = { bg = bg },
-        TelescopeResultsTitle = { fg = bg, bg = bg },
-      }
-    end,
-  },
-  -- set vim options here (vim.<first_key>.<second_key> = value)
-  options = {
-    opt = {
-      -- set to true or false etc.
-      relativenumber = true, -- sets vim.opt.relativenumber
-      number = true,         -- sets vim.opt.number
-      spell = false,         -- sets vim.opt.spell
-      signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
-      wrap = false,          -- sets vim.opt.wrap
-    },
-    g = {
-      mapleader = " ",                   -- sets vim.g.mapleader
-      autoformat_enabled = true,         -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-      cmp_enabled = true,                -- enable completion at start
-      autopairs_enabled = true,          -- enable autopairs at start
-      diagnostics_enabled = true,        -- enable diagnostics at start
-      status_diagnostics_enabled = true, -- enable diagnostics in statusline
-      icons_enabled = true,              -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
-      ui_notifications_enabled = true,   -- disable notifications when toggling UI elements
-    },
-  },
-  -- If you need more control, you can use the function()...end notation
-  -- options = function(local_vim)
-  --   local_vim.opt.relativenumber = true
-  --   local_vim.g.mapleader = " "
-  --   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
-  --   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
-  --
-  --   return local_vim
-  -- end,
+			-- return a table of highlights for telescope based on colors gotten from highlight groups
+			return {
+				TelescopeBorder = { fg = bg_alt, bg = bg },
+				TelescopeNormal = { bg = bg },
+				TelescopePreviewBorder = { fg = bg, bg = bg },
+				TelescopePreviewNormal = { bg = bg },
+				TelescopePreviewTitle = { fg = bg, bg = mauve },
+				TelescopePromptBorder = { fg = bg_alt, bg = bg_alt },
+				TelescopePromptNormal = { fg = fg, bg = bg_alt },
+				TelescopePromptPrefix = { fg = green, bg = bg_alt },
+				TelescopePromptTitle = { fg = bg, bg = green },
+				TelescopeResultsBorder = { fg = bg, bg = bg },
+				TelescopeResultsNormal = { bg = bg },
+				TelescopeResultsTitle = { fg = bg, bg = bg },
+			}
+		end,
+	},
+	-- set vim options here (vim.<first_key>.<second_key> = value)
+	options = {
+		opt = {
+			-- set to true or false etc.
+			relativenumber = true, -- sets vim.opt.relativenumber
+			number = true,      -- sets vim.opt.number
+			spell = false,      -- sets vim.opt.spell
+			signcolumn = "auto", -- sets vim.opt.signcolumn to auto
+			wrap = false,       -- sets vim.opt.wrap
+		},
+		g = {
+			mapleader = " ",                -- sets vim.g.mapleader
+			autoformat_enabled = true,      -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+			cmp_enabled = true,             -- enable completion at start
+			autopairs_enabled = true,       -- enable autopairs at start
+			diagnostics_enabled = true,     -- enable diagnostics at start
+			status_diagnostics_enabled = true, -- enable diagnostics in statusline
+			icons_enabled = true,           -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+			ui_notifications_enabled = true, -- disable notifications when toggling UI elements
+		},
+	},
+	-- If you need more control, you can use the function()...end notation
+	-- options = function(local_vim)
+	--   local_vim.opt.relativenumber = true
+	--   local_vim.g.mapleader = " "
+	--   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
+	--   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
+	--
+	--   return local_vim
+	-- end,
 
-  -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
-  diagnostics = {
-    virtual_lines = false,
-    virtual_text = true,
-    underline = true,
-  },
-  -- Extend LSP configuration
-  lsp = {
-    -- enable servers that you already have installed without mason
-    servers = {
-      -- Nomic solidity LSP
-      "nomic_solidity",
-    },
-    formatting = {
-      -- control auto formatting on save
-      format_on_save = {
-        enabled = true,     -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
-        },
-        ignore_filetypes = { -- disable format on save for specified filetypes
-          "solidity",
-        },
-      },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- "sumneko_lua",
-      },
-      timeout_ms = 1000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
-      --   return true
-      -- end
-    },
-    -- easily add or disable built in mappings added during LSP attaching
-    mappings = {
-      n = {
-        -- ["<leader>lf"] = false -- disable formatting keymap
-      },
-    },
-    -- add to the global LSP on_attach function
-    -- on_attach = function(client, bufnr)
-    -- end,
+	-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
+	diagnostics = {
+		virtual_lines = false,
+		virtual_text = true,
+		underline = true,
+	},
+	-- Extend LSP configuration
+	lsp = {
+		-- enable servers that you already have installed without mason
+		servers = {
+			-- Nomic solidity LSP
+			"nomic_solidity",
+		},
+		formatting = {
+			-- control auto formatting on save
+			format_on_save = {
+				enabled = true, -- enable or disable format on save globally
+				allow_filetypes = { -- enable format on save for specified filetypes only
+					-- "go",
+				},
+				ignore_filetypes = { -- disable format on save for specified filetypes
+					"solidity",
+				},
+			},
+			disabled = { -- disable formatting capabilities for the listed language servers
+				-- "sumneko_lua",
+			},
+			timeout_ms = 1000, -- default format timeout
+			-- filter = function(client) -- fully override the default formatting function
+			--   return true
+			-- end
+		},
+		-- easily add or disable built in mappings added during LSP attaching
+		mappings = {
+			n = {
+				-- ["<leader>lf"] = false -- disable formatting keymap
+			},
+		},
+		-- add to the global LSP on_attach function
+		-- on_attach = function(client, bufnr)
+		-- end,
 
-    -- override the LSP setup handler function based on server name
-    setup_handlers = {
-      -- first function changes the default setup handler
-      -- function(server, opts)
-      --   require("lspconfig")[server].setup(opts)
-      -- end,
-      -- -- keys for a specific server name will be used for that LSP
-      -- sumneko_lua = function(server, opts)
-      --   -- custom sumneko_lua setup handler
-      --   require("lspconfig")["sumneko_lua"].setup(opts)
-      -- end,
-      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
-    },
-    -- Add overrides for LSP server settings, the keys are the name of the server
-    config = {
-      -- example for addings schemas to yamlls
-      yamlls = {
-        -- override table for require("lspconfig").yamlls.setup({...})
-        settings = {
-          yaml = {
-            schemas = {
-              ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
-              ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-              ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-            },
-          },
-        },
-      },
-      -- Add custom Nomic solidity LSP
-      nomic_solidity = {
-        cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
-        root_dir = require("lspconfig.util").root_pattern "foundry.toml",
-        filetypes = { "solidity" },
-        single_file_support = true,
-      },
-      -- Rust Analyzer
-      rust_analyzer = {
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              -- features = { "optimism" },
-            },
-          },
-        },
-      },
-    },
-  },
-  -- Mapping data with "desc" stored directly by vim.keymap.set().
-  --
-  -- Please use this mappings table to set keyboard mapping since this is the
-  -- lower level configuration and more robust one. (which-key will
-  -- automatically pick-up stored data by this setting.)
-  mappings = {
-    -- first key is the mode
-    n = {
-      -- second key is the lefthand side of the map
-      -- mappings seen under group name "Buffer"
-      ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-      ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
-      ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
-      ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
-      -- tables with the `name` key will be registered with which-key if it's installed
-      -- this is useful for naming menus
-      ["<leader>b"] = { name = "Buffers" },
-      -- ToggleTerm bindings
-      ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
-      -- ctrl+D / ctrl+U to scroll up and down
-      ["<C-d>"] = { "<C-d>zz", desc = "Scroll one half page down" },
-      ["<C-u>"] = { "<C-u>zz", desc = "Scroll one half page up" },
-      -- LSP Lines toggle
-      ["<leader>1"] = {
-        function()
-          require("lsp_lines").toggle()
-          local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
-          vim.diagnostic.config { virtual_text = not virtual_lines_enabled }
-        end,
-        desc = "Toggle LSP Lines diagnostics",
-      },
-      -- Grep in file
-      ["<leader>fv"] = {
-        function() require("telescope.builtin").current_buffer_fuzzy_find() end,
-        desc = "Search words in file",
-      },
-    },
-    i = {
-      -- Copilot: Accept suggestion
-      ["<M-Tab>"] = {
-        function() require("copilot.suggestion").accept() end,
-        desc = "[copilot] accept suggestion",
-      },
-    },
-    t = {
-      -- setting a mapping to false will disable it
-      -- ["<esc>"] = false,
-    },
-  },
-  -- Configure require("lazy").setup() options
-  lazy = {
-    defaults = { lazy = true },
-    performance = {
-      rtp = {
-        -- customize default disabled vim plugins
-        disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin", "matchparen" },
-      },
-    },
-  },
-  -- Configure plugins
-  plugins = {
-    ----------------------------------------------------------------
-    --                      CONFIG OVERRIDES                      --
-    ----------------------------------------------------------------
+		-- override the LSP setup handler function based on server name
+		setup_handlers = {
+			-- first function changes the default setup handler
+			-- function(server, opts)
+			--   require("lspconfig")[server].setup(opts)
+			-- end,
+			-- -- keys for a specific server name will be used for that LSP
+			-- sumneko_lua = function(server, opts)
+			--   -- custom sumneko_lua setup handler
+			--   require("lspconfig")["sumneko_lua"].setup(opts)
+			-- end,
+			rust_analyzer = function(_, opts)
+				require("rust-tools").setup({ server = opts })
+			end,
+		},
+		-- Add overrides for LSP server settings, the keys are the name of the server
+		config = {
+			-- example for addings schemas to yamlls
+			yamlls = {
+				-- override table for require("lspconfig").yamlls.setup({...})
+				settings = {
+					yaml = {
+						schemas = {
+							["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
+							["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+							["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+						},
+					},
+				},
+			},
+			-- Add custom Nomic solidity LSP
+			nomic_solidity = {
+				cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
+				root_dir = require("lspconfig.util").root_pattern("foundry.toml"),
+				filetypes = { "solidity" },
+				single_file_support = true,
+			},
+			-- Rust Analyzer
+			rust_analyzer = {
+				settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							-- features = { "all" },
+						},
+					},
+				},
+			},
+		},
+	},
+	-- Mapping data with "desc" stored directly by vim.keymap.set().
+	--
+	-- Please use this mappings table to set keyboard mapping since this is the
+	-- lower level configuration and more robust one. (which-key will
+	-- automatically pick-up stored data by this setting.)
+	mappings = {
+		-- first key is the mode
+		n = {
+			-- second key is the lefthand side of the map
+			-- mappings seen under group name "Buffer"
+			-- tables with the `name` key will be registered with which-key if it's installed
+			-- this is useful for naming menus
+			--
+			-- Buffer mappings
+			["<leader>b"] = { name = "Buffers" },
+			["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
+			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
+			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+			-- ToggleTerm bindings
+			["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+			-- ctrl+D / ctrl+U to scroll up and down
+			["<C-d>"] = { "<C-d>zz", desc = "Scroll one half page down" },
+			["<C-u>"] = { "<C-u>zz", desc = "Scroll one half page up" },
+			-- LSP Lines toggle
+			["<leader>1"] = {
+				function()
+					require("lsp_lines").toggle()
+					local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
+					vim.diagnostic.config({ virtual_text = not virtual_lines_enabled })
+				end,
+				desc = "Toggle LSP Lines diagnostics",
+			},
+			-- Grep in file
+			["<leader>fv"] = {
+				function()
+					require("telescope.builtin").current_buffer_fuzzy_find()
+				end,
+				desc = "Search words in file",
+			},
+			-- Rust Tools / Crates
+			["<leader>r"] = { name = "Rust Tools" },
+			["<leader>rt"] = { "<cmd>RustOpenCargo<cr>", desc = "Open Cargo.toml" },
+			["<leader>rp"] = { "<cmd>RustParentModule<cr>", desc = "Go to parent module" },
+			["<leader>re"] = { "<cmd>RustExpandMacro<cr>", desc = "Expand macro (recursively)" },
+			["<leader>rr"] = { "<cmd>RustRunnables<cr>", desc = "Open Runnables" },
+			["<leader>rc"] = { name = "Crate Options" },
+			["<leader>rcd"] = {
+				function()
+					require("crates").open_documentation()
+				end,
+				desc = "Open Crate Docs",
+			},
+			["<leader>rcp"] = {
+				function()
+					require("crates").show_popup()
+				end,
+				desc = "Crate Information",
+			},
+			["<leader>rcf"] = {
+				function()
+					require("crates").show_features_popup()
+				end,
+				desc = "Crate Features",
+			},
+			["<leader>rcv"] = {
+				function()
+					require("crates").show_versions_popup()
+				end,
+				desc = "Crate Versions",
+			},
+		},
+		i = {
+			-- Copilot: Accept suggestion
+			["<M-Tab>"] = {
+				function()
+					require("copilot.suggestion").accept()
+				end,
+				desc = "[copilot] accept suggestion",
+			},
+		},
+		t = {
+			-- setting a mapping to false will disable it
+			-- ["<esc>"] = false,
+		},
+	},
+	-- Configure require("lazy").setup() options
+	lazy = {
+		defaults = { lazy = true },
+		performance = {
+			rtp = {
+				-- customize default disabled vim plugins
+				disabled_plugins = {
+					"tohtml",
+					"gzip",
+					"matchit",
+					"zipPlugin",
+					"netrwPlugin",
+					"tarPlugin",
+					"matchparen",
+				},
+			},
+		},
+	},
+	-- Configure plugins
+	plugins = {
+		----------------------------------------------------------------
+		--                      CONFIG OVERRIDES                      --
+		----------------------------------------------------------------
 
-    -- By adding to the which-key config and using our helper function you can add more which-key registered bindings
-    -- {
-    --   "folke/which-key.nvim",
-    --   lazy = false,
-    --   config = function(plugin, opts)
-    --     plugin.default_config(opts)
-    --     -- Add bindings which show up as group name
-    --     local wk = require "which-key"
-    --     wk.register({
-    --       o = { name = "Obsidian" },
-    --     }, { mode = "n", prefix = "<leader>" })
-    --   end,
-    -- },
+		-- By adding to the which-key config and using our helper function you can add more which-key registered bindings
+		-- {
+		--   "folke/which-key.nvim",
+		--   lazy = false,
+		--   config = function(plugin, opts)
+		--     plugin.default_config(opts)
+		--     -- Add bindings which show up as group name
+		--     local wk = require "which-key"
+		--     wk.register({
+		--       o = { name = "Obsidian" },
+		--     }, { mode = "n", prefix = "<leader>" })
+		--   end,
+		-- },
 
-    -- Disable nvim-dap
-    { "mfussenegger/nvim-dap",        enabled = false },
-    { "jay-babu/mason-nvim-dap.nvim", enabled = false },
-    { "rcarriga/nvim-dap-ui",         enabled = false },
+		-- Disable nvim-dap
+		{ "mfussenegger/nvim-dap",        enabled = false },
+		{ "jay-babu/mason-nvim-dap.nvim", enabled = false },
+		{ "rcarriga/nvim-dap-ui",         enabled = false },
 
-    -- Alpha Dashboard Headers
-    {
-      "goolord/alpha-nvim",
-      opts = function(_, opts)
-        -- customize the dashboard header
-        opts.section.header.val = headers[math.random(#headers)]
-        return opts
-      end,
-    },
+		-- Add crates to cmp sources
+		{
+			"hrsh7th/nvim-cmp",
+			opts = function(_, opts)
+				opts.sources[#opts.sources + 1] = { name = "crates" }
+			end,
+		},
 
-    -- Override ToggleTerm Mapping
-    {
-      "akinsho/toggleterm.nvim",
-      opts = {
-        open_mapping = [[<C-\>]],
-      },
-    },
+		-- Alpha Dashboard Headers
+		{
+			"goolord/alpha-nvim",
+			opts = function(_, opts)
+				-- customize the dashboard header
+				opts.section.header.val = headers[math.random(#headers)]
+				return opts
+			end,
+		},
 
-    -- Override NeoTree Position Config
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      opts = {
-        window = {
-          position = "right",
-        },
-      },
-    },
+		-- Override ToggleTerm Mapping
+		{
+			"akinsho/toggleterm.nvim",
+			opts = {
+				open_mapping = [[<C-\>]],
+			},
+		},
 
-    -- Override Heirline Config
-    {
-      "rebelot/heirline.nvim",
-      opts = statusline_config,
-    },
+		-- Override NeoTree Position Config
+		{
+			"nvim-neo-tree/neo-tree.nvim",
+			opts = {
+				window = {
+					position = "right",
+				},
+			},
+		},
 
-    ----------------------------------------------------------------
-    --                          PLUGINS                           --
-    ----------------------------------------------------------------
+		-- Override Heirline Config
+		{
+			"rebelot/heirline.nvim",
+			opts = statusline_config,
+		},
 
-    -- Catppuccin
-    {
-      "catppuccin/nvim",
-      lazy = false,
-      opt = false,
-      as = "catppuccin",
-      config = function()
-        -- latte, frappe, macchiato, mocha
-        vim.g.catppuccin_flavour = "mocha"
-        -- local colors = require("catppuccin.palettes").get_palette()
-        require("catppuccin").setup {
-          transparent_background = true,
-          term_colors = true,
-          styles = {
-            comments = { "italic" },
-            functions = { "italic", "bold" },
-            keywords = { "italic" },
-          },
-        }
-      end,
-    },
+		----------------------------------------------------------------
+		--                          PLUGINS                           --
+		----------------------------------------------------------------
 
-    -- lsp_lines (pretty diagnostics)
-    {
-      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      lazy = false,
-      after = "mason-lspconfig.nvim",
-      module = "lsp_lines",
-      config = function() require("lsp_lines").setup() end,
-    },
+		-- Catppuccin
+		{
+			"catppuccin/nvim",
+			lazy = false,
+			opt = false,
+			as = "catppuccin",
+			config = function()
+				-- latte, frappe, macchiato, mocha
+				vim.g.catppuccin_flavour = "mocha"
+				-- local colors = require("catppuccin.palettes").get_palette()
+				require("catppuccin").setup({
+					transparent_background = true,
+					term_colors = true,
+					styles = {
+						comments = { "italic" },
+						functions = { "italic", "bold" },
+						keywords = { "italic" },
+					},
+				})
+			end,
+		},
 
-    -- noice (cmd bar, notify, etc.)
-    {
-      "folke/noice.nvim",
-      after = "nui.nvim",
-      event = "VimEnter",
-      config = function()
-        require("noice").setup {
-          notify = {
-            -- Noice can be used as `vim.notify` so you can route any notification like other messages
-            -- Notification messages have their level and other properties set.
-            -- event is always "notify" and kind can be any log level as a string
-            -- The default routes will forward notifications to nvim-notify
-            -- Benefit of using Noice for this is the routing and consistent history view
-            enabled = false,
-          },
-          messages = {
-            enabled = false,
-          },
-          lsp = {
-            hover = {
-              enabled = false,
-            },
-            signature = {
-              enabled = false,
-            },
-          },
-        }
-      end,
-    },
+		-- lsp_lines (pretty diagnostics)
+		{
+			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+			lazy = false,
+			after = "mason-lspconfig.nvim",
+			module = "lsp_lines",
+			config = function()
+				require("lsp_lines").setup()
+			end,
+		},
 
-    -- Leap
-    {
-      "ggandor/leap.nvim",
-      lazy = false,
-      config = function()
-        local leap = require "leap"
-        leap.setup {
-          highlight_unlabeled_phase_one_targets = false,
-        }
-        leap.add_default_mappings()
-      end,
-    },
+		-- noice (cmd bar, notify, etc.)
+		{
+			"folke/noice.nvim",
+			after = "nui.nvim",
+			event = "VimEnter",
+			config = function()
+				require("noice").setup({
+					notify = {
+						-- Noice can be used as `vim.notify` so you can route any notification like other messages
+						-- Notification messages have their level and other properties set.
+						-- event is always "notify" and kind can be any log level as a string
+						-- The default routes will forward notifications to nvim-notify
+						-- Benefit of using Noice for this is the routing and consistent history view
+						enabled = false,
+					},
+					messages = {
+						enabled = false,
+					},
+					lsp = {
+						hover = {
+							enabled = false,
+						},
+						signature = {
+							enabled = false,
+						},
+					},
+				})
+			end,
+		},
 
-    -- Lua copilot
-    {
-      "zbirenbaum/copilot.lua",
-      lazy = false,
-      event = "VimEnter",
-      config = function()
-        vim.defer_fn(function()
-          require("copilot").setup {
-            panel = {
-              enabled = true,
-              auto_refresh = true,
-              ---@type table<'accept'|'next'|'prev'|'dismiss', false|string>
-              keymap = {
-                jump_prev = "[[",
-                jump_next = "]]",
-                accept = "<CR>",
-                refresh = "gr",
-                open = "<M-CR>",
-              },
-            },
-            suggestion = {
-              enabled = true,
-              auto_trigger = true,
-              debounce = 50,
-              keymap = {
-                accept = "<M-l>",
-                next = "<M-]>",
-                prev = "<M-[>",
-                dismiss = "<C-]>",
-              },
-            },
-          }
-        end, 100)
-      end,
-    },
+		-- Leap
+		{
+			"ggandor/leap.nvim",
+			lazy = false,
+			config = function()
+				local leap = require("leap")
+				leap.setup({
+					highlight_unlabeled_phase_one_targets = false,
+				})
+				leap.add_default_mappings()
+			end,
+		},
 
-    -- Rust tools
-    { "simrat39/rust-tools.nvim", lazy = false },
+		-- Lua copilot
+		{
+			"zbirenbaum/copilot.lua",
+			lazy = false,
+			event = "VimEnter",
+			config = function()
+				vim.defer_fn(function()
+					require("copilot").setup({
+						panel = {
+							enabled = true,
+							auto_refresh = true,
+							---@type table<'accept'|'next'|'prev'|'dismiss', false|string>
+							keymap = {
+								jump_prev = "[[",
+								jump_next = "]]",
+								accept = "<CR>",
+								refresh = "gr",
+								open = "<M-CR>",
+							},
+						},
+						suggestion = {
+							enabled = true,
+							auto_trigger = true,
+							debounce = 50,
+							keymap = {
+								accept = "<M-l>",
+								next = "<M-]>",
+								prev = "<M-[>",
+								dismiss = "<C-]>",
+							},
+						},
+						filetypes = {
+							markdown = true,
+						},
+					})
+				end, 100)
+			end,
+		},
 
-    -- Huff syntax highlighting
-    { "wuwe1/vim-huff",           lazy = false },
+		-- Rust tools
+		{ "simrat39/rust-tools.nvim", lazy = false },
 
-    -- Rainbow brackets
-    { "p00f/nvim-ts-rainbow",     lazy = false },
-  },
-  -- Custom icons
-  icons = {
-    VimIcon = "",
-  },
-  -- Customize Heirline options
-  heirline = {
-    separators = {
-      left = { "", " " }, -- separator for the left side of the statusline
-      right = { " ", "" }, -- separator for the right side of the statusline,
-    },
-  },
-  -- This function is run last and is a good place to configuring
-  -- augroups/autocommands and custom filetypes also this just pure lua so
-  -- anything that doesn't fit in the normal config locations above can go here
-  polish = function()
-    -- Set up notify background color (Fixes warning)
-    require("notify").setup {
-      background_colour = "#000000",
-    }
+		-- Crates (Rust)
+		{
+			"saecki/crates.nvim",
+			tag = "v0.3.0",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("crates").setup()
+			end,
+			event = { "BufEnter Cargo.toml" },
+		},
 
-    require("nvim-treesitter.configs").setup {
-      highlight = {
-        enable = true,
-      },
-      rainbow = {
-        enable = true,
-        extended_mode = true,
-      },
-    }
-  end,
+		-- Huff syntax highlighting
+		{ "wuwe1/vim-huff",           lazy = false },
+
+		-- Rainbow brackets
+		{ "p00f/nvim-ts-rainbow",     lazy = false },
+
+		-- Bionic Reading
+		{ "nullchilly/fsread.nvim",   lazy = false },
+	},
+	-- Custom icons
+	icons = {
+		VimIcon = "",
+	},
+	-- Customize Heirline options
+	heirline = {
+		separators = {
+			left = { "", " " }, -- separator for the left side of the statusline
+			right = { " ", "" }, -- separator for the right side of the statusline,
+		},
+	},
+	-- This function is run last and is a good place to configuring
+	-- augroups/autocommands and custom filetypes also this just pure lua so
+	-- anything that doesn't fit in the normal config locations above can go here
+	polish = function()
+		-- Set up notify background color (Fixes warning)
+		require("notify").setup({
+			background_colour = "#000000",
+		})
+
+		require("nvim-treesitter.configs").setup({
+			highlight = {
+				enable = true,
+			},
+			rainbow = {
+				enable = true,
+				extended_mode = true,
+			},
+		})
+	end,
 }
 
 return config
