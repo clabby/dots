@@ -129,3 +129,9 @@ ftc() {
 # Clear git alias for gm bin to work
 unalias gm
 alias gm="~/.gm/bin/gm"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/completion.zsh.inc'; fi
