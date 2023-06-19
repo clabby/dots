@@ -8,21 +8,24 @@ font:
   italic:
     family: "JetBrainsMono Nerd Font Mono"
     style: Italic
-  size: 14
+  size: 22
   AppleFontSmoothing: true
 window:
   dimensions:
-    columns: 256
-    lines: 256
+    columns: 120
+    lines: 40
   opacity: 0.98
-  decorations: none
+  decorations: buttonless
+  padding:
+    x: 5
+    y: 5
 colors:
   primary:
-    background: "#1E1E2E" # base
-    foreground: "#CDD6F4" # text
+    background: "#1D2021" # base
+    foreground: "#D4BE98" # text
     # Bright and dim foreground colors
-    dim_foreground: "#CDD6F4" # text
-    bright_foreground: "#CDD6F4" # text
+    dim_foreground: "#D4BE98" # text
+    bright_foreground: "#D4BE98" # text
 
   # Cursor colors
   cursor:
@@ -60,25 +63,26 @@ colors:
 
   # Normal colors
   normal:
-    black: "#45475A" # surface1
-    red: "#F38BA8" # red
-    green: "#A6E3A1" # green
-    yellow: "#F9E2AF" # yellow
+    black: "#2A2D2E" # surface1
+    red: "#EA6962" # red
+    green: "#A9B665" # green
+    yellow: "#D8A657" # yellow
     blue: "#89B4FA" # blue
-    magenta: "#F5C2E7" # pink
-    cyan: "#94E2D5" # teal
-    white: "#BAC2DE" # subtext1
+    magenta: "#D3869B" # pink
+    cyan: "#7DAEA3" # teal
+    white: "#BDAE8B" # subtext1
 
   # Bright colors
   bright:
-    black: "#585B70" # surface2
-    red: "#F38BA8" # red
-    green: "#A6E3A1" # green
-    yellow: "#F9E2AF" # yellow
+    black: "#4B4F51" # surface2
+    red: "#EA6962" # red
+    green: "#A9B665" # green
+    yellow: "#D8A657" # yellow
     blue: "#89B4FA" # blue
-    magenta: "#F5C2E7" # pink
-    cyan: "#94E2D5" # teal
-    white: "#A6ADC8" # subtext0
+    magenta: "#D3869B" # pink
+    cyan: "#7DAEA3" # teal
+    white: "#A69372" # subtext0
+
 
   # Dim colors
   dim:
