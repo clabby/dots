@@ -14,7 +14,7 @@ window:
   dimensions:
     columns: 120
     lines: 40
-  opacity: 0.99
+  opacity: 0.98
   decorations: buttonless
   padding:
     x: 5

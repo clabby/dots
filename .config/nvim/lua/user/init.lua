@@ -429,7 +429,7 @@ local config = {
 					custom_highlights = function(colors)
 						return {
 							NormalFloat = { bg = colors.crust },
-							FloatBorder = { bg = colors.crust, fg = colors.crust },
+							FloatBorder = { fg = colors.surface2 },
 							VertSplit = { bg = colors.base, fg = colors.surface0 },
 							CursorLineNr = { fg = colors.mauve },
 							Pmenu = { bg = colors.crust, fg = "" },
