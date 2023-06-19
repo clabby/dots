@@ -11,7 +11,7 @@ My personal dotfiles
 ### Editor
 * [Neovim](https://github.com/neovim/neovim)
   * [AstroNvim](https://github.com/AstroNvim/AstroNvim)
-    * **NOTE:** Currently on the `nightly` branch.
+    * **NOTE:** Currently on the `main` branch.
 
 ### Terminal Multiplexer
 * [tmux](https://github.com/tmux/tmux)
@@ -27,6 +27,7 @@ My personal dotfiles
 * [delta](https://github.com/dandavison/delta)
 * [lsd](https://github.com/Peltoche/lsd)
 * [fzf](https://github.com/junegunn/fzf)
+* [fd](https://github.com/sharkdp/fd)
 * [bat](https://github.com/sharkdp/bat)
 * [btop](https://github.com/aristocratos/btop)
 * [hyperfine](https://github.com/sharkdp/hyperfine)
@@ -34,6 +35,8 @@ My personal dotfiles
 * [jq](https://github.com/stedolan/jq)
 * [curlie](https://github.com/rs/curlie)
 * [graphite CLI](https://github.com/withgraphite/graphite-cli)
+* [mprocs](https://github.com/pvolok/mprocs)
+* [wiki-tui](https://github.com/Builditluc/wiki-tui)
 
 #### Misc CLI
 * [onefetch](https://github.com/o2sh/onefetch)
