@@ -8,7 +8,7 @@ font:
   italic:
     family: "JetBrainsMono Nerd Font Mono"
     style: Italic
-  size: 14
+  size: 22
   AppleFontSmoothing: true
 window:
   dimensions:

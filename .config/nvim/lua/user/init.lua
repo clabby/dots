@@ -101,8 +101,7 @@ local config = {
 	lsp = {
 		-- enable servers that you already have installed without mason
 		servers = {
-			-- Nomic solidity LSP
-			"nomic_solidity",
+			-- ...
 		},
 		formatting = {
 			-- control auto formatting on save
@@ -112,7 +111,7 @@ local config = {
 					-- "go",
 				},
 				ignore_filetypes = { -- disable format on save for specified filetypes
-					"solidity",
+					-- ...
 				},
 			},
 			disabled = { -- disable formatting capabilities for the listed language servers
@@ -162,13 +161,6 @@ local config = {
 						},
 					},
 				},
-			},
-			-- Add custom Nomic solidity LSP
-			nomic_solidity = {
-				cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
-				root_dir = require("lspconfig.util").root_pattern("foundry.toml"),
-				filetypes = { "solidity" },
-				single_file_support = true,
 			},
 			-- Rust Analyzer
 			rust_analyzer = {
@@ -368,7 +360,7 @@ local config = {
 				vim.g.catppuccin_flavour = "mocha"
 				-- local colors = require("catppuccin.palettes").get_palette()
 				require("catppuccin").setup({
-					transparent_background = false,
+					transparent_background = true,
 					term_colors = true,
 					styles = {
 						comments = { "italic" },

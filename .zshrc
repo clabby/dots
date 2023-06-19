@@ -63,7 +63,8 @@ export OP_MONOREPO="$HOME/dev/op/monorepo"
 
 # Optimism Dev
 alias opr="z $OP_MONOREPO && yarn clean && yarn build && (z ./op-bindings && make)"
-alias foundryup-op="foundryup -C 2ff99025abade470a795724c10648c800a41025e"
+alias opc="z $OP_MONOREPO/packages/contracts-bedrock && yarn gas-snapshot && yarn storage-snapshot && yarn lint"
+alias foundryup-op="foundryup -C da2392e58bb8a7fefeba46b40c4df1afad8ccd22"
 
 # Go
 alias gts="gotestsum --format=testname"
@@ -76,7 +77,10 @@ alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features
 alias rock="cargo +nightly fmt"
 
 # Neovim
-alias n="nvim"
+alias n="nvim -i NONE"
+
+# Misc
+alias c="clear"
 
 # Tmux
 function t {
