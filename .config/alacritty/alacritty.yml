@@ -1,12 +1,12 @@
 font:
   normal:
-    family: "JetBrainsMono Nerd Font Mono"
+    family: "BlexMono Nerd Font Mono"
     style: Regular
   bold:
-    family: "JetBrainsMono Nerd Font Mono"
-    style: Regular
+    family: "BlexMono Nerd Font Mono"
+    style: Bold
   italic:
-    family: "JetBrainsMono Nerd Font Mono"
+    family: "BlexMono Nerd Font Mono"
     style: Italic
   size: 22
   AppleFontSmoothing: true

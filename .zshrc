@@ -51,6 +51,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/vH5TkOpQNJmiQgA0OUa83SpCP0kNVOAr
+export ETH_ANTON=http://anton.clab.by:8545
 
 # tmux colors
 export TERM=xterm-256color
@@ -62,9 +63,9 @@ export OP_MONOREPO="$HOME/dev/op/monorepo"
 # -------
 
 # Optimism Dev
-alias opr="z $OP_MONOREPO && yarn clean && yarn build && (z ./op-bindings && make)"
-alias opc="z $OP_MONOREPO/packages/contracts-bedrock && yarn gas-snapshot && yarn storage-snapshot && yarn lint"
-alias foundryup-op="foundryup -C da2392e58bb8a7fefeba46b40c4df1afad8ccd22"
+alias oprefresh="z $OP_MONOREPO && nx reset && p clean && p build"
+alias opr="z $OP_MONOREPO/packages/contracts-bedrock && p gas-snapshot && p semver-lock && p lint && p storage-snapshot && forge clean && (z $OP_MONOREPO/op-bindings && make)"
+alias foundryup-op="foundryup -C $(cat $OP_MONOREPO/.foundryrc)"
 
 # Go
 alias gts="gotestsum --format=testname"
@@ -73,6 +74,7 @@ alias gts="gotestsum --format=testname"
 alias rsr="gt rs && gt sr"
 
 # Cargo
+alias cg="cargo"
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
 alias rock="cargo +nightly fmt"
 
@@ -81,6 +83,12 @@ alias n="nvim -i NONE"
 
 # Misc
 alias c="clear"
+
+# PNPM
+alias p="pnpm"
+
+# SSH
+alias sa="ssh ben@anton.clab.by"
 
 # Tmux
 function t {
@@ -104,7 +112,7 @@ alias ll="lsd -lh"
 alias lt="lsd -la --tree --depth 2"
 
 # Wttr
-CITY="Portimao"
+CITY="Amsterdam"
 wttr() {
   if [ "$1" = "-v2" ]; then
     curl -L https://v2.wttr.in/$CITY
@@ -113,20 +121,34 @@ wttr() {
   fi
 }
 
-# Forge
-ftt() {
-    if [ $# -eq 1 ]; then
-        forge test -vvv --match-test $1
-    elif [ $# -eq 0 ]; then
-        forge test -vvv
+# Forge shortcuts
+ft() {
+    if [ $# -ge 1 ]; then
+        forge test "$@"
+    else
+        forge test
     fi
 }
-
+ftt() {
+    if [ $# -ge 1 ]; then
+        forge test --match-test "$@"
+    fi
+}
 ftc() {
-    if [ $# -eq 1 ]; then
-        forge test -vvv --match-contract $1
-    elif [ $# -eq 0 ]; then
-        forge test -vvv
+    if [ $# -ge 1 ]; then
+        forge test --match-contract "$@"
+    fi
+}
+# Forge ETH RPCs
+rpc() {
+    if [ "$1" = "anton" ]; then
+        export ETH_RPC_URL=$ETH_ANTON
+    elif [ "$1" = "eth" ]; then
+        export ETH_RPC_URL=$ETH_RPC
+    elif [ "$1" = "op" ]; then
+        export ETH_RPC_URL=$OP_RPC
+    else
+        export ETH_RPC_URL=""
     fi
 }
 
@@ -134,8 +156,10 @@ ftc() {
 unalias gm
 alias gm="~/.gm/bin/gm"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ben/dev/op/on-call-tools/google-cloud-sdk/completion.zsh.inc'; fi
+# pnpm
+export PNPM_HOME="/Users/ben/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

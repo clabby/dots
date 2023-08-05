@@ -111,7 +111,8 @@ local config = {
 					-- "go",
 				},
 				ignore_filetypes = { -- disable format on save for specified filetypes
-					-- ...
+					'solidity',
+					'toml'
 				},
 			},
 			disabled = { -- disable formatting capabilities for the listed language servers
@@ -144,7 +145,7 @@ local config = {
 			--   require("lspconfig")["sumneko_lua"].setup(opts)
 			-- end,
 			rust_analyzer = function(_, opts)
-				require("rust-tools").setup({ server = opts })
+				 require("rust-tools").setup({ server = opts })
 			end,
 		},
 		-- Add overrides for LSP server settings, the keys are the name of the server
@@ -167,7 +168,7 @@ local config = {
 				settings = {
 					["rust-analyzer"] = {
 						cargo = {
-							-- features = { "all" },
+							-- features = { "optimism" },
 						},
 					},
 				},
@@ -299,9 +300,9 @@ local config = {
 		-- },
 
 		-- Disable nvim-dap
-		{ "mfussenegger/nvim-dap",        enabled = false },
-		{ "jay-babu/mason-nvim-dap.nvim", enabled = false },
-		{ "rcarriga/nvim-dap-ui",         enabled = false },
+		-- { "mfussenegger/nvim-dap",        enabled = false },
+		-- { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+		-- { "rcarriga/nvim-dap-ui",         enabled = false },
 
 		-- Add crates to cmp sources
 		{
@@ -428,9 +429,9 @@ local config = {
 					show_end_of_buffer = false,
 					custom_highlights = function(colors)
 						return {
-							NormalFloat = { bg = colors.crust },
+							NormalFloat = { bg = "" },
 							FloatBorder = { fg = colors.surface2 },
-							VertSplit = { bg = colors.base, fg = colors.surface0 },
+							VertSplit = { bg = "", fg = colors.surface2 },
 							CursorLineNr = { fg = colors.mauve },
 							Pmenu = { bg = colors.crust, fg = "" },
 							PmenuSel = { bg = colors.surface0, fg = "" },
@@ -602,6 +603,14 @@ local config = {
 				extended_mode = true,
 			},
 		})
+
+		-- require("dap").configurations.rust[0].env = function()
+		-- 	local variables = {}
+		-- 	for k, v in pairs(vim.fn.environ()) do
+		-- 		table.insert(variables, string.format("%s=%s", k, v))
+		-- 	end
+		-- 	return variables
+		-- end
 	end,
 }
 
