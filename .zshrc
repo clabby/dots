@@ -152,6 +152,42 @@ rpc() {
     fi
 }
 
+# GitHub
+pr() {
+    if type gh &> /dev/null; then
+        gh pr view -w
+    else
+        echo "gh is not installed"
+    fi
+}
+prc() {
+    if type gh &> /dev/null; then
+        if [ $# -eq 1 ]; then
+            gh pr checkout $1
+        else
+            echo "Usage: prc <pr-number>"
+        fi
+    else
+        echo "gh is not installed"
+    fi
+}
+gd() {
+    if type gh &> /dev/null; then
+        gh dash
+    else
+        echo "gh is not installed"
+    fi
+}
+
+# Clipboard
+xc() {
+    if [ $(uname) = "Darwin" ]; then
+        pbcopy
+    else
+        xclip -selection clipboard
+    fi
+}
+
 # Clear git alias for gm bin to work
 unalias gm
 alias gm="~/.gm/bin/gm"
