@@ -1,8 +1,5 @@
 -- Load in the statusline config
 local statusline_config = require("user.heirline")
--- Load in the headers
-local headers = require("user.headers")
-math.randomseed(os.time())
 
 --  ▄████████  ▄██████▄  ███▄▄▄▄      ▄████████  ▄█     ▄██████▄
 -- ███    ███ ███    ███ ███▀▀▀██▄   ███    ███ ███    ███    ███
@@ -315,10 +312,8 @@ local config = {
 		-- Alpha Dashboard Headers
 		{
 			"goolord/alpha-nvim",
-			opts = function(_, opts)
-				-- customize the dashboard header
-				opts.section.header.val = headers[math.random(#headers)]
-				return opts
+			config = function()
+				require("alpha").setup(require("user.alpha").config)
 			end,
 		},
 

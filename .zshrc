@@ -10,6 +10,8 @@ IS_DARWIN=false
 # PLUGINS
 plugins=(git)
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
 # Source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -58,6 +60,13 @@ export TERM=xterm-256color
 
 export OP_MONOREPO="$HOME/dev/op/monorepo"
 
+# -----------
+# Completions
+# -----------
+
+eval $(cast completions zsh)
+eval $(gh completion -s zsh)
+
 # -------
 # ALIASES
 # -------
@@ -77,6 +86,12 @@ alias rsr="gt rs && gt sr"
 alias cg="cargo"
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
 alias rock="cargo +nightly fmt"
+
+# Reth development
+alias rethtest='cargo nextest run --locked --all-features --workspace --exclude examples --exclude ef-tests -E '\''kind(lib)'\'' -E '\''kind(bin)'\'' -E '\''kind(proc-macro)'\'
+alias rethfmt='cargo +nightly fmt --all'
+alias rethlint='rethfmt && rethclip'
+alias rethclip='cargo +nightly clippy --all --all-features -- -A clippy::incorrect_clone_impl_on_copy_type -A clippy::arc_with_non_send_sync'
 
 # Neovim
 alias n="nvim -i NONE"
@@ -152,28 +167,52 @@ rpc() {
     fi
 }
 
-# GitHub
-pr() {
+# ------------
+# `gh` aliases
+# ------------
+
+# Search through all PRs that are open in the current repo and check the selected one out locally.
+alias prc="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout"
+
+# Search through all PRs that are open in the current repo and open the selected one in browser.
+alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+
+# Search through all PRs that are open in the current repo and that I'm requested to review and
+# open the selected one in browser.
+alias prr="GH_FORCE_TTY=100% gh pr list --search 'user-review-requested:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+
+CLI_ISSUES="ethereum-optimism/client-pod"
+# Search through all open client-pod issues and open the selected one in browser.
+alias oi="GH_FORCE_TTY=100% gh issue list -R $CLI_ISSUES -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue -R $CLI_ISSUES view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh issue -R $CLI_ISSUES view -w"
+# Search through all open client-pod issues assigned to me and open the selected one in browser.
+alias om="GH_FORCE_TTY=100% gh issue list -R $CLI_ISSUES -L 1000 --search 'assignee:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue -R $CLI_ISSUES view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh issue -R $CLI_ISSUES view -w"
+
+# Open the repo in-browser
+repo() {
     if type gh &> /dev/null; then
-        gh pr view -w
+        gh repo view -w
     else
         echo "gh is not installed"
     fi
 }
-prc() {
-    if type gh &> /dev/null; then
-        if [ $# -eq 1 ]; then
-            gh pr checkout $1
-        else
-            echo "Usage: prc <pr-number>"
-        fi
-    else
-        echo "gh is not installed"
-    fi
-}
-gd() {
+
+# Open the github TUI
+ghd() {
     if type gh &> /dev/null; then
         gh dash
+    else
+        echo "gh is not installed"
+    fi
+}
+
+# Search through all PRs that meet a supplied filter and open the selected one in browser.
+prf() {
+    if type gh &> /dev/null; then
+        if [ $# -eq 1 ]; then
+            GH_FORCE_TTY=100% gh pr list --search $@ | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w
+        else
+            echo "Filter arguments are required."
+        fi
     else
         echo "gh is not installed"
     fi
