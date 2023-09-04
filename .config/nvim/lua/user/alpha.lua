@@ -95,7 +95,8 @@ function M.buttons()
       vim.api.nvim_buf_set_keymap(0, "n", "z", ":Lazy<CR>", keybind_opts)
 
       -- Toggleterm / telescope
-      vim.api.nvim_buf_set_keymap(0, "n", "g", ":lua require('astronvim.utils').toggle_term_cmd('lazygit')<CR>", keybind_opts)
+      vim.api.nvim_buf_set_keymap(0, "n", "g", ":lua require('astronvim.utils').toggle_term_cmd('lazygit')<CR>",
+        keybind_opts)
       vim.api.nvim_buf_set_keymap(0, "n", "t", ":ToggleTerm<CR>", keybind_opts)
       vim.api.nvim_buf_set_keymap(0, "n", "s", ":Telescope live_grep<CR>", keybind_opts)
       vim.api.nvim_buf_set_keymap(0, "n", "f", ":Telescope find_files<CR>", keybind_opts)
@@ -107,12 +108,12 @@ function M.buttons()
 
   local button_hl = {
     { "Constant", 1,  4 },
-    { "Function",   5,  18 },
-    { "String", 19, 25 },
-    { "Comment", 25, 32 },
+    { "Function", 5,  18 },
+    { "String",   19, 25 },
+    { "Comment",  25, 32 },
     { "Constant", 32, 38 },
-    { "Function",   38, 50 },
-    { "String", 51, 55 },
+    { "Function", 38, 50 },
+    { "String",   51, 55 },
   }
   return {
     {
@@ -137,18 +138,18 @@ M.section_buttons = { type = "group", val = M.buttons }
 function M.info_text()
   ---@diagnostic disable-next-line:undefined-field
   local datetime = os.date(" %A, %d %B %Y")
-  -- local lazy_stats = require("lazy").stats()
-  -- local ms = (math.floor(lazy_stats.startuptime * 100 + 0.5) / 100)
-  -- local total_plugins = " " .. lazy_stats.loaded .. "/" .. lazy_stats.count .. " in " .. ms .. " ms"
-  -- local version = vim.version()
-  -- local nvim_version_info = " v" .. version.major .. "." .. version.minor .. "." .. version.patch
-  -- vim.api.nvim_create_autocmd({ "User" }, {
-  --   pattern = { "LazyVimStarted" },
-  --   callback = function()
-  --     pcall(vim.cmd.AlphaRedraw)
-  --   end,
-  -- })
-  return datetime -- .. " │ " .. total_plugins .. " │ " .. nvim_version_info
+  local lazy_stats = require("lazy").stats()
+  local ms = (math.floor(lazy_stats.startuptime * 100 + 0.5) / 100)
+  local total_plugins = " " .. lazy_stats.loaded .. "/" .. lazy_stats.count .. " in " .. ms .. " ms"
+  local version = vim.version()
+  local nvim_version_info = " v" .. version.major .. "." .. version.minor .. "." .. version.patch
+  vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = { "LazyVimStarted" },
+    callback = function()
+      pcall(vim.cmd.AlphaRedraw)
+    end,
+  })
+  return nvim_version_info .. " │ " .. total_plugins .. " │ " .. datetime
 end
 
 M.section_info = {
@@ -157,7 +158,13 @@ M.section_info = {
     return M.info_text()
   end,
   opts = {
-    hl = "WarningMsg",
+    hl = {
+      { "ErrorMsg",   1,  10 },
+      { "Comment",    11, 14 },
+      { "WarningMsg", 15, 38 },
+      { "Comment",    39, 42 },
+      { "String",     43, 70 },
+    },
     position = "center",
   },
 }
