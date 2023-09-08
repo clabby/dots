@@ -194,8 +194,14 @@ local config = {
 			-- ToggleTerm bindings
 			["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
 			-- ctrl+D / ctrl+U to scroll up and down
-			["<C-d>"] = { "<C-d>zz", desc = "Scroll one half page down" },
-			["<C-u>"] = { "<C-u>zz", desc = "Scroll one half page up" },
+			["<C-d>"] = {
+				"<cmd>call comfortable_motion#flick(winheight(0) * 2.5)<cr>",
+				desc = "Scroll one half page down",
+			},
+			["<C-u>"] = {
+				"<cmd>call comfortable_motion#flick(winheight(0) * -2.5)<cr>",
+				desc = "Scroll one half page up",
+			},
 			-- LSP Lines toggle
 			["<leader>1"] = {
 				function()
@@ -507,6 +513,9 @@ local config = {
 				})
 			end,
 		},
+
+		-- Smooth scroll
+		{ "yuttie/comfortable-motion.vim", lazy = false },
 
 		-- Hop
 		{
