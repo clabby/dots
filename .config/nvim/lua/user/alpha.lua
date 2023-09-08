@@ -121,7 +121,7 @@ function M.buttons()
       val = {
         "   find file      f    │       terminal      t",
         "   lazygit        g    │       quit          q",
-        "鈴  lazy           z    │       search        s",
+        "󰒲   lazy           z    │       search        s",
       },
       opts = {
         position = "center",
@@ -135,21 +135,39 @@ end
 
 M.section_buttons = { type = "group", val = M.buttons }
 
+local DOCKER_INIT = " Loading Docker"
+local docker = DOCKER_INIT
+
 function M.info_text()
   ---@diagnostic disable-next-line:undefined-field
   local datetime = os.date(" %A, %d %B %Y")
   local lazy_stats = require("lazy").stats()
   local ms = (math.floor(lazy_stats.startuptime * 100 + 0.5) / 100)
-  local total_plugins = " " .. lazy_stats.loaded .. "/" .. lazy_stats.count .. " in " .. ms .. " ms"
+  local total_plugins = " " .. lazy_stats.loaded .. "/" .. lazy_stats.count .. " in " .. ms .. " ms"
   local version = vim.version()
   local nvim_version_info = " v" .. version.major .. "." .. version.minor .. "." .. version.patch
   vim.api.nvim_create_autocmd({ "User" }, {
     pattern = { "LazyVimStarted" },
     callback = function()
       pcall(vim.cmd.AlphaRedraw)
+
+      if docker == DOCKER_INIT then
+        vim.fn.jobstart("docker version --format {{.Server.Version}}", {
+          on_stdout = DockerVersionCallback,
+          stdout_buffered = true,
+        })
+      end
     end,
   })
-  return nvim_version_info .. " │ " .. total_plugins .. " │ " .. datetime
+  return nvim_version_info .. " │ " .. total_plugins .. " │ " .. datetime .. " │ "  .. docker
+end
+
+function DockerVersionCallback(job_id, data, _)
+  -- Send the data to the buffer
+  if job_id > 0 then
+    docker = " " .. data[1]
+    pcall(vim.cmd.AlphaRedraw)
+  end
 end
 
 M.section_info = {
@@ -164,6 +182,8 @@ M.section_info = {
       { "WarningMsg", 15, 38 },
       { "Comment",    39, 42 },
       { "String",     43, 70 },
+      { "Comment",    71, 75 },
+      { "Function",   76, 90 },
     },
     position = "center",
   },
