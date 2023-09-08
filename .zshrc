@@ -19,6 +19,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 # ------------------
 
+# vi mode
+set -o vi
+
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

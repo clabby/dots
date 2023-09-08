@@ -12,15 +12,15 @@ local statusline_config = require("user.heirline")
 local config = {
 	-- Configure AstroNvim updates
 	updater = {
-		remote = "origin",   -- remote to use
+		remote = "origin", -- remote to use
 		channel = "nightly", -- "stable" or "nightly"
-		version = "latest",  -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-		branch = "nightly",  -- branch name (NIGHTLY ONLY)
-		commit = nil,        -- commit hash (NIGHTLY ONLY)
-		pin_plugins = nil,   -- nil, true, false (nil will pin plugins on stable only)
+		version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+		branch = "nightly", -- branch name (NIGHTLY ONLY)
+		commit = nil, -- commit hash (NIGHTLY ONLY)
+		pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
 		skip_prompts = false, -- skip prompts about breaking changes
 		show_changelog = true, -- show the changelog after performing an update
-		auto_quit = false,   -- automatically quit the current session after a successful update
+		auto_quit = false, -- automatically quit the current session after a successful update
 	},
 	-- Set colorscheme to use
 	colorscheme = "catppuccin",
@@ -62,19 +62,19 @@ local config = {
 		opt = {
 			-- set to true or false etc.
 			relativenumber = true, -- sets vim.opt.relativenumber
-			number = true,      -- sets vim.opt.number
-			spell = false,      -- sets vim.opt.spell
+			number = true, -- sets vim.opt.number
+			spell = false, -- sets vim.opt.spell
 			signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-			wrap = false,       -- sets vim.opt.wrap
+			wrap = false, -- sets vim.opt.wrap
 		},
 		g = {
-			mapleader = " ",                -- sets vim.g.mapleader
-			autoformat_enabled = true,      -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-			cmp_enabled = true,             -- enable completion at start
-			autopairs_enabled = true,       -- enable autopairs at start
-			diagnostics_enabled = true,     -- enable diagnostics at start
+			mapleader = " ", -- sets vim.g.mapleader
+			autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+			cmp_enabled = true, -- enable completion at start
+			autopairs_enabled = true, -- enable autopairs at start
+			diagnostics_enabled = true, -- enable diagnostics at start
 			status_diagnostics_enabled = true, -- enable diagnostics in statusline
-			icons_enabled = true,           -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+			icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
 			ui_notifications_enabled = true, -- disable notifications when toggling UI elements
 		},
 	},
@@ -108,8 +108,8 @@ local config = {
 					-- "go",
 				},
 				ignore_filetypes = { -- disable format on save for specified filetypes
-					'solidity',
-					'toml'
+					"solidity",
+					"toml",
 				},
 			},
 			disabled = { -- disable formatting capabilities for the listed language servers
@@ -142,7 +142,7 @@ local config = {
 			--   require("lspconfig")["sumneko_lua"].setup(opts)
 			-- end,
 			rust_analyzer = function(_, opts)
-				 require("rust-tools").setup({ server = opts })
+				require("rust-tools").setup({ server = opts })
 			end,
 		},
 		-- Add overrides for LSP server settings, the keys are the name of the server
@@ -507,6 +507,15 @@ local config = {
 			end,
 		},
 
+		-- Better Escape
+		{
+			"max397574/better-escape.nvim",
+			config = function()
+				require("better_escape").setup({ mapping = { "jk", "jj" } })
+			end,
+			lazy = false,
+		},
+
 		-- Lua copilot
 		{
 			"zbirenbaum/copilot.lua",
@@ -561,13 +570,13 @@ local config = {
 		},
 
 		-- Huff syntax highlighting
-		{ "wuwe1/vim-huff",           lazy = false },
+		{ "wuwe1/vim-huff", lazy = false },
 
 		-- Rainbow brackets
-		{ "p00f/nvim-ts-rainbow",     lazy = false },
+		{ "p00f/nvim-ts-rainbow", lazy = false },
 
 		-- Bionic Reading
-		{ "nullchilly/fsread.nvim",   lazy = false },
+		{ "nullchilly/fsread.nvim", lazy = false },
 	},
 	-- Custom icons
 	icons = {
