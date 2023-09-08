@@ -243,6 +243,20 @@ local config = {
 				end,
 				desc = "Crate Versions",
 			},
+			["s"] = {
+				function()
+					local hop = require("hop")
+					local directions = require("hop.hint").HintDirection
+					hop.hint_char1({ direction = directions.AFTER_CURSOR })
+				end,
+			},
+			["S"] = {
+				function()
+					local hop = require("hop")
+					local directions = require("hop.hint").HintDirection
+					hop.hint_char1({ direction = directions.BEFORE_CURSOR })
+				end,
+			},
 		},
 		i = {
 			-- Copilot: Accept suggestion
@@ -494,16 +508,13 @@ local config = {
 			end,
 		},
 
-		-- Leap
+		-- Hop
 		{
-			"ggandor/leap.nvim",
-			lazy = false,
+			"phaazon/hop.nvim",
+			branch = "v2", -- optional but strongly recommended
 			config = function()
-				local leap = require("leap")
-				leap.setup({
-					highlight_unlabeled_phase_one_targets = false,
-				})
-				leap.add_default_mappings()
+				-- you can configure Hop the way you like here; see :h hop-config
+				require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 			end,
 		},
 
