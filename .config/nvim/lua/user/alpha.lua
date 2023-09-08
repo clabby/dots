@@ -137,6 +137,7 @@ M.section_buttons = { type = "group", val = M.buttons }
 
 local DOCKER_INIT = " Loading Docker"
 local docker = DOCKER_INIT
+local docker_containers = DOCKER_INIT
 
 function M.info_text()
   ---@diagnostic disable-next-line:undefined-field
@@ -159,13 +160,41 @@ function M.info_text()
       end
     end,
   })
-  return nvim_version_info .. " │ " .. total_plugins .. " │ " .. datetime .. " │ "  .. docker
+
+  local ret = nvim_version_info .. " │ " .. total_plugins .. " │ " .. datetime
+  if string.len(docker) > 5 then
+    ret = ret .. " │ " .. docker
+  end
+  return ret
+end
+
+function M.docker_containers_text()
+  vim.api.nvim_create_autocmd({ "User" }, {
+    pattern = { "LazyVimStarted" },
+    callback = function()
+      if docker_containers == DOCKER_INIT then
+        vim.fn.jobstart("docker ps --format 'table {{.Image}}\t{{.ID}}\t{{.Status}}'", {
+          on_stdout = DockerContainerCallback,
+          stdout_buffered = true,
+        })
+      end
+    end
+  })
+
+  return docker_containers
 end
 
 function DockerVersionCallback(job_id, data, _)
   -- Send the data to the buffer
   if job_id > 0 then
     docker = " " .. data[1]
+    pcall(vim.cmd.AlphaRedraw)
+  end
+end
+
+function DockerContainerCallback(job_id, data, _)
+  if job_id > 0 then
+    docker_containers = data
     pcall(vim.cmd.AlphaRedraw)
   end
 end
@@ -183,10 +212,21 @@ M.section_info = {
       { "Comment",    39, 42 },
       { "String",     43, 70 },
       { "Comment",    71, 75 },
-      { "Function",   76, 90 },
+      { "Function",   76, 100 },
     },
     position = "center",
   },
+}
+
+M.docker_containers = {
+  type = "text",
+  val = function()
+    return M.docker_containers_text()
+  end,
+  opts = {
+    hl = "SpecialComment",
+    position = "center"
+  }
 }
 
 vim.b.miniindentscope_disable = true
@@ -212,6 +252,8 @@ M.config = {
     M.section_buttons,
     { type = "padding", val = 1 },
     M.section_info,
+    { type = "padding", val = 1 },
+    M.docker_containers
   },
 }
 
