@@ -12,15 +12,15 @@ local statusline_config = require("user.heirline")
 local config = {
 	-- Configure AstroNvim updates
 	updater = {
-		remote = "origin",   -- remote to use
+		remote = "origin", -- remote to use
 		channel = "nightly", -- "stable" or "nightly"
-		version = "latest",  -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
-		branch = "nightly",  -- branch name (NIGHTLY ONLY)
-		commit = nil,        -- commit hash (NIGHTLY ONLY)
-		pin_plugins = nil,   -- nil, true, false (nil will pin plugins on stable only)
+		version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
+		branch = "nightly", -- branch name (NIGHTLY ONLY)
+		commit = nil, -- commit hash (NIGHTLY ONLY)
+		pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
 		skip_prompts = false, -- skip prompts about breaking changes
 		show_changelog = true, -- show the changelog after performing an update
-		auto_quit = false,   -- automatically quit the current session after a successful update
+		auto_quit = false, -- automatically quit the current session after a successful update
 	},
 	-- Set colorscheme to use
 	colorscheme = "catppuccin",
@@ -62,19 +62,19 @@ local config = {
 		opt = {
 			-- set to true or false etc.
 			relativenumber = true, -- sets vim.opt.relativenumber
-			number = true,      -- sets vim.opt.number
-			spell = false,      -- sets vim.opt.spell
+			number = true, -- sets vim.opt.number
+			spell = false, -- sets vim.opt.spell
 			signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-			wrap = false,       -- sets vim.opt.wrap
+			wrap = false, -- sets vim.opt.wrap
 		},
 		g = {
-			mapleader = " ",                -- sets vim.g.mapleader
-			autoformat_enabled = true,      -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-			cmp_enabled = true,             -- enable completion at start
-			autopairs_enabled = true,       -- enable autopairs at start
-			diagnostics_enabled = true,     -- enable diagnostics at start
+			mapleader = " ", -- sets vim.g.mapleader
+			autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+			cmp_enabled = true, -- enable completion at start
+			autopairs_enabled = true, -- enable autopairs at start
+			diagnostics_enabled = true, -- enable diagnostics at start
 			status_diagnostics_enabled = true, -- enable diagnostics in statusline
-			icons_enabled = true,           -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
+			icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
 			ui_notifications_enabled = true, -- disable notifications when toggling UI elements
 		},
 	},
@@ -191,6 +191,7 @@ local config = {
 			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+			["<leader>o"] = { "<cmd>Telescope buffers<cr>", desc = "Search buffers" },
 			-- ToggleTerm bindings
 			["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
 			-- ctrl+D / ctrl+U to scroll up and down
@@ -362,7 +363,6 @@ local config = {
 		-- Catppuccin
 		{
 			"catppuccin/nvim",
-			lazy = false,
 			opt = false,
 			as = "catppuccin",
 			config = function()
@@ -430,7 +430,7 @@ local config = {
 							surface2 = "#A79C86",
 							surface1 = "#C9C19F",
 							surface0 = "#DFD6B1",
-							base = "#fbf1c7",
+							base = "#f7f0d0",
 							mantle = "#F3EAC1",
 							crust = "#E7DEB7",
 						},
@@ -441,7 +441,8 @@ local config = {
 							NormalFloat = { bg = "" },
 							FloatBorder = { fg = colors.surface2 },
 							VertSplit = { bg = "", fg = colors.surface2 },
-							CursorLineNr = { fg = colors.mauve },
+							CursorLineNr = { fg = colors.green },
+							LineNr = { fg = colors.surface2 },
 							Pmenu = { bg = colors.crust, fg = "" },
 							PmenuSel = { bg = colors.surface0, fg = "" },
 							TelescopeSelection = { bg = colors.surface0 },
@@ -470,7 +471,6 @@ local config = {
 		-- lsp_lines (pretty diagnostics)
 		{
 			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-			lazy = false,
 			after = "mason-lspconfig.nvim",
 			module = "lsp_lines",
 			config = function()
@@ -518,19 +518,9 @@ local config = {
 			end,
 		},
 
-		-- Better Escape
-		{
-			"max397574/better-escape.nvim",
-			config = function()
-				require("better_escape").setup({ mapping = { "jk", "jj" } })
-			end,
-			lazy = false,
-		},
-
 		-- Lua copilot
 		{
 			"zbirenbaum/copilot.lua",
-			lazy = false,
 			event = "VimEnter",
 			config = function()
 				vim.defer_fn(function()
@@ -552,7 +542,7 @@ local config = {
 							auto_trigger = true,
 							debounce = 50,
 							keymap = {
-								accept = "<M-l>",
+								accept = "<C-a>",
 								next = "<M-]>",
 								prev = "<M-[>",
 								dismiss = "<C-]>",
@@ -567,7 +557,7 @@ local config = {
 		},
 
 		-- Rust tools
-		{ "simrat39/rust-tools.nvim", lazy = false },
+		{ "simrat39/rust-tools.nvim" },
 
 		-- Crates (Rust)
 		{
@@ -581,13 +571,13 @@ local config = {
 		},
 
 		-- Huff syntax highlighting
-		{ "wuwe1/vim-huff",           lazy = false },
+		{ "wuwe1/vim-huff" },
+
+		-- Noir syntax highlighting
+		{ "Louis-Amas/noir-vim-support" },
 
 		-- Rainbow brackets
-		{ "p00f/nvim-ts-rainbow",     lazy = false },
-
-		-- Bionic Reading
-		{ "nullchilly/fsread.nvim",   lazy = false },
+		{ "HiPhish/nvim-ts-rainbow2" },
 	},
 	-- Custom icons
 	icons = {
@@ -604,12 +594,18 @@ local config = {
 	-- augroups/autocommands and custom filetypes also this just pure lua so
 	-- anything that doesn't fit in the normal config locations above can go here
 	polish = function()
-		-- Set up notify background color (Fixes warning)
-		require("notify").setup({
-			background_colour = "#000000",
-		})
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+		parser_config.noir = {
+			install_info = {
+				url = "https://github.com/hhamud/tree-sitter-noir", -- the url for this tree-sitter grammar
+				files = { "src/parser.c", "src/scanner.c" },
+				branch = "main",
+			},
+			filetype = "noir", -- if filetype does not agrees with parser name you can define this field
+		}
 
 		require("nvim-treesitter.configs").setup({
+			ensure_installed = "noir", -- The custom parser
 			highlight = {
 				enable = true,
 			},
@@ -618,14 +614,6 @@ local config = {
 				extended_mode = true,
 			},
 		})
-
-		-- require("dap").configurations.rust[0].env = function()
-		-- 	local variables = {}
-		-- 	for k, v in pairs(vim.fn.environ()) do
-		-- 		table.insert(variables, string.format("%s=%s", k, v))
-		-- 	end
-		-- 	return variables
-		-- end
 	end,
 }
 
