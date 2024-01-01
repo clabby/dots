@@ -1,3 +1,4 @@
+.PHONY: install
 install:
 	# Install .zshrc
 	cp ./.zshrc ~/.zshrc
@@ -6,9 +7,11 @@ install:
 	# Install tmux configs
 	cp ./.tmux.conf ~/.tmux.conf
 	# Install .config folders
-	cp -R ./.config/* ~/.config/
+	mkdir -p ~/.config
+	cp -R ./config/* ~/.config/
 	# Install "gm" config folder and build binary
-	cp -R ./.gm ~/
+	mkdir -p ~/.gm
+	cp -R ./gm ~/.gm
 	(cd ~/.gm/codebase && cargo build --release)
 	cp ~/.gm/codebase/target/release/gm ~/.gm/bin/gm
 	rm -rf ~/.gm/codebase/target
