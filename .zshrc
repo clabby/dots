@@ -20,7 +20,7 @@ source $ZSH/oh-my-zsh.sh
 # ------------------
 
 # vi mode
-set -o vi
+# set -o vi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -55,8 +55,10 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
-export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/vH5TkOpQNJmiQgA0OUa83SpCP0kNVOAr
+export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/VHd82Uv7lrm75SCeT-lc7dKzElyFNeuy
 export ETH_ANTON=http://anton.clab.by:8545
+export GOERLI_RPC=https://eth-goerli.g.alchemy.com/v2/W2407fvgSZ35fJMXgNHOYXW6rc4Unt8y
+export ETH_RPC_URL=$ETH_ANTON
 
 # tmux colors
 export TERM=xterm-256color
@@ -94,7 +96,10 @@ alias rock="cargo +nightly fmt"
 alias rethtest='cargo nextest run --locked --all-features --workspace --exclude examples --exclude ef-tests -E '\''kind(lib)'\'' -E '\''kind(bin)'\'' -E '\''kind(proc-macro)'\'
 alias rethfmt='cargo +nightly fmt --all'
 alias rethlint='rethfmt && rethclip'
-alias rethclip='cargo +nightly clippy --all --all-features -- -A clippy::incorrect_clone_impl_on_copy_type -A clippy::arc_with_non_send_sync'
+alias rethclip='cargo +nightly clippy --all --all-features -- -A clippy::non_canonical_clone_impl -A clippy::arc_with_non_send_sync'
+
+# Oxker (Docker TUI)
+alias ox="oxker"
 
 # Neovim
 alias n="nvim -i NONE"
@@ -165,6 +170,8 @@ rpc() {
         export ETH_RPC_URL=$ETH_RPC
     elif [ "$1" = "op" ]; then
         export ETH_RPC_URL=$OP_RPC
+    elif [ "$1" = "goerli" ]; then
+        export ETH_RPC_URL=$GOERLI_RPC
     else
         export ETH_RPC_URL=""
     fi
@@ -241,3 +248,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+
+export NARGO_HOME="/Users/ben/.nargo"
+
+export PATH="$PATH:$NARGO_HOME/bin"

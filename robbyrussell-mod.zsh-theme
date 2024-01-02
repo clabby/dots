@@ -3,11 +3,11 @@ SPECIAL="%T"
 # Show different prefix if last command succeeded/failed
 PROMPT="%(?:"
 # Success
-PROMPT+="%{$FG[240]%}[$fg[yellow]$SPECIAL%u$FG[240]] %{$fg[green]%}"
+PROMPT+=" %{$fg[green]%}"
 # Or
 PROMPT+=":"
 # Fail
-PROMPT+="%{$FG[240]%}[$fg[yellow]$SPECIAL%u$FG[240]] %{$fg[red]%})"
+PROMPT+=" %{$fg[red]%})"
 
 # user + git status
 PROMPT+=' %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'

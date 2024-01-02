@@ -37,11 +37,13 @@ My personal dotfiles
 * [graphite CLI](https://github.com/withgraphite/graphite-cli)
 * [mprocs](https://github.com/pvolok/mprocs)
 * [wiki-tui](https://github.com/Builditluc/wiki-tui)
+* [dust](https://github.com/bootandy/dust)
+* [duf](https://github.com/muesli/duf)
+* [just](https://github.com/casey/just)
 
 #### Misc CLI
 * [onefetch](https://github.com/o2sh/onefetch)
 * [neofetch](https://github.com/dylanaraps/neofetch)
-* [sl](https://github.com/mtoyoda/sl)
 * [slides](https://github.com/maaslalani/slides)
 
 ### Smart Contract Development
@@ -63,5 +65,5 @@ My personal dotfiles
 > Make sure all dependencies are installed!
 
 ```
-make install
+just install-all
 ```

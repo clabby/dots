@@ -1,20 +1,19 @@
 font:
   normal:
-    family: "BlexMono Nerd Font Mono"
+    family: "JetBrainsMono Nerd Font Mono"
     style: Regular
   bold:
-    family: "BlexMono Nerd Font Mono"
+    family: "JetBrainsMono Nerd Font Mono"
     style: Bold
   italic:
-    family: "BlexMono Nerd Font Mono"
+    family: "JetBrainsMono Nerd Font Mono"
     style: Italic
-  size: 22
-  AppleFontSmoothing: true
+  size: 19.5
 window:
   dimensions:
     columns: 120
     lines: 40
-  opacity: 0.98
+  # opacity: 0.85
   decorations: buttonless
   padding:
     x: 5
@@ -29,11 +28,11 @@ colors:
 
   # Cursor colors
   cursor:
-    text: "#1E1E2E" # base
-    cursor: "#F5E0DC" # rosewater
+    text: "#333333" # base
+    cursor: "#fcb103" 
   vi_mode_cursor:
-    text: "#1E1E2E" # base
-    cursor: "#B4BEFE" # lavender
+    text: "#333333" # base
+    cursor: "#fcb103" # lavender
 
   # Search colors
   search:
