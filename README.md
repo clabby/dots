@@ -10,8 +10,6 @@ My personal dotfiles
 
 ### Editor
 * [Neovim](https://github.com/neovim/neovim)
-  * [AstroNvim](https://github.com/AstroNvim/AstroNvim)
-    * **NOTE:** Currently on the `main` branch.
 
 ### Terminal Multiplexer
 * [tmux](https://github.com/tmux/tmux)
@@ -56,6 +54,7 @@ My personal dotfiles
 ### Language Toolchains
 * [rust](https://rustup.rs/)
   * [cargo-expand](https://github.com/dtolnay/cargo-expand)
+  * [cargo-nextest](https://nexte.st/)
 * [golang](https://go.dev/learn/)
   * [gotestsum](https://github.com/gotestyourself/gotestsum)
 
