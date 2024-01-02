@@ -1,11 +1,7 @@
-#[macro_use]
-extern crate lazy_static;
-extern crate hyper;
-extern crate tokio;
-
-use eyre::Result;
+use anyhow::Result;
 use home::home_dir;
-use hyper::{Client, Uri};
+use lazy_static::lazy_static;
+use reqwest::Client;
 use serde_derive::{Deserialize, Serialize};
 use spinners_rs::{Spinner, Spinners};
 use std::error::Error;
@@ -17,9 +13,8 @@ use yansi::Paint;
 lazy_static! {
     static ref CONFIG_PATH: PathBuf =
         PathBuf::from(format!("{}/.gm/config.json", home_dir().unwrap().display()));
-}
-
-const GM: &str = r#"
+    static ref GM: Paint<&'static str> = Paint::cyan(
+        r#"
                                  ___
                               .'/   \
               __  __   ___   / /     \
@@ -33,7 +28,9 @@ const GM: &str = r#"
      ||     ||                | |    |
      \'. __//                 \_\    /
       `'---'                   `''--'
-"#;
+"#
+    );
+}
 
 #[derive(Deserialize, Serialize)]
 struct Config {
@@ -48,29 +45,21 @@ struct Command {
 }
 
 #[derive(Deserialize, Serialize)]
-struct QuoteApiResponse<'a> {
-    pub author: &'a str,
-    pub content: &'a str,
+struct QuoteApiResponse {
+    pub author: String,
+    pub content: String,
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
     // Load our config
-    let config_content =
-        fs::read_to_string(CONFIG_PATH.as_path()).expect("Missing config at \"~/.gm/config.json\"");
-    let config: Config = serde_json::from_str(&config_content)?;
-
-    // Get a quote to display
-    let client = Client::new();
-    let res = client
-        .get(Uri::from_static("http://api.quotable.io/random"))
-        .await?;
-    let res = hyper::body::to_bytes(res).await?;
-    let quote: QuoteApiResponse<'_> = serde_json::from_str(str::from_utf8(&res)?)?;
+    let config = load_config()?;
 
     // Print GM Prompt
-    println!("{}", Paint::green(GM));
-    // Print Quote
+    println!("{}", *GM);
+
+    // Print a random quote
+    let quote = get_quote().await?;
     println!(
         "\n 👉 \"{}\" - {}\n",
         quote.content,
@@ -93,13 +82,29 @@ fn run_command(message: String, command: String, args: Vec<String>) {
     sp.start();
     if let Err(err) = process::Command::new(command).args(args).output() {
         print_error_message(err);
-        process::exit(1);
     };
     sp.stop();
 }
 
+/// Attempt to load the GM config
+fn load_config() -> Result<Config> {
+    let config_content =
+        fs::read_to_string(CONFIG_PATH.as_path()).expect("Missing config at \"~/.gm/config.json\"");
+    let config: Config = serde_json::from_str(&config_content)?;
+    Ok(config)
+}
+
+/// Grab a random quote from the quotable API
+async fn get_quote() -> Result<QuoteApiResponse> {
+    let client = Client::new();
+    let res = client.get("http://api.quotable.io/random").send().await?;
+    let quote: QuoteApiResponse = serde_json::from_slice(&res.bytes().await?)?;
+    Ok(quote)
+}
+
 /// Print an error message
-fn print_error_message<T: Error>(err: T) {
+fn print_error_message<T: Error>(err: T) -> ! {
     eprintln!("\n\n{}", Paint::red("Uh oh! An error occurred:"));
     eprintln!("{}", err);
+    process::exit(1)
 }
