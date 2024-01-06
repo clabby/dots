@@ -125,6 +125,7 @@ return {
               NormalFloat = { bg = colors.base },
               Pmenu = { bg = colors.mantle, fg = "" },
               PmenuSel = { bg = colors.surface0, fg = "" },
+              AlphaHeader = { fg = colors.peach },
               -- TelescopePreviewBorder = { bg = colors.crust, fg = colors.crust },
               -- TelescopePreviewNormal = { bg = colors.crust },
               -- TelescopePreviewTitle = { fg = colors.crust, bg = colors.crust },
