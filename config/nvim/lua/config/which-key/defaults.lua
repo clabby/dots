@@ -1,7 +1,12 @@
 return {
   mode = { "n" },
   [";"] = { ":Alpha<CR>", "Dashboard" },
-  ["/"] = { function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end, "Toggle comment" },
+  ["/"] = {
+    function()
+      require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
+    end,
+    "Toggle comment",
+  },
   ["1"] = {
     function()
       require("lsp_lines").toggle()
@@ -28,20 +33,14 @@ return {
   },
   i = {
     name = "Sessions",
-    s    = { "<cmd>lua require('persistence').load()<cr>", "Load Session" },
-    l    = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Load Last Session" },
-    d    = { "<cmd>lua require('persistence').stop()<cr>", "Stop Persistence" },
+    s = { "<cmd>lua require('persistence').load()<cr>", "Load Session" },
+    l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Load Last Session" },
+    d = { "<cmd>lua require('persistence').stop()<cr>", "Stop Persistence" },
   },
   -- m = {
   --   name = "Marks",
   --   m = { "<cmd>Telescope marks<cr>", "Marks" },
   -- },
-  r = {
-    name = "Replace",
-    r = { "<cmd>lua require('spectre').open()<cr>", "Replace" },
-    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Replace Word" },
-    f = { "<cmd>lua require('spectre').open_file_search()<cr>", "Replace Buffer" },
-  },
   b = {
     name = "Buffers",
     -- j = { "<cmd>BufferLinePick<cr>", "Jump" },
@@ -95,8 +94,8 @@ return {
     },
     g = {
       "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='lazygit'}:toggle()<cr>",
-      "Lazygit"
-    }
+      "Lazygit",
+    },
   },
   l = {
     name = "+LSP",
@@ -151,7 +150,7 @@ return {
       g = { "<cmd>Telescope dap configurations<cr>", "Dap Configurations" },
       v = { "<cmd>Telescope dap variables<cr>", "Dap Variables" },
       f = { "<cmd>Telescope dap frames<cr>", "Dap Frames" },
-    }
+    },
   },
   T = {
     name = "+Todo",
@@ -173,7 +172,7 @@ return {
     x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
   },
   t = {
-    name = "+Tests"
+    name = "+Tests",
   },
   -- z = {
   --   name = "Folding",
