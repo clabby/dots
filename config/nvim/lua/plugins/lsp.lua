@@ -4,7 +4,6 @@ return {
   dependencies = {
     { "williamboman/mason.nvim", config = true },
     "williamboman/mason-lspconfig.nvim",
-    { "j-hui/fidget.nvim",       opts = {} },
     "folke/neodev.nvim",
     { "b0o/schemastore.nvim" },
     { "hrsh7th/cmp-nvim-lsp" },

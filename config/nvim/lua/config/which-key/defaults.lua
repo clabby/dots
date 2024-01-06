@@ -113,7 +113,6 @@ return {
     l = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
     L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-    t = { [[ <Esc><Cmd>lua require('telescope').extensions.refactoring.refactors()<CR>]], "Refactor" },
     h = { "<cmd>lua require('config.utils').toggle_inlay_hints()<CR>", "Toggle Inlay Hints" },
 
     -- j = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Previous Diagnostic" },
@@ -143,14 +142,6 @@ return {
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
     p = { "<cmd>AerialToggle!<cr>", "Areal Toggle" },
     t = { "<cmd>Telescope colorscheme<cr>", "Color schemes" },
-    d = {
-      name = "+DAP",
-      c = { "<cmd>Telescope dap commands<cr>", "Dap Commands" },
-      b = { "<cmd>Telescope dap list_breakpoints<cr>", "Dap Breakpoints" },
-      g = { "<cmd>Telescope dap configurations<cr>", "Dap Configurations" },
-      v = { "<cmd>Telescope dap variables<cr>", "Dap Variables" },
-      f = { "<cmd>Telescope dap frames<cr>", "Dap Frames" },
-    },
   },
   T = {
     name = "+Todo",
@@ -158,18 +149,6 @@ return {
     T = { "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme" },
     x = { "<cmd>TodoTrouble<cr>", "Todo (Trouble)" },
     X = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr><cr>", "Todo/Fix/Fixme (Trouble)" },
-  },
-  d = {
-    name = "Debug",
-    b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Breakpoint" },
-    c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-    i = { "<cmd>lua require'dap'.step_into()<cr>", "Into" },
-    o = { "<cmd>lua require'dap'.step_over()<cr>", "Over" },
-    O = { "<cmd>lua require'dap'.step_out()<cr>", "Out" },
-    r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Repl" },
-    l = { "<cmd>lua require'dap'.run_last()<cr>", "Last" },
-    u = { "<cmd>lua require'dapui'.toggle()<cr>", "UI" },
-    x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
   },
   t = {
     name = "+Tests",

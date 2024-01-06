@@ -85,10 +85,8 @@ return {
           vimwiki = true,
           which_key = true,
           aerial = true,
-          fidget = true,
           mason = true,
           neotest = true,
-          dap_ui = true,
           telescope = {
             enabled = true,
             style = "nvchad"
@@ -141,8 +139,6 @@ return {
               VertSplit = { bg = colors.base, fg = colors.surface0 },
               WhichKeyFloat = { bg = colors.mantle },
               YankHighlight = { bg = colors.surface2 },
-              FidgetTask = { fg = colors.subtext2 },
-              FidgetTitle = { fg = colors.peach },
 
               IblIndent = { fg = colors.surface0 },
               IblScope = { fg = colors.overlay0 },
