@@ -89,17 +89,17 @@ return {
           neotest = true,
           telescope = {
             enabled = true,
-            style = "nvchad"
+            style = "nvchad",
           },
         },
         highlight_overrides = {
           all = function(colors)
             return {
               CmpItemMenu = { fg = colors.surface2 },
-              CursorLineNr = { fg = colors.text },
               FloatBorder = { bg = colors.base, fg = colors.surface0 },
               GitSignsChange = { fg = colors.peach },
-              LineNr = { fg = colors.overlay0 },
+              LineNr = { fg = colors.surface2 },
+              CursorLineNr = { fg = colors.green },
               LspInfoBorder = { link = "FloatBorder" },
               NeoTreeDirectoryIcon = { fg = colors.subtext1 },
               NeoTreeDirectoryName = { fg = colors.subtext1 },
@@ -136,6 +136,7 @@ return {
               -- TelescopeResultsNormal = { bg = colors.mantle },
               -- TelescopeResultsTitle = { fg = colors.mantle, bg = colors.mantle },
               -- TelescopeSelection = { bg = colors.surface0 },
+              WinSeparator = { fg = colors.surface2 },
               VertSplit = { bg = colors.base, fg = colors.surface0 },
               WhichKeyFloat = { bg = colors.mantle },
               YankHighlight = { bg = colors.surface2 },
@@ -240,6 +241,8 @@ return {
               TSURI = { fg = colors.blue },
               TSVariable = { fg = colors.text },
               TSVariableBuiltin = { fg = colors.mauve },
+              Green = { fg = colors.green },
+              Muted = { fg = colors.surface2 },
 
               ["@annotation"] = { link = "TSAnnotation" },
               ["@attribute"] = { link = "TSAttribute" },
@@ -311,7 +314,7 @@ return {
               ["@text.title"] = { link = "TSTitle" },
               ["@text.todo"] = { link = "TSTodo" },
               ["@text.todo.checked"] = { link = "Green" },
-              ["@text.todo.unchecked"] = { link = "Ignore" },
+              ["@text.todo.unchecked"] = { link = "Muted" },
               ["@text.underline"] = { link = "TSUnderline" },
               ["@text.uri"] = { link = "TSURI" },
               ["@text.warning"] = { link = "TSWarning" },
@@ -369,42 +372,42 @@ return {
   {
     "rose-pine/neovim",
     config = function()
-      require('rose-pine').setup({
+      require("rose-pine").setup({
         disable_background = true,
         disable_float_background = true,
-        dark_variant = 'moon',
+        dark_variant = "moon",
         disable_italics = true,
         groups = {
-          background = 'base',
-          background_nc = '_experimental_nc',
-          panel = 'surface',
-          panel_nc = 'base',
-          border = 'highlight_med',
-          comment = 'muted',
-          link = 'iris',
-          punctuation = 'subtle',
+          background = "base",
+          background_nc = "_experimental_nc",
+          panel = "surface",
+          panel_nc = "base",
+          border = "highlight_med",
+          comment = "muted",
+          link = "iris",
+          punctuation = "subtle",
 
-          error = 'love',
-          hint = 'iris',
-          info = 'foam',
-          warn = 'gold',
+          error = "love",
+          hint = "iris",
+          info = "foam",
+          warn = "gold",
 
           headings = {
-            h1 = 'iris',
-            h2 = 'foam',
-            h3 = 'rose',
-            h4 = 'gold',
-            h5 = 'pine',
-            h6 = 'foam',
-          }
+            h1 = "iris",
+            h2 = "foam",
+            h3 = "rose",
+            h4 = "gold",
+            h5 = "pine",
+            h6 = "foam",
+          },
         },
         highlight_groups = {
-          ColorColumn = { bg = 'rose' },
+          ColorColumn = { bg = "rose" },
 
           -- Blend colours against the "base" background
-          CursorLine = { bg = 'foam', blend = 10 },
-          StatusLine = { fg = 'love', bg = 'love', blend = 10 },
-          Search = { bg = 'gold', inherit = false },
+          CursorLine = { bg = "foam", blend = 10 },
+          StatusLine = { fg = "love", bg = "love", blend = 10 },
+          Search = { bg = "gold", inherit = false },
 
           TelescopeBorder = { fg = "highlight_high", bg = "none" },
           TelescopeNormal = { bg = "none" },
@@ -416,7 +419,7 @@ return {
       })
 
       -- vim.cmd.colorscheme 'rose-pine-moon'
-    end
+    end,
   },
   {
     "rebelot/kanagawa.nvim",
@@ -443,13 +446,13 @@ return {
           theme = {
             all = {
               ui = {
-                bg_gutter = "none"
-              }
-            }
-          }
-        }
+                bg_gutter = "none",
+              },
+            },
+          },
+        },
       })
       -- vim.cmd("colorscheme kanagawa")
-    end
+    end,
   },
 }
