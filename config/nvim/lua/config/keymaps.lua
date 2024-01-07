@@ -25,6 +25,10 @@ map("v", ">", ">gv")
 map("n", "]b", ":bnext<CR>", opts)
 map("n", "[b", ":bprevious<CR>", opts)
 
+-- Organize buffers
+map("n", ">b", ":BufferLineMoveNext<CR>", opts)
+map("n", "<b", ":BufferLineMovePrev<CR>", opts)
+
 -- paste over currently selected text without yanking it
 map("v", "p", '"_dp')
 map("v", "P", '"_dP')
@@ -59,9 +63,6 @@ map("n", "<ESC>", ":noh<CR><ESC>", opts)
 
 -- map ; to resume last search
 -- map("n", ";", "<cmd>Telescope resume<cr>", opts)
-
--- search current buffer
-map("n", "<C-s>", ":Telescope current_buffer_fuzzy_find<CR>", opts)
 
 -- Open floating terminal
 map("n", "<C-\\>", ":ToggleTerm direction=float<CR>", opts)

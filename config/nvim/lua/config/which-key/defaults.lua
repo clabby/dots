@@ -18,11 +18,10 @@ return {
   w = { ":w!<CR>", "Save" },
   q = { ":confirm q<CR>", "Quit" },
   c = { ":bd<CR>", "Close Buffer" },
-  h = { ":nohlsearch<CR>", "No Highlight" },
   p = { "<cmd>Telescope treesitter<CR>", "List Symbols" },
   v = "Go to definition in a split",
-  a = "Swap next param",
-  A = "Swap previous param",
+  s = "Swap next param",
+  S = "Swap previous param",
   U = { ":UndotreeToggle<CR>", "Toggle UndoTree" },
   o = { ":Telescope buffers<CR>", "Open Buffer" },
   u = {
@@ -52,19 +51,19 @@ return {
     --   "<cmd>BufferLinePickClose<cr>",
     --   "Pick which buffer to close",
     -- },
-    -- h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
-    -- l = {
-    --   "<cmd>BufferLineCloseRight<cr>",
-    --   "Close all to the right",
-    -- },
-    -- D = {
-    --   "<cmd>BufferLineSortByDirectory<cr>",
-    --   "Sort by directory",
-    -- },
-    -- L = {
-    --   "<cmd>BufferLineSortByExtension<cr>",
-    --   "Sort by language",
-    -- },
+    l = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
+    r = {
+      "<cmd>BufferLineCloseRight<cr>",
+      "Close all to the right",
+    },
+    D = {
+      "<cmd>BufferLineSortByDirectory<cr>",
+      "Sort by directory",
+    },
+    L = {
+      "<cmd>BufferLineSortByExtension<cr>",
+      "Sort by language",
+    },
     -- p = { "<cmd>BufferLineTogglePin<CR>", "Toggle pin" },
     -- P = { "<cmd>BufferLineGroupClose ungrouped<CR>", "Delete non-pinned buffers" },
   },
@@ -114,10 +113,6 @@ return {
     L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     h = { "<cmd>lua require('config.utils').toggle_inlay_hints()<CR>", "Toggle Inlay Hints" },
-
-    -- j = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Previous Diagnostic" },
-    -- k = { "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", "Next Diagnostic" },
-    -- e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
   },
   f = {
     name = "+Search",
@@ -150,8 +145,67 @@ return {
     x = { "<cmd>TodoTrouble<cr>", "Todo (Trouble)" },
     X = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr><cr>", "Todo/Fix/Fixme (Trouble)" },
   },
-  t = {
-    name = "+Tests",
+  h = {
+    name = "+Harpoon",
+    m = {
+      function()
+        local harpoon = require("harpoon")
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end,
+      "Harpoon Menu",
+    },
+    a = {
+      function()
+        require("harpoon"):list():append()
+      end,
+      "Harpoon File",
+    },
+    ["1"] = {
+      function()
+        require("harpoon"):list():select(1)
+      end,
+      "Harpoon File #1",
+    },
+    ["2"] = {
+      function()
+        require("harpoon"):list():select(2)
+      end,
+      "Harpoon File #2",
+    },
+    ["3"] = {
+      function()
+        require("harpoon"):list():select(3)
+      end,
+      "Harpoon File #3",
+    },
+    ["4"] = {
+      function()
+        require("harpoon"):list():select(4)
+      end,
+      "Harpoon File #4",
+    },
+    f = {
+      function()
+        local conf = require("telescope.config").values
+        local harpoon_files = require("harpoon"):list()
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        require("telescope.pickers")
+            .new({}, {
+              prompt_title = "Harpoon",
+              finder = require("telescope.finders").new_table({
+                results = file_paths,
+              }),
+              previewer = conf.file_previewer({}),
+              sorter = conf.generic_sorter({}),
+            })
+            :find()
+      end,
+      "Find Harpoon File"
+    },
   },
   -- z = {
   --   name = "Folding",

@@ -12,7 +12,7 @@ return {
                     keymap = {
                         jump_next = "<c-j>",
                         jump_prev = "<c-k>",
-                        accept = "<M-Tab>",
+                        accept = "<M-l>",
                         refresh = "r",
                         open = "<M-CR>",
                     },
@@ -26,9 +26,9 @@ return {
                     auto_trigger = true,
                     debounce = 75,
                     keymap = {
-                        accept = "<M-Tab>",
-                        accept_word = false,
-                        accept_line = false,
+                        accept = "¬",
+                        -- accept_word = false,
+                        -- accept_line = false,
                         next = "<c-j>",
                         prev = "<c-k>",
                         dismiss = "<C-e>",
@@ -37,11 +37,11 @@ return {
             })
         end
     },
-    {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end,
-    }
+    -- {
+    --     "zbirenbaum/copilot-cmp",
+    --     after = { "copilot.lua" },
+    --     config = function()
+    --         require("copilot_cmp").setup()
+    --     end,
+    -- }
 }
