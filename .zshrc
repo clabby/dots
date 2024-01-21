@@ -15,6 +15,9 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
+# ZSH syntax highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # ------------------
 # User configuration
 # ------------------
@@ -25,10 +28,13 @@ source $ZSH/oh-my-zsh.sh
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# pnpm
+export PNPM_HOME="/Users/ben/Library/pnpm"
+case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -71,6 +77,7 @@ export OP_MONOREPO="$HOME/dev/op/monorepo"
 
 eval $(cast completions zsh)
 eval $(gh completion -s zsh)
+eval $(gt completion zsh)
 
 # -------
 # ALIASES
@@ -79,18 +86,22 @@ eval $(gh completion -s zsh)
 # Optimism Dev
 alias oprefresh="z $OP_MONOREPO && nx reset && p clean && p build"
 alias opr="z $OP_MONOREPO/packages/contracts-bedrock && p gas-snapshot && p semver-lock && p lint && p storage-snapshot && forge clean && (z $OP_MONOREPO/op-bindings && make)"
-alias foundryup-op="foundryup -C $(cat $OP_MONOREPO/.foundryrc)"
+alias foundryup-op="foundryup -C $(cat $OP_MONOREPO/versions.json | jq -r .foundry)"
 
 # Go
 alias gts="gotestsum --format=testname"
 
 # Graphite
-alias rsr="gt rs && gt sr"
+alias gs="gt sync"
+alias gco="gt co"
+alias gsr="gt restack"
 
 # Cargo
 alias cg="cargo"
 alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
 alias rock="cargo +nightly fmt"
+alias nt="cargo nextest"
+alias nnt="cargo +nightly nextest"
 
 # Reth development
 alias rethtest='cargo nextest run --locked --all-features --workspace --exclude examples --exclude ef-tests -E '\''kind(lib)'\'' -E '\''kind(bin)'\'' -E '\''kind(proc-macro)'\'
@@ -137,11 +148,11 @@ alias lt="lsd -la --tree --depth 2"
 # Wttr
 CITY="Amsterdam"
 wttr() {
-  if [ "$1" = "-v2" ]; then
-    curl -L https://v2.wttr.in/$CITY
-  else
-    curl -L https://wttr.in/$CITY
-  fi
+    if [ "$1" = "-v2" ]; then
+        curl -L https://v2.wttr.in/$CITY
+    else
+        curl -L https://wttr.in/$CITY
+    fi
 }
 
 # Forge shortcuts
@@ -240,17 +251,3 @@ xc() {
 # Clear git alias for gm bin to work
 unalias gm
 alias gm="~/.gm/bin/gm"
-
-# pnpm
-export PNPM_HOME="/Users/ben/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-
-export NARGO_HOME="/Users/ben/.nargo"
-
-export PATH="$PATH:$NARGO_HOME/bin"
