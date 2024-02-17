@@ -24,6 +24,7 @@ return {
   S = "Swap previous param",
   U = { ":UndotreeToggle<CR>", "Toggle UndoTree" },
   o = { ":Telescope buffers<CR>", "Open Buffer" },
+  n = { ":GlobalNote<CR>", "Open Global Note" },
   u = {
     name = "UI",
     c = { "<cmd>lua require('config.utils').toggle_set_color_column()<CR>", "Toggle Color Line" },
@@ -194,17 +195,17 @@ return {
         end
 
         require("telescope.pickers")
-            .new({}, {
-              prompt_title = "Harpoon",
-              finder = require("telescope.finders").new_table({
-                results = file_paths,
-              }),
-              previewer = conf.file_previewer({}),
-              sorter = conf.generic_sorter({}),
-            })
-            :find()
+          .new({}, {
+            prompt_title = "Harpoon",
+            finder = require("telescope.finders").new_table({
+              results = file_paths,
+            }),
+            previewer = conf.file_previewer({}),
+            sorter = conf.generic_sorter({}),
+          })
+          :find()
       end,
-      "Find Harpoon File"
+      "Find Harpoon File",
     },
   },
   -- z = {

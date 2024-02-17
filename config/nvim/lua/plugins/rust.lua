@@ -1,8 +1,8 @@
 return {
   {
-    'mrcjkb/rustaceanvim',
-    version = '^3', -- Recommended
-    ft = { 'rust' },
+    "mrcjkb/rustaceanvim",
+    version = "^3", -- Recommended
+    ft = { "rust" },
     -- dependencies = {
     --   "nvim-lua/plenary.nvim",
     --   {
@@ -10,29 +10,20 @@ return {
     --     opts = {}
     --   },
     -- },
-    -- config = function()
-    --   vim.g.rustaceanvim = {
-    --     inlay_hints = {
-    --       highlight = "NonText",
-    --     },
-    --     tools = {
-    --       hover_actions = {
-    --         auto_focus = true,
-    --       },
-    --     },
-    --     server = {
-    --       on_attach = function(client, bufnr)
-    --         require("lsp-inlayhints").on_attach(client, bufnr)
-    --       end,
-    --       standalone = false,
-    --     },
-    --     settings = {
-    --       -- rust-analyzer language server configuration
-    --       ['rust-analyzer'] = {
-    --       },
-    --     },
-    --   }
-    -- end
+    config = function()
+      vim.g.rustaceanvim = {
+        server = {
+          settings = {
+            -- rust-analyzer language server configuration
+            ["rust-analyzer"] = {
+              cargo = {
+                features = { "optimism" },
+              },
+            },
+          },
+        },
+      }
+    end,
   },
   -- crates
   {
@@ -43,7 +34,7 @@ return {
     event = { "BufRead", "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("crates").setup {
+      require("crates").setup({
         -- null_ls = {
         --   enabled = true,
         --   name = "crates.nvim",
@@ -51,7 +42,7 @@ return {
         popup = {
           border = "rounded",
         },
-      }
+      })
     end,
   },
 }

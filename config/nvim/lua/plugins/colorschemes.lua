@@ -67,7 +67,7 @@ return {
             crust = "#141617",
           },
         },
-        transparent_background = false,
+        -- transparent_background = true,
         show_end_of_buffer = false,
         integration_default = false,
         integrations = {
@@ -358,6 +358,7 @@ return {
               IblScope = { fg = colors.surface1 },
 
               LineNr = { fg = colors.surface1 },
+              CursorLineNr = { fg = colors.red },
             }
           end,
         },
