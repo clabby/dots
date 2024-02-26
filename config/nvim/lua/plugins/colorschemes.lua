@@ -103,7 +103,7 @@ return {
               LspInfoBorder = { link = "FloatBorder" },
               NeoTreeDirectoryIcon = { fg = colors.subtext1 },
               NeoTreeDirectoryName = { fg = colors.subtext1 },
-              NeoTreeFloatBorder = { link = "TelescopeResultsBorder" },
+              NeoTreeFloatBorder = { fg = colors.subtext1 },
               NeoTreeGitConflict = { fg = colors.red },
               NeoTreeGitDeleted = { fg = colors.red },
               NeoTreeGitIgnored = { fg = colors.overlay0 },

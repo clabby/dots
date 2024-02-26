@@ -1,8 +1,9 @@
 return {
-  'akinsho/toggleterm.nvim',
+  "akinsho/toggleterm.nvim",
   version = "*",
   config = function()
-    require("toggleterm").setup {
+    local colors = require("catppuccin.utils.colors")
+    require("toggleterm").setup({
       size = 20,
       open_mapping = [[<C-\>]],
       shade_filetypes = {},
@@ -23,9 +24,9 @@ return {
       },
       highlights = {
         FloatBorder = {
-          guifg = "#4B4F51",
-        }
-      }
-    }
+          guifg = colors.subtext1,
+        },
+      },
+    })
   end,
 }

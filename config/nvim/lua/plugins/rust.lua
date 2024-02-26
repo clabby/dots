@@ -17,7 +17,7 @@ return {
             -- rust-analyzer language server configuration
             ["rust-analyzer"] = {
               cargo = {
-                features = { "optimism" },
+                -- features = { "optimism" },
               },
             },
           },
