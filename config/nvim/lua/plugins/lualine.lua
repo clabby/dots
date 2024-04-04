@@ -2,14 +2,14 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "meuter/lualine-so-fancy.nvim",
-    { "abeldekat/harpoonline", version = "*" },
+    -- { "abeldekat/harpoonline", version = "*" },
   },
   enabled = true,
   lazy = false,
   event = { "BufReadPost", "BufNewFile", "VeryLazy" },
   config = function()
     local icons = require("config.icons")
-    local Harpoonline = require("harpoonline").setup()
+    -- local Harpoonline = require("harpoonline").setup()
     require("lualine").setup({
       options = {
         theme = "catppuccin",
@@ -49,7 +49,7 @@ return {
           { "fancy_searchcount" },
         },
         lualine_x = {
-          { Harpoonline.format },
+          -- { Harpoonline.format },
           "fancy_lsp_servers",
           "fancy_diff",
           "progress",
