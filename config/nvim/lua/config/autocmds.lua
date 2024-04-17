@@ -46,11 +46,11 @@ api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-api.nvim_create_autocmd('WinEnter', {
+api.nvim_create_autocmd("WinEnter", {
   command = [[set colorcolumn=120]],
 })
 
-api.nvim_create_autocmd('WinLeave', {
+api.nvim_create_autocmd("WinLeave", {
   command = [[set colorcolumn=0]],
 })
 
@@ -70,20 +70,22 @@ api.nvim_create_autocmd(
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
+vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', '<leader>v', "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
+    vim.keymap.set("n", "<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
+    if not vim.lsp.inlay_hint.is_enabled() then
+      vim.lsp.inlay_hint.enable(0, true)
+    end
   end,
 })
 
-
-vim.api.nvim_create_autocmd('ColorScheme', {
+vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     -- change the background color of floating windows and borders.
-    vim.cmd('highlight NormalFloat guibg=none guifg=none')
-    vim.cmd('highlight FloatBorder guifg=' .. colors.fg .. ' guibg=none')
-    vim.cmd('highlight NormalNC guibg=none guifg=none')
+    vim.cmd("highlight NormalFloat guibg=none guifg=none")
+    vim.cmd("highlight FloatBorder guifg=" .. colors.fg .. " guibg=none")
+    vim.cmd("highlight NormalNC guibg=none guifg=none")
 
     -- change neotree background colors
     -- Default: NeoTreeNormal  xxx ctermfg=223 ctermbg=232 guifg=#d4be98 guibg=#141617
@@ -121,7 +123,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- resize neovim split when terminal is resized
-vim.api.nvim_command('autocmd VimResized * wincmd =')
+vim.api.nvim_command("autocmd VimResized * wincmd =")
 
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 --   pattern = "kanagawa",
@@ -136,7 +138,6 @@ vim.api.nvim_command('autocmd VimResized * wincmd =')
 --   end,
 -- })
 
-
 --fix terraform and hcl comment string
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("FixTerraformCommentString", { clear = true }),
@@ -145,8 +146,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   pattern = { "terraform", "hcl" },
 })
-
-
 
 -- vim.api.nvim_create_autocmd({ "OptionSet" }, {
 --   pattern = { "background" },

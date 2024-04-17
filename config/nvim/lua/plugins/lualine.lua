@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "meuter/lualine-so-fancy.nvim",
-    -- { "abeldekat/harpoonline", version = "*" },
+    { "letieu/harpoon-lualine", version = "*" },
   },
   enabled = true,
   lazy = false,
@@ -49,7 +49,7 @@ return {
           { "fancy_searchcount" },
         },
         lualine_x = {
-          -- { Harpoonline.format },
+          "harpoon2",
           "fancy_lsp_servers",
           "fancy_diff",
           "progress",

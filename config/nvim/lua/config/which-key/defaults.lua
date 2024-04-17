@@ -15,6 +15,12 @@ return {
     end,
     "Toggle LSP Lines diagnostics",
   },
+  ["2"] = {
+    function()
+      vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+    end,
+    "Toggle inlay hints",
+  },
   w = { ":w!<CR>", "Save" },
   q = { ":confirm q<CR>", "Quit" },
   c = { ":bd<CR>", "Close Buffer" },

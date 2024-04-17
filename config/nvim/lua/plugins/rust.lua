@@ -7,15 +7,21 @@ return {
     --   "nvim-lua/plenary.nvim",
     --   {
     --     "lvimuser/lsp-inlayhints.nvim",
-    --     opts = {}
+    --     opts = {},
     --   },
     -- },
     config = function()
       vim.g.rustaceanvim = {
+        -- inlay_hints = {
+        --   highlight = "NonText",
+        -- },
         server = {
           settings = {
             -- rust-analyzer language server configuration
             ["rust-analyzer"] = {
+              diagnostics = {
+                enable = true,
+              },
               cargo = {
                 -- features = { "optimism" },
               },
