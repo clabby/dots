@@ -63,6 +63,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/VHd82Uv7lrm75SCeT-lc7dKzElyFNeuy
 export ETH_ANTON=http://anton.clab.by:8545
+export SEPOLIA_ANTON=http://anton.clab.by:8546
 export GOERLI_RPC=https://eth-goerli.g.alchemy.com/v2/W2407fvgSZ35fJMXgNHOYXW6rc4Unt8y
 export ETH_RPC_URL=$ETH_ANTON
 
@@ -175,10 +176,10 @@ ftc() {
 }
 # Forge ETH RPCs
 rpc() {
-    if [ "$1" = "anton" ]; then
+    if [ "$1" = "eth" ]; then
         export ETH_RPC_URL=$ETH_ANTON
-    elif [ "$1" = "eth" ]; then
-        export ETH_RPC_URL=$ETH_RPC
+    elif [ "$1" = "sepolia" ]; then
+        export ETH_RPC_URL=$SEPOLIA_ANTON
     elif [ "$1" = "op" ]; then
         export ETH_RPC_URL=$OP_RPC
     elif [ "$1" = "goerli" ]; then
