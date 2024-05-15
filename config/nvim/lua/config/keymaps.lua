@@ -13,6 +13,9 @@ map("v", "K", ":m '<-2<CR>gv=gv", opts)
 map("n", "<Leader>w", ":write!<CR>", opts)
 map("n", "<Leader>q", ":q!<CR>", opts)
 
+-- Oil
+map("n", "-", ":Oil --float<CR>", opts)
+
 -- Remap for dealing with visual line wraps
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
