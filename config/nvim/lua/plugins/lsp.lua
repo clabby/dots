@@ -8,6 +8,9 @@ return {
     { "b0o/schemastore.nvim" },
     { "hrsh7th/cmp-nvim-lsp" },
   },
+  opts = {
+    inlay_hints = { enabled = true },
+  },
   config = function()
     require("mason").setup({
       ui = {

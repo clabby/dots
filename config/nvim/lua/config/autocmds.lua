@@ -7,6 +7,9 @@ local colors = {
 
 -- don't auto comment new line
 api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
+api.nvim_create_autocmd("BufEnter", {
+  callback = function() end,
+})
 
 --- Remove all trailing whitespace on save
 -- local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
@@ -67,18 +70,6 @@ api.nvim_create_autocmd(
   { "InsertEnter", "WinLeave" },
   { pattern = "*", command = "set nocursorline", group = cursorGrp }
 )
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    local opts = { buffer = ev.buf }
-    vim.keymap.set("n", "<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<CR>", opts)
-    if not vim.lsp.inlay_hint.is_enabled() then
-      vim.lsp.inlay_hint.enable(0, true)
-    end
-  end,
-})
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
