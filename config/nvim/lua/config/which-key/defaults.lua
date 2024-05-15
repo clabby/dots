@@ -87,7 +87,6 @@ return {
       "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
       "Undo Stage Hunk",
     },
-    o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
     C = {
@@ -102,6 +101,8 @@ return {
       "<cmd>lua require('toggleterm.terminal').Terminal:new {cmd='lazygit'}:toggle()<cr>",
       "Lazygit",
     },
+    o = { "<cmd>OpenInGHRepo<cr>", "Open Repo in GitHub" },
+    f = { "<cmd>OpenInGHFile<cr>", "Open File in GitHub" },
   },
   l = {
     name = "+LSP",

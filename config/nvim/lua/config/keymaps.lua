@@ -47,12 +47,12 @@ map("i", "jj", "<ESC>", opts)
 map("i", "jk", "<ESC>", opts)
 
 -- Move to start/end of line
-map({ 'n', 'x', 'o' }, 'H', '^', opts)
-map({ 'n', 'x', 'o' }, 'L', '$', opts)
+map({ "n", "x", "o" }, "H", "^", opts)
+map({ "n", "x", "o" }, "L", "$", opts)
 
 -- Map enter to ciw in normal mode
 map("n", "<CR>", "ciw", opts)
-map("n", "<BS>", 'ci', opts)
+map("n", "<BS>", "ci", opts)
 
 -- Create splits
 map("n", "\\", "<cmd>split<CR>", { nowait = true, noremap = true })
@@ -68,25 +68,25 @@ map("n", "<ESC>", ":noh<CR><ESC>", opts)
 map("n", "<C-\\>", ":ToggleTerm direction=float<CR>", opts)
 
 -- Split line with X
-map('n', 'X', ':keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>', { silent = true })
+map("n", "X", ":keeppatterns substitute/\\s*\\%#\\s*/\\r/e <bar> normal! ==^<cr>", { silent = true })
 
 -- Select all
-map('n', '<C-a>', 'ggVG', opts)
+map("n", "<C-a>", "ggVG", opts)
 
 -- write file in current directory
 -- :w %:h/<new-file-name>
-map('n', '<C-n>', ':w %:h/', opts)
+map("n", "<C-n>", ":w %:h/", opts)
 
 -- delete forward
 -- w{number}dw
 -- delete backward
 -- w{number}db
 
-map('n', '<C-P>', ':lua require("config.utils").toggle_go_test()<CR>', opts)
+map("n", "<C-P>", ':lua require("config.utils").toggle_go_test()<CR>', opts)
 
-vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>Telescope lsp_definitions<CR>]]
-vim.cmd [[:amenu 10.110 mousemenu.References <cmd>Telescope lsp_references<CR>]]
-vim.cmd [[:amenu 10.120 mousemenu.Implementation <cmd>Telescope lsp_implementations <CR>]]
-vim.cmd [[:amenu 10.130 mousemenu.Rename <cmd>lua vim.lsp.buf.rename()<CR>]]
+vim.cmd([[:amenu 10.100 mousemenu.Goto\ Definition <cmd>Telescope lsp_definitions<CR>]])
+vim.cmd([[:amenu 10.110 mousemenu.References <cmd>Telescope lsp_references<CR>]])
+vim.cmd([[:amenu 10.120 mousemenu.Implementation <cmd>Telescope lsp_implementations <CR>]])
+vim.cmd([[:amenu 10.130 mousemenu.Rename <cmd>lua vim.lsp.buf.rename()<CR>]])
 
 map("n", "<RightMouse>", "<cmd>:popup mousemenu<CR>")

@@ -59,3 +59,5 @@ which_key.register(mappings, opts)
 
 vim.keymap.set("n", "K", "<cmd>RustLsp hover actions<CR>", { silent = true, desc = "Rust Hover" })
 vim.keymap.set("n", "gl", "<cmd>RustLsp explainError<CR>", { silent = true, desc = "Explain error" })
+vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { silent = true, desc = "Go to definition" })
+vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", { silent = true, desc = "Go to declaration" })
