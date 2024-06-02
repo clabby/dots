@@ -1,34 +1,34 @@
 return {
   {
-    'nvim-telescope/telescope.nvim',
-    cmd = 'Telescope',
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     version = false,
     lazy = true,
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'jvgrootveld/telescope-zoxide',
-      'nvim-tree/nvim-web-devicons',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      'nvim-telescope/telescope-ui-select.nvim',
-      'kkharji/sqlite.lua',
-      'nvim-telescope/telescope-frecency.nvim',
+      "nvim-lua/plenary.nvim",
+      "jvgrootveld/telescope-zoxide",
+      "nvim-tree/nvim-web-devicons",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      "nvim-telescope/telescope-ui-select.nvim",
+      "kkharji/sqlite.lua",
+      "nvim-telescope/telescope-frecency.nvim",
       -- {
       --   "nvim-telescope/telescope-file-browser.nvim",
       --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
       -- }
     },
     config = function()
-      local telescope = require('telescope')
-      local actions = require('telescope.actions')
-      local trouble = require("trouble.providers.telescope")
+      local telescope = require("telescope")
+      local actions = require("telescope.actions")
+      local trouble = require("trouble.sources.telescope")
 
-      telescope.setup {
+      telescope.setup({
         file_ignore_patterns = { "%.git/." },
         defaults = {
           mappings = {
             i = {
               ["<esc>"] = actions.close,
-              ["<C-t>"] = trouble.open_with_trouble,
+              ["<C-t>"] = trouble.open,
             },
 
             n = { ["<C-t>"] = trouble.open_with_trouble },
@@ -143,28 +143,28 @@ return {
         },
         extensions = {
           fzf = {
-            fuzzy = true,                   -- false will only do exact matching
+            fuzzy = true, -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true,    -- override the file sorter
-            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
           },
           ["ui-select"] = {
             require("telescope.themes").get_dropdown({
-              previewer        = false,
-              initial_mode     = "normal",
-              sorting_strategy = 'ascending',
-              layout_strategy  = 'horizontal',
-              layout_config    = {
+              previewer = false,
+              initial_mode = "normal",
+              sorting_strategy = "ascending",
+              layout_strategy = "horizontal",
+              layout_config = {
                 horizontal = {
                   width = 0.5,
                   height = 0.4,
                   preview_width = 0.6,
                 },
               },
-            })
+            }),
           },
           frecency = {
-            default_workspace = 'CWD',
+            default_workspace = "CWD",
             show_scores = true,
             show_unindexed = true,
             disable_devicons = false,
@@ -188,13 +188,13 @@ return {
           --   --   },
           --   -- },
           -- },
-        }
-      }
-      telescope.load_extension('fzf')
-      telescope.load_extension('ui-select')
+        },
+      })
+      telescope.load_extension("fzf")
+      telescope.load_extension("ui-select")
       telescope.load_extension("zoxide")
       telescope.load_extension("frecency")
       -- telescope.load_extension("file_browser")
-    end
+    end,
   },
 }

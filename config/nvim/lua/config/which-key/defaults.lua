@@ -10,14 +10,14 @@ return {
   ["1"] = {
     function()
       require("lsp_lines").toggle()
-      local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
+      local virtual_lines_enabled = vim.diagnostic.config().virtual_text
       vim.diagnostic.config({ virtual_text = not virtual_lines_enabled })
     end,
     "Toggle LSP Lines diagnostics",
   },
   ["2"] = {
     function()
-      vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
     end,
     "Toggle inlay hints",
   },
@@ -31,6 +31,13 @@ return {
   U = { ":UndotreeToggle<CR>", "Toggle UndoTree" },
   o = { ":Telescope buffers<CR>", "Open Buffer" },
   n = { ":GlobalNote<CR>", "Open Global Note" },
+  e = {
+    function()
+      local top_level = vim.fn.getcwd()
+      vim.cmd([[:Oil --float ]] .. top_level)
+    end,
+    "Open Oil",
+  },
   u = {
     name = "UI",
     c = { "<cmd>lua require('config.utils').toggle_set_color_column()<CR>", "Toggle Color Line" },
@@ -113,13 +120,12 @@ return {
     i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Implementation" },
     o = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Type Definition" },
     R = { "<cmd>Telescope lsp_references<cr>", "References" },
-    s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Display Signature Information" },
+    s = { "<cmd>Trouble symbols toggle win.position=left focus=false<cr>", "Display LSP Symbols (Document)" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename all references" },
     f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
     K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
-    l = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
-    L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
-    w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+    l = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Document Diagnostics (Trouble)" },
+    L = { "<cmd>Trouble diagnostics toggle<cr>", "Workspace Diagnostics (Trouble)" },
     h = { "<cmd>lua require('config.utils').toggle_inlay_hints()<CR>", "Toggle Inlay Hints" },
   },
   f = {
@@ -138,19 +144,12 @@ return {
     l = { "<cmd>Telescope resume<cr>", "Resume last search" },
     c = { "<cmd>Telescope git_commits<cr>", "Git commits" },
     B = { "<cmd>Telescope git_branches<cr>", "Git branches" },
-    s = { "<cmd>Telescope git_status<cr>", "Git status" },
-    S = { "<cmd>Telescope git_stash<cr>", "Git stash" },
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document symbols" },
+    S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace symbols" },
     z = { "<cmd>Telescope zoxide list<cr>", "Zoxide" },
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
     p = { "<cmd>AerialToggle!<cr>", "Areal Toggle" },
     t = { "<cmd>Telescope colorscheme<cr>", "Color schemes" },
-  },
-  T = {
-    name = "+Todo",
-    t = { "<cmd>TodoTelescope<cr>", "Todo" },
-    T = { "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", "Todo/Fix/Fixme" },
-    x = { "<cmd>TodoTrouble<cr>", "Todo (Trouble)" },
-    X = { "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr><cr>", "Todo/Fix/Fixme (Trouble)" },
   },
   h = {
     name = "+Harpoon",

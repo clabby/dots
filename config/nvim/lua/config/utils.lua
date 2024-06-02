@@ -12,18 +12,15 @@ end
 
 M.has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 M.toggle_inlay_hints = function()
-  -- h = { "<cmd>lua vim.lsp.inlay_hint(0, true)<cr>", "Enable Inlay Hints" },
-  -- H = { "<cmd>lua vim.lsp.inlay_hint(0, false)<cr>", "Disable Inlay Hints" },
-
   if vim.b.inlay_hints then
-    vim.lsp.inlay_hint(0, false)
+    vim.lsp.inlay_hint(false)
     vim.b.inlay_hints = false
   else
-    vim.lsp.inlay_hint(0, true)
+    vim.lsp.inlay_hint(true)
     vim.b.inlay_hints = true
   end
 end
@@ -52,27 +49,26 @@ M.change_background = function()
   end
 end
 
-
 M.toggle_go_test = function()
   -- Get the current buffer's file name
-  local current_file = vim.fn.expand('%:p')
-  if string.match(current_file, '_test.go$') then
+  local current_file = vim.fn.expand("%:p")
+  if string.match(current_file, "_test.go$") then
     -- If the current file ends with '_test.go', try to find the corresponding non-test file
-    local non_test_file = string.gsub(current_file, '_test.go$', '.go')
+    local non_test_file = string.gsub(current_file, "_test.go$", ".go")
     if vim.fn.filereadable(non_test_file) == 1 then
       -- Open the corresponding non-test file if it exists
       vim.cmd.edit(non_test_file)
     else
-      print('No corresponding non-test file found')
+      print("No corresponding non-test file found")
     end
   else
     -- If the current file is a non-test file, try to find the corresponding test file
-    local test_file = string.gsub(current_file, '.go$', '_test.go')
+    local test_file = string.gsub(current_file, ".go$", "_test.go")
     if vim.fn.filereadable(test_file) == 1 then
       -- Open the corresponding test file if it exists
       vim.cmd.edit(test_file)
     else
-      print('No corresponding test file found')
+      print("No corresponding test file found")
     end
   end
 end

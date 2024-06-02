@@ -37,13 +37,12 @@ local mappings = {
     i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Implementation" },
     o = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Type Definition" },
     R = { "<cmd>Telescope lsp_references<cr>", "References" },
-    s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Display Signature Information" },
+    s = { "<cmd>Trouble symbols toggle win.position=left focus=false<cr>", "Display Signature Information" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename all references" },
     f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
     k = { "<cmd>lua vim.cmd.RustLsp { 'hover', 'actions' }<cr>", "Hover" },
-    l = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics (Trouble)" },
-    L = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics (Trouble)" },
-    w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+    l = { "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", "Document Diagnostics (Trouble)" },
+    L = { "<cmd>Trouble diagnostics toggle<cr>", "Workspace Diagnostics (Trouble)" },
     c = { "<cmd>lua require('config.utils').copyFilePathAndLineNumber()<CR>", "Copy File Path and Line Number" },
   },
   r = {
@@ -52,6 +51,7 @@ local mappings = {
     p = { "<cmd>RustLsp parentModule<cr>", "Go to parent module" },
     t = { "<cmd>RustLsp openCargo<cr>", "Open Cargo.toml" },
     e = { "<cmd>RustLsp expandMacro<cr>", "Expand macro recursively" },
+    R = { "<cmd>RustLsp reloadWorkspace<cr>", "Reload cargo workspace" },
   },
 }
 

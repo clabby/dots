@@ -1,20 +1,10 @@
 return {
   {
     "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
+    version = "^4", -- Recommended
     ft = { "rust" },
-    -- dependencies = {
-    --   "nvim-lua/plenary.nvim",
-    --   {
-    --     "lvimuser/lsp-inlayhints.nvim",
-    --     opts = {},
-    --   },
-    -- },
     config = function()
       vim.g.rustaceanvim = {
-        -- inlay_hints = {
-        --   highlight = "NonText",
-        -- },
         server = {
           settings = {
             -- rust-analyzer language server configuration
@@ -41,10 +31,6 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("crates").setup({
-        -- null_ls = {
-        --   enabled = true,
-        --   name = "crates.nvim",
-        -- },
         popup = {
           border = "rounded",
         },

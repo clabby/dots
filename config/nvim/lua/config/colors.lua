@@ -6,7 +6,6 @@ local colors = {
   bg = "#252829",
 }
 
-
 -- local colors = {
 --   fg = "#958272",
 --   bg = "#212121",
@@ -34,7 +33,6 @@ local colors = {
 --   fg = "#24292e",
 --   bg = "#f1f1f1",
 -- }
-
 
 M.colors = colors
 
