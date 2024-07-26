@@ -16,9 +16,7 @@ return {
         ensure_installed = {
           "prettier", -- prettier formatter
           "stylua", -- lua formatter
-          "golangci_lint", -- go linter
           "buf", -- buf formatter
-          "gofumpt", -- go formatter
           "spell", -- spell checker
         },
       })

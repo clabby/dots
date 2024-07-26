@@ -18,6 +18,10 @@ return {
             },
           },
         },
+        tools = {
+          test_executor = "termopen",
+          enable_nextest = true,
+        },
       }
     end,
   },
