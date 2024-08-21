@@ -2,7 +2,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # THEME
-ZSH_THEME="robbyrussell"
+ZSH_THEME="clabby"
 
 # Arch or Mac
 IS_DARWIN=false
@@ -61,10 +61,10 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
-export OP_RPC=https://opt-mainnet.g.alchemy.com/v2/VHd82Uv7lrm75SCeT-lc7dKzElyFNeuy
+export OP_MAINNET_ANTON=http://anton.clab.by:8547
+export OP_SEPOLIA_ANTON=http://anton.clab.by:8548
 export ETH_ANTON=http://anton.clab.by:8545
 export SEPOLIA_ANTON=http://anton.clab.by:8546
-export GOERLI_RPC=https://eth-goerli.g.alchemy.com/v2/W2407fvgSZ35fJMXgNHOYXW6rc4Unt8y
 export ETH_RPC_URL=$ETH_ANTON
 
 # tmux colors
@@ -122,6 +122,9 @@ alias c="clear"
 # PNPM
 alias p="pnpm"
 
+# lazygit
+alias lg="lazygit"
+
 # SSH
 alias sa="ssh ben@anton.clab.by"
 
@@ -147,7 +150,7 @@ alias ll="lsd -lh"
 alias lt="lsd -la --tree --depth 2"
 
 # Wttr
-CITY="Amsterdam"
+CITY="Atlanta"
 wttr() {
     if [ "$1" = "-v2" ]; then
         curl -L https://v2.wttr.in/$CITY
@@ -181,9 +184,9 @@ rpc() {
     elif [ "$1" = "sepolia" ]; then
         export ETH_RPC_URL=$SEPOLIA_ANTON
     elif [ "$1" = "op" ]; then
-        export ETH_RPC_URL=$OP_RPC
-    elif [ "$1" = "goerli" ]; then
-        export ETH_RPC_URL=$GOERLI_RPC
+        export ETH_RPC_URL=$OP_MAINNET_ANTON
+    elif [ "$1" = "op-sepolia" ]; then
+        export ETH_RPC_URL=$OP_SEPOLIA_ANTON
     else
         export ETH_RPC_URL=""
     fi

@@ -41,11 +41,74 @@ M.toggle_cursor_line = function()
   end
 end
 
-M.change_background = function()
-  if vim.o.background == "dark" then
-    vim.o.background = "light"
+-- Function to read the Alacritty config and determine the color scheme
+M.get_alacritty_color_scheme = function()
+  local alacritty_config_path = "/Users/ben/.config/alacritty/alacritty.toml"
+  local handle = io.popen('grep "COLOR_SCHEME" ' .. alacritty_config_path)
+  if handle == nil then
+    return nil
+  end
+  local result = handle:read("*a")
+  handle:close()
+
+  -- Assuming the color scheme is mentioned as 'light' or 'dark' in the config file
+  if result:find("light") then
+    return "light"
+  elseif result:find("dark") then
+    return "dark"
   else
+    return nil
+  end
+end
+
+-- Function to check and update the Neovim color scheme
+M.check_and_update_color_scheme = function()
+  local alacritty_color_scheme = M.get_alacritty_color_scheme()
+  if alacritty_color_scheme and vim.o.background ~= alacritty_color_scheme then
+    vim.o.background = alacritty_color_scheme
+    -- Call your function to change other configs if needed
+    M.change_background(alacritty_color_scheme)
+  end
+end
+
+M.copy_file = function(old_path, new_path)
+  local CopyCmd = 'cp "' .. old_path .. '" "' .. new_path .. '" 2>&1' -- Redirect stderr to stdout
+  local handle = io.popen(CopyCmd)
+  if handle == nil then
+    return false
+  end
+  local _ = handle:read("*a")
+  local ok, _, _ = handle:close()
+  return ok
+end
+
+M.change_background = function(bg)
+  if bg == "light" then
+    vim.o.background = "light"
+    M.copy_file(
+      "/Users/ben/Library/Application Support/lazygit/config-light.yml",
+      "/Users/ben/Library/Application Support/lazygit/config.yml"
+    )
+    M.copy_file("/Users/ben/.config/alacritty/alacritty-light.toml", "/Users/ben/.config/alacritty/alacritty.toml")
+  elseif bg == "dark" then
     vim.o.background = "dark"
+    M.copy_file(
+      "/Users/ben/Library/Application Support/lazygit/config-dark.yml",
+      "/Users/ben/Library/Application Support/lazygit/config.yml"
+    )
+    M.copy_file("/Users/ben/.config/alacritty/alacritty-dark.toml", "/Users/ben/.config/alacritty/alacritty.toml")
+  else
+    print("Invalid background color")
+  end
+end
+
+M.toggle_background = function()
+  if vim.o.background == "dark" then
+    M.change_background("light")
+  elseif vim.o.background == "light" then
+    M.change_background("dark")
+  else
+    print("Invalid background color")
   end
 end
 

@@ -12,15 +12,10 @@ return {
       "nvim-telescope/telescope-ui-select.nvim",
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-frecency.nvim",
-      -- {
-      --   "nvim-telescope/telescope-file-browser.nvim",
-      --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-      -- }
     },
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")
-      local trouble = require("trouble.sources.telescope")
 
       telescope.setup({
         file_ignore_patterns = { "%.git/." },
@@ -28,10 +23,7 @@ return {
           mappings = {
             i = {
               ["<esc>"] = actions.close,
-              ["<C-t>"] = trouble.open,
             },
-
-            n = { ["<C-t>"] = trouble.open_with_trouble },
           },
           previewer = false,
           -- hidden = true,

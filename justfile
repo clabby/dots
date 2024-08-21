@@ -7,7 +7,7 @@ zshrc:
 
 # Install the modified oh-my-zsh theme
 omz-theme:
-  cp ./robbyrussell-mod.zsh-theme ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
+  cp ./clabby.zsh-theme ~/.oh-my-zsh/themes/clabby.zsh-theme
 
 # Install the tmux configuration
 tmux-conf:
