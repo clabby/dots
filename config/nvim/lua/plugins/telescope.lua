@@ -10,8 +10,6 @@ return {
       "nvim-tree/nvim-web-devicons",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-ui-select.nvim",
-      "kkharji/sqlite.lua",
-      "nvim-telescope/telescope-frecency.nvim",
     },
     config = function()
       local telescope = require("telescope")
@@ -155,17 +153,6 @@ return {
               },
             }),
           },
-          frecency = {
-            default_workspace = "CWD",
-            show_scores = true,
-            show_unindexed = true,
-            disable_devicons = false,
-            ignore_patterns = {
-              "*.git/*",
-              "*/tmp/*",
-              "*/lua-language-server/*",
-            },
-          },
           -- file_browser = {
           --   -- theme = "",
           --   previewer = true,
@@ -185,7 +172,6 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
       telescope.load_extension("zoxide")
-      telescope.load_extension("frecency")
       -- telescope.load_extension("file_browser")
     end,
   },

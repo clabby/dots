@@ -115,7 +115,6 @@ return {
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    o = { "<cmd>Telescope frecency<cr>", "Open Recent File" },
     R = { "<cmd>Telescope registers<cr>", "Registers" },
     w = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     v = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Find in current file" },
