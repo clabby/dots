@@ -1,13 +1,10 @@
 # Install everything
-install-all: zshrc omz-theme tmux-conf alacritty nvim lazygit-themes gm
+install-all: zshrc tmux-conf alacritty nvim lazygit-themes gm
 
-# Install the `.zshrc` config
+# Install the `.zshrc` + starship config
 zshrc:
+  cp ./config/starship.toml ~/.config/starship.toml
   cp ./.zshrc ~/.zshrc
-
-# Install the modified oh-my-zsh theme
-omz-theme:
-  cp ./clabby.zsh-theme ~/.oh-my-zsh/themes/clabby.zsh-theme
 
 # Install the tmux configuration
 tmux-conf:

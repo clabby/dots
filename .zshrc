@@ -1,35 +1,31 @@
+# -------------------
+# Shell configuration
+# -------------------
+
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# THEME
-ZSH_THEME="clabby"
-
-# Arch or Mac
-IS_DARWIN=false
-
-# PLUGINS
-plugins=(git)
+# Starship init
+eval "$(starship init zsh)"
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+="$HOMEBREW_PREFIX"/share/zsh/site-functions
 
 # Source oh-my-zsh
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # ZSH syntax highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ------------------
 # User configuration
 # ------------------
 
-# vi mode
-# set -o vi
-
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
 # pnpm
-export PNPM_HOME="/Users/ben/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
     *":$PNPM_HOME:"*) ;;
     *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -49,16 +45,11 @@ export EDITOR='nvim'
 # Set manpath
 export MANPATH="/usr/local/man:$MANPATH"
 
-# If we're not on Mac OSX, include the go binary in `/usr/local/go/bin`
-if [ "$IS_DARWIN" = false ]; then
-    export PATH="$PATH:/usr/local/go/bin"
-fi
-
 # Add local bins to path
 export PATH="$PATH:$HOME/.foundry/bin"
 export PATH="$PATH:$HOME/.huff/bin"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:/usr/local/go/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_MAINNET_ANTON=http://anton.clab.by:8547
@@ -70,27 +61,20 @@ export ETH_RPC_URL=$ETH_ANTON
 # tmux colors
 export TERM=xterm-256color
 
-export OP_MONOREPO="$HOME/dev/op/monorepo"
+export OP_MONOREPO="$HOME/dev/optimism/monorepo"
 
 # -----------
 # Completions
 # -----------
 
-eval $(cast completions zsh)
-eval $(gh completion -s zsh)
-eval $(gt completion zsh)
+eval "$(cast completions zsh)"
+eval "$(gh completion -s zsh)"
+eval "$(gt completion zsh)"
+eval "$(just --completions zsh)"
 
 # -------
 # ALIASES
 # -------
-
-# Optimism Dev
-alias oprefresh="z $OP_MONOREPO && nx reset && p clean && p build"
-alias opr="z $OP_MONOREPO/packages/contracts-bedrock && p gas-snapshot && p semver-lock && p lint && p storage-snapshot && forge clean && (z $OP_MONOREPO/op-bindings && make)"
-alias foundryup-op="foundryup -C $(cat $OP_MONOREPO/versions.json | jq -r .foundry)"
-
-# Go
-alias gts="gotestsum --format=testname"
 
 # Graphite
 alias gs="gt sync"
@@ -103,15 +87,10 @@ alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features
 alias rock="cargo +nightly fmt"
 alias nt="cargo nextest"
 alias nnt="cargo +nightly nextest"
+alias spring-clean="cargo clean-all --keep-days 7 ~ -y"
 
-# Reth development
-alias rethtest='cargo nextest run --locked --all-features --workspace --exclude examples --exclude ef-tests -E '\''kind(lib)'\'' -E '\''kind(bin)'\'' -E '\''kind(proc-macro)'\'
-alias rethfmt='cargo +nightly fmt --all'
-alias rethlint='rethfmt && rethclip'
-alias rethclip='cargo +nightly clippy --all --all-features -- -A clippy::non_canonical_clone_impl -A clippy::arc_with_non_send_sync'
-
-# Oxker (Docker TUI)
-alias ox="oxker"
+# Go
+alias gts="gotestsum --format=testname"
 
 # Neovim
 alias n="nvim -i NONE"
@@ -147,7 +126,7 @@ alias diff="delta"
 alias ls="lsd"
 alias la="lsd -lah"
 alias ll="lsd -lh"
-alias lt="lsd -la --tree --depth 2"
+alias lt="lsd --tree"
 
 # Wttr
 CITY="Atlanta"
@@ -177,6 +156,7 @@ ftc() {
         forge test --match-contract "$@"
     fi
 }
+
 # Forge ETH RPCs
 rpc() {
     if [ "$1" = "eth" ]; then
@@ -245,7 +225,7 @@ prf() {
 
 # Clipboard
 xc() {
-    if [ $(uname) = "Darwin" ]; then
+    if [ "$(uname)" = "Darwin" ]; then
         pbcopy
     else
         xclip -selection clipboard
@@ -253,5 +233,4 @@ xc() {
 }
 
 # Clear git alias for gm bin to work
-unalias gm
 alias gm="~/.gm/bin/gm"

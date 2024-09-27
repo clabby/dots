@@ -1,0 +1,54 @@
+format = """
+$time\
+$rust\
+$golang\
+$username\
+[@](bold black)\
+$directory\
+$git_branch \
+$git_status\
+$git_commit\
+$cmd_duration
+$character\
+"""
+
+[character]
+success_symbol = '[](purple)'
+error_symbol = '[](bold red)'
+
+[time]
+format = '[\[$time\]]($style) '
+time_format = '%H:%M'
+style = 'bold black'
+disabled = false
+
+[username]
+style_user = 'bold green'
+style_root = 'bold purple'
+format = '[$user]($style)'
+disabled = false
+show_always = true
+aliases = { 'ben' = 'cl' }
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style)'
+style = 'bold blue'
+
+[git_branch]
+symbol = ' '
+style = 'bold yellow'
+format = '[:](bold black)[$branch]($style)'
+
+[git_commit]
+tag_disabled = false
+tag_symbol = '  '
+style = 'yellow'
+
+[cmd_duration]
+style = 'bold cyan'
+
+[rust]
+format = '[$symbol($version)]($style) '
+
+[golang]
+format = '[$symbol($version)]($style) '

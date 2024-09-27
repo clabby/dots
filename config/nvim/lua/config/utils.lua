@@ -43,7 +43,7 @@ end
 
 -- Function to read the Alacritty config and determine the color scheme
 M.get_alacritty_color_scheme = function()
-  local alacritty_config_path = "/Users/ben/.config/alacritty/alacritty.toml"
+  local alacritty_config_path = "$HOME/.config/alacritty/alacritty.toml"
   local handle = io.popen('grep "COLOR_SCHEME" ' .. alacritty_config_path)
   if handle == nil then
     return nil
@@ -71,6 +71,19 @@ M.check_and_update_color_scheme = function()
   end
 end
 
+-- Returns the configuration directory for lazygit.
+M.lazygit_cfg = function()
+  local LazyGitCmd = "(lazygit -cd | tr -d '\n') 2>&1"
+  local handle = io.popen(LazyGitCmd)
+  if handle == nil then
+    return nil
+  end
+  local output = handle:read("*a")
+  handle:close()
+  return output
+end
+
+-- Copy a file from old_path to new_path
 M.copy_file = function(old_path, new_path)
   local CopyCmd = 'cp "' .. old_path .. '" "' .. new_path .. '" 2>&1' -- Redirect stderr to stdout
   local handle = io.popen(CopyCmd)
@@ -82,21 +95,21 @@ M.copy_file = function(old_path, new_path)
   return ok
 end
 
+-- Change the background color of neovim, lazygit, and alacritty
 M.change_background = function(bg)
+  local lgCfgDir = M.lazygit_cfg()
+  if lgCfgDir == nil then
+    return
+  end
+
   if bg == "light" then
     vim.o.background = "light"
-    M.copy_file(
-      "/Users/ben/Library/Application Support/lazygit/config-light.yml",
-      "/Users/ben/Library/Application Support/lazygit/config.yml"
-    )
-    M.copy_file("/Users/ben/.config/alacritty/alacritty-light.toml", "/Users/ben/.config/alacritty/alacritty.toml")
+    M.copy_file(lgCfgDir .. "/config-light.yml", lgCfgDir .. "/config.yml")
+    M.copy_file("$HOME/.config/alacritty/alacritty-light.toml", "$HOME/.config/alacritty/alacritty.toml")
   elseif bg == "dark" then
     vim.o.background = "dark"
-    M.copy_file(
-      "/Users/ben/Library/Application Support/lazygit/config-dark.yml",
-      "/Users/ben/Library/Application Support/lazygit/config.yml"
-    )
-    M.copy_file("/Users/ben/.config/alacritty/alacritty-dark.toml", "/Users/ben/.config/alacritty/alacritty.toml")
+    M.copy_file(lgCfgDir .. "/config-dark.yml", lgCfgDir .. "/config.yml")
+    M.copy_file("$HOME/.config/alacritty/alacritty-dark.toml", "$HOME/.config/alacritty/alacritty.toml")
   else
     print("Invalid background color")
   end

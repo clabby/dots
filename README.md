@@ -7,6 +7,7 @@ My personal dotfiles
 ### Shell
 * [zsh](https://github.com/zsh-users/zsh)
   * [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
+* [starship](https://starship.rs/)
 
 ### Editor
 * [Neovim](https://github.com/neovim/neovim)
