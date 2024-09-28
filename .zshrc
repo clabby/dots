@@ -17,9 +17,9 @@ source "$ZSH/oh-my-zsh.sh"
 # ZSH syntax highlighting
 source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# ------------------
-# User configuration
-# ------------------
+# -----------------
+# App configuration
+# -----------------
 
 # FZF
 [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
@@ -132,9 +132,9 @@ alias lt="lsd --tree"
 CITY="Atlanta"
 wttr() {
     if [ "$1" = "-v2" ]; then
-        curl -L https://v2.wttr.in/$CITY
+        curl -L "https://v2.wttr.in/$CITY?u"
     else
-        curl -L https://wttr.in/$CITY
+        curl -L "https://wttr.in/$CITY?u"
     fi
 }
 
@@ -176,21 +176,22 @@ rpc() {
 # `gh` aliases
 # ------------
 
-# Search through all PRs that are open in the current repo and check the selected one out locally.
-alias prc="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout"
-
 # Search through all PRs that are open in the current repo and open the selected one in browser.
-alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+
+# Search through all PRs that are open in the current repo and check the selected one out locally.
+alias prc="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout"
 
 # Search through all PRs that are open in the current repo and that I'm requested to review and
 # open the selected one in browser.
 alias prr="GH_FORCE_TTY=100% gh pr list --search 'user-review-requested:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
 
-CLI_ISSUES="ethereum-optimism/client-pod"
 # Search through all open client-pod issues and open the selected one in browser.
-alias oi="GH_FORCE_TTY=100% gh issue list -R $CLI_ISSUES -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue -R $CLI_ISSUES view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh issue -R $CLI_ISSUES view -w"
+alias is="GH_FORCE_TTY=100% gh issue list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh issue view -w"
 # Search through all open client-pod issues assigned to me and open the selected one in browser.
-alias om="GH_FORCE_TTY=100% gh issue list -R $CLI_ISSUES -L 1000 --search 'assignee:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue -R $CLI_ISSUES view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh issue -R $CLI_ISSUES view -w"
+alias isa="GH_FORCE_TTY=100% gh issue list -L 1000 --search 'assignee:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh issue view -w"
+
+alias gst="gh status"
 
 # Open the repo in-browser
 repo() {
@@ -214,7 +215,7 @@ ghd() {
 prf() {
     if type gh &> /dev/null; then
         if [ $# -eq 1 ]; then
-            GH_FORCE_TTY=100% gh pr list --search $@ | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w
+            GH_FORCE_TTY=100% gh pr list --search "$@" | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w
         else
             echo "Filter arguments are required."
         fi
@@ -231,6 +232,3 @@ xc() {
         xclip -selection clipboard
     fi
 }
-
-# Clear git alias for gm bin to work
-alias gm="~/.gm/bin/gm"
