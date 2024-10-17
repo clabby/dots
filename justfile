@@ -1,5 +1,5 @@
 # Install everything
-install-all: zshrc tmux-conf alacritty nvim lazygit-themes gm
+install-all: zshrc tmux-conf alacritty nvim lazygit-themes
 
 # Install the `.zshrc` + starship config
 zshrc:
@@ -22,11 +22,3 @@ nvim:
 # Install lazygit themes
 lazygit-themes:
   cp -R ./config/lazygit ~/.config
-
-# Install gm
-gm:
-  mkdir -p ~/.gm
-  cp -R ./gm ~/.gm
-  (cd ~/.gm/codebase && cargo build --release)
-  cp ~/.gm/codebase/target/release/gm ~/.gm/bin/gm
-  rm -rf ~/.gm/codebase/target

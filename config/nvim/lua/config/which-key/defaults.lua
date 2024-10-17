@@ -125,10 +125,9 @@ return {
     c = { "<cmd>Telescope git_commits<cr>", "Git commits" },
     B = { "<cmd>Telescope git_branches<cr>", "Git branches" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document symbols" },
-    S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace symbols" },
+    S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace symbols" },
     z = { "<cmd>Telescope zoxide list<cr>", "Zoxide" },
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-    p = { "<cmd>AerialToggle!<cr>", "Areal Toggle" },
     t = { "<cmd>Telescope colorscheme<cr>", "Color schemes" },
   },
   h = {

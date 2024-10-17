@@ -39,11 +39,7 @@ map("v", "P", '"_dP')
 -- copy everything between { and } including the brackets
 -- p puts text after the cursor,
 -- P puts text before the cursor.
-map("n", "YY", "va{Vy", opts)
-
--- Move line on the screen rather than by line in the file
-map("n", "j", "gj", opts)
-map("n", "k", "gk", opts)
+map("n", "YY", "va{y", opts)
 
 -- Exit on jj and jk
 map("i", "jj", "<ESC>", opts)
@@ -79,13 +75,6 @@ map("n", "<C-a>", "ggVG", opts)
 -- write file in current directory
 -- :w %:h/<new-file-name>
 map("n", "<C-n>", ":w %:h/", opts)
-
--- delete forward
--- w{number}dw
--- delete backward
--- w{number}db
-
-map("n", "<C-P>", ':lua require("config.utils").toggle_go_test()<CR>', opts)
 
 vim.cmd([[:amenu 10.100 mousemenu.Goto\ Definition <cmd>Telescope lsp_definitions<CR>]])
 vim.cmd([[:amenu 10.110 mousemenu.References <cmd>Telescope lsp_references<CR>]])

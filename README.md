@@ -20,7 +20,6 @@ My personal dotfiles
 * [svm-rs](https://github.com/roynalnaruto/svm-rs)
 
 ### CLI Tools
-* [gm](./.gm/codebase)
 * [lazygit](https://github.com/jesseduffield/lazygit)
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [delta](https://github.com/dandavison/delta)

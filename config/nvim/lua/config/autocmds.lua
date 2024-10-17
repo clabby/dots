@@ -12,11 +12,11 @@ api.nvim_create_autocmd("BufEnter", {
 })
 
 --- Remove all trailing whitespace on save
--- local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
--- api.nvim_create_autocmd("BufWritePre", {
---   command = [[:%s/\s\+$//e]],
---   group = TrimWhiteSpaceGrp,
--- })
+local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
+api.nvim_create_autocmd("BufWritePre", {
+  command = [[:%s/\s\+$//e]],
+  group = TrimWhiteSpaceGrp,
+})
 
 -- wrap words "softly" (no carriage return) in mail buffer
 api.nvim_create_autocmd("Filetype", {
@@ -88,14 +88,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.cmd("highlight NormalFloat guibg=none guifg=none")
     vim.cmd("highlight FloatBorder guifg=" .. colors.fg .. " guibg=none")
     vim.cmd("highlight NormalNC guibg=none guifg=none")
-
-    -- change neotree background colors
-    -- Default: NeoTreeNormal  xxx ctermfg=223 ctermbg=232 guifg=#d4be98 guibg=#141617
-    -- vim.cmd('highlight NeoTreeNormal guibg=#252e33 guifg=none')
-    -- vim.cmd('highlight NeoTreeFloatNormal guifg=none guibg=none')
-    -- vim.cmd('highlight NeoTreeFloatBorder gui=none guifg=' .. colors.fg .. ' guibg=none')
-    -- vim.cmd('highlight NeoTreeEndOfBuffer guibg=#252e33') -- 1d2021
-
     vim.cmd("highlight Comment guifg=#475558")
   end,
 })
@@ -126,37 +118,3 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- resize neovim split when terminal is resized
 vim.api.nvim_command("autocmd VimResized * wincmd =")
-
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   pattern = "kanagawa",
---   callback = function()
---     if vim.o.background == "light" then
---       vim.fn.system("kitty +kitten themes Kanagawa_light")
---     elseif vim.o.background == "dark" then
---       vim.fn.system("kitty +kitten themes Kanagawa_dragon")
---     else
---       vim.fn.system("kitty +kitten themes Kanagawa")
---     end
---   end,
--- })
-
---fix terraform and hcl comment string
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("FixTerraformCommentString", { clear = true }),
-  callback = function(ev)
-    vim.bo[ev.buf].commentstring = "# %s"
-  end,
-  pattern = { "terraform", "hcl" },
-})
-
--- vim.api.nvim_create_autocmd({ "OptionSet" }, {
---   pattern = { "background" },
---   callback = function(ev)
---     if vim.o.background == 'dark' then
---       vim.cmd("colorscheme gruvbox-material")
---     else
---       vim.cmd("colorscheme gruvbox-material")
---     end
---     vim.cmd("mode")
---   end
--- })

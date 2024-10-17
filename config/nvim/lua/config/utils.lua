@@ -1,20 +1,5 @@
 local M = {}
 
-M.telescope_git_or_file = function()
-  local path = vim.fn.expand("%:p:h")
-  local git_dir = vim.fn.finddir(".git", path .. ";")
-  if #git_dir > 0 then
-    require("telescope.builtin").git_files()
-  else
-    require("telescope.builtin").find_files()
-  end
-end
-
-M.has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 M.toggle_inlay_hints = function()
   if vim.b.inlay_hints then
     vim.lsp.inlay_hint(false)
@@ -122,30 +107,6 @@ M.toggle_background = function()
     M.change_background("dark")
   else
     print("Invalid background color")
-  end
-end
-
-M.toggle_go_test = function()
-  -- Get the current buffer's file name
-  local current_file = vim.fn.expand("%:p")
-  if string.match(current_file, "_test.go$") then
-    -- If the current file ends with '_test.go', try to find the corresponding non-test file
-    local non_test_file = string.gsub(current_file, "_test.go$", ".go")
-    if vim.fn.filereadable(non_test_file) == 1 then
-      -- Open the corresponding non-test file if it exists
-      vim.cmd.edit(non_test_file)
-    else
-      print("No corresponding non-test file found")
-    end
-  else
-    -- If the current file is a non-test file, try to find the corresponding test file
-    local test_file = string.gsub(current_file, ".go$", "_test.go")
-    if vim.fn.filereadable(test_file) == 1 then
-      -- Open the corresponding test file if it exists
-      vim.cmd.edit(test_file)
-    else
-      print("No corresponding test file found")
-    end
   end
 end
 
