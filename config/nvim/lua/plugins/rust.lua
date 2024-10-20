@@ -21,6 +21,9 @@ return {
         tools = {
           test_executor = "termopen",
           enable_nextest = true,
+          float_win_config = {
+            border = "rounded",
+          }
         },
       }
     end,
