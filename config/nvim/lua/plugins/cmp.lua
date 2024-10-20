@@ -10,9 +10,9 @@ return {
 
     opts = {
       keymap = {
-        accept = "<Tab>",
-        select_prev = { "<S-CR>", "<Up>", "<C-p>" },
-        select_next = { "<CR>", "<Down>", "<C-n>" },
+        accept = "<CR>",
+        select_prev = { "<S-Tab>", "<Up>", "<C-p>" },
+        select_next = { "<Tab>", "<Down>", "<C-n>" },
       },
       windows = {
         documentation = {

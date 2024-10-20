@@ -1,6 +1,5 @@
 return {
   mode = { "n" },
-  [";"] = { ":Alpha<CR>", "Dashboard" },
   ["/"] = {
     function()
       require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
@@ -22,13 +21,14 @@ return {
     "Toggle inlay hints",
   },
   w = { ":w!<CR>", "Save" },
+  W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
   q = { ":confirm q<CR>", "Quit" },
   c = { ":bd<CR>", "Close Buffer" },
   v = "Go to definition in a split",
   a = "Swap next param",
   A = "Swap previous param",
-  U = { ":UndotreeToggle<CR>", "Toggle UndoTree" },
-  o = { ":Telescope buffers<CR>", "Open Buffer" },
+  U = { ":UndotreeToggle<CR>:UndotreeFocus<CR>", "Toggle UndoTree" },
+  o = { ":Telescope enhanced_buffers<CR>", "Search Open Buffers" },
   n = { ":GlobalNote<CR>", "Open Global Note" },
   e = {
     function()
@@ -42,24 +42,6 @@ return {
     c = { "<cmd>lua require('config.utils').toggle_set_color_column()<CR>", "Toggle Color Line" },
     l = { "<cmd>lua require('config.utils').toggle_cursor_line()<CR>", "Toggle Cursor Line" },
     b = { "<cmd>lua require('config.utils').toggle_background()<CR>", "Toggle Background" },
-  },
-  b = {
-    name = "Buffers",
-    f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
-    W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
-    l = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
-    r = {
-      "<cmd>BufferLineCloseRight<cr>",
-      "Close all to the right",
-    },
-    D = {
-      "<cmd>BufferLineSortByDirectory<cr>",
-      "Sort by directory",
-    },
-    L = {
-      "<cmd>BufferLineSortByExtension<cr>",
-      "Sort by language",
-    },
   },
   g = {
     name = "+Git",
@@ -111,7 +93,6 @@ return {
   f = {
     name = "+Search",
     f = { "<cmd>Telescope find_files<cr>", "Find File (CWD)" },
-    d = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
@@ -127,7 +108,7 @@ return {
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace symbols" },
     z = { "<cmd>Telescope zoxide list<cr>", "Zoxide" },
-    b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+    b = { ":Telescope enhanced_buffers<CR>", "Search Open Buffers" },
     t = { "<cmd>Telescope colorscheme<cr>", "Color schemes" },
   },
   h = {

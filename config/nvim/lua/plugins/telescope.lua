@@ -140,7 +140,7 @@ return {
           },
           ["ui-select"] = {
             require("telescope.themes").get_dropdown({
-              previewer = false,
+              previewer = true,
               initial_mode = "normal",
               sorting_strategy = "ascending",
               layout_strategy = "horizontal",
@@ -153,26 +153,14 @@ return {
               },
             }),
           },
-          -- file_browser = {
-          --   -- theme = "",
-          --   previewer = true,
-          --   -- disables netrw and use telescope-file-browser in its place
-          --   hijack_netrw = true,
-          --   -- mappings = {
-          --   --   ["i"] = {
-          --   --     -- your custom insert mode mappings
-          --   --   },
-          --   --   ["n"] = {
-          --   --     -- your custom normal mode mappings
-          --   --   },
-          --   -- },
-          -- },
         },
       })
+
+      -- Extensions
       telescope.load_extension("fzf")
       telescope.load_extension("ui-select")
       telescope.load_extension("zoxide")
-      -- telescope.load_extension("file_browser")
+      telescope.load_extension("enhanced_buffers")
     end,
   },
 }

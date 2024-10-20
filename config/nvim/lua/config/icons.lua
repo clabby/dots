@@ -79,6 +79,7 @@ return {
       ChevronShortRight = "",
       ChevronShortUp = "",
       Circle = "",
+      CircleEmpty = "",
       Close = "",
       CloudDownload = "",
       Code = "",
@@ -91,6 +92,7 @@ return {
       EmptyFolder = "",
       EmptyFolderOpen = "",
       File = "",
+      FileModified = "",
       FileSymlink = "",
       Files = "",
       FindFile = "",
@@ -107,6 +109,7 @@ return {
       LineMiddle = "│",
       List = "",
       Lock = "",
+      LockFilled = "",
       NewFile = "",
       Note = "",
       Package = "",
@@ -127,6 +130,7 @@ return {
       TriangleShortArrowLeft = "",
       TriangleShortArrowRight = "",
       TriangleShortArrowUp = "",
+      VerticalDivider = "│",
     },
     diagnostics = {
       BoldError = "",
@@ -152,4 +156,4 @@ return {
       CircuitBoard = "",
     },
   }
-  
+

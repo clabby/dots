@@ -25,12 +25,12 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Navigate buffers
-map("n", "]b", ":bnext<CR>", opts)
-map("n", "[b", ":bprevious<CR>", opts)
+-- map("n", "]b", ":bnext<CR>", opts)
+-- map("n", "[b", ":bprevious<CR>", opts)
 
 -- Organize buffers
-map("n", ">b", ":BufferLineMoveNext<CR>", opts)
-map("n", "<b", ":BufferLineMovePrev<CR>", opts)
+-- map("n", ">b", ":BufferLineMoveNext<CR>", opts)
+-- map("n", "<b", ":BufferLineMovePrev<CR>", opts)
 
 -- paste over currently selected text without yanking it
 map("v", "p", '"_dp')

@@ -9,20 +9,18 @@ return {
   event = { "BufReadPost", "BufNewFile", "VeryLazy" },
   config = function()
     local icons = require("config.icons")
-    -- local Harpoonline = require("harpoonline").setup()
+
     require("lualine").setup({
       options = {
-        theme = "catppuccin",
+        theme = "gruvbox-material",
         globalstatus = true,
         icons_enabled = true,
-        -- component_separators = { left = "│", right = "│" },
-        component_separators = { left = icons.ui.DividerRight, right = icons.ui.DividerLeft },
+        component_separators = { left = icons.ui.VerticalDivider, right = icons.ui.VerticalDivider },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
           statusline = {
             "alfa-nvim",
             "help",
-            "neo-tree",
             "Trouble",
             "spectre_panel",
             "toggleterm",
@@ -31,31 +29,43 @@ return {
         },
       },
       sections = {
-        lualine_a = {},
+        lualine_a = {
+          "fancy_mode",
+        },
         lualine_b = {
           "fancy_branch",
+          "fancy_diff",
         },
         lualine_c = {
           {
             "filename",
             path = 1, -- 2 for full path
             symbols = {
-              modified = "  ",
-              -- readonly = "  ",
-              -- unnamed = "  ",
+              modified = icons.ui.FileModified,
+              readonly = icons.ui.Lock,
+              unnamed = icons.ui.CircleEmpty
             },
           },
-          { "fancy_diagnostics", sources = { "nvim_lsp" }, symbols = { error = " ", warn = " ", info = " " } },
-          { "fancy_searchcount" },
+          {
+            "fancy_diagnostics",
+            sources = { "nvim_lsp" },
+            symbols = {
+              error = icons.diagnostics.BoldError .. ' ',
+              warn = icons.diagnostics.BoldWarning .. ' ',
+              info = icons.diagnostics.BoldInformation .. ' '
+            },
+          },
         },
         lualine_x = {
+          "fancy_searchcount",
           "harpoon2",
-          "fancy_lsp_servers",
-          "fancy_diff",
-          "progress",
         },
-        lualine_y = {},
-        lualine_z = {},
+        lualine_y = {
+          "location",
+        },
+        lualine_z = {
+          "fancy_lsp_servers",
+        },
       },
       inactive_sections = {
         lualine_a = {},
@@ -66,7 +76,7 @@ return {
         lualine_z = {},
       },
       tabline = {},
-      extensions = { "neo-tree", "lazy" },
+      extensions = { "lazy" },
     })
   end,
 }
