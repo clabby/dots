@@ -7,23 +7,21 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
-      end
-    end,
     config = function()
-      require("nvim-treesitter.configs").setup {
+      require("nvim-treesitter.configs").setup({
+        sync_install = false,
+        ignore_install = { "javascript" },
+        modules = {},
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
-        context_commentstring = { enable = true, enable_autocmd = false },
         auto_install = true,
         ensure_installed = {
-          -- "bash",
+          "rust",
           "c",
+          "bash",
           "html",
           "javascript",
           "json",
@@ -40,20 +38,14 @@ return {
           "vim",
           "vimdoc",
           "yaml",
-          "rust",
           "go",
           "gomod",
           "gowork",
           "gosum",
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<leader>vv",
-            node_incremental = "+",
-            scope_incremental = false,
-            node_decremental = "_",
-          },
+          "terraform",
+          "proto",
+          "zig",
+          "dockerfile"
         },
         textobjects = {
           select = {
@@ -74,12 +66,12 @@ return {
               ["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
             },
             selection_modes = {
-              ["@parameter.outer"] = "v",   -- charwise
-              ["@parameter.inner"] = "v",   -- charwise
-              ["@function.outer"] = "v",    -- charwise
+              ["@parameter.outer"] = "v", -- charwise
+              ["@parameter.inner"] = "v", -- charwise
+              ["@function.outer"] = "v", -- charwise
               ["@conditional.outer"] = "V", -- linewise
-              ["@loop.outer"] = "V",        -- linewise
-              ["@class.outer"] = "<c-v>",   -- blockwise
+              ["@loop.outer"] = "V", -- linewise
+              ["@class.outer"] = "<c-v>", -- blockwise
             },
             include_surrounding_whitespace = false,
           },
@@ -107,7 +99,7 @@ return {
             },
           },
         },
-      }
-    end
+      })
+    end,
   },
 }

@@ -1,9 +1,11 @@
 local api = vim.api
 
-local colors = {
-  fg = "#76787d",
-  bg = "#252829",
-}
+-- Highlight on yank
+api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
 -- don't auto comment new line
 api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
@@ -11,42 +13,11 @@ api.nvim_create_autocmd("BufEnter", {
   callback = function() end,
 })
 
---- Remove all trailing whitespace on save
+-- Remove all trailing whitespace on save
 local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
 api.nvim_create_autocmd("BufWritePre", {
   command = [[:%s/\s\+$//e]],
   group = TrimWhiteSpaceGrp,
-})
-
--- wrap words "softly" (no carriage return) in mail buffer
-api.nvim_create_autocmd("Filetype", {
-  pattern = "mail",
-  callback = function()
-    vim.opt.textwidth = 0
-    vim.opt.wrapmargin = 0
-    vim.opt.wrap = true
-    vim.opt.linebreak = true
-    vim.opt.columns = 80
-    vim.opt.colorcolumn = "80"
-  end,
-})
-
--- Autocommand to check the color scheme on startup
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    require("config.utils").check_and_update_color_scheme()
-  end,
-})
-
-vim.fn.timer_start(10000, function()
-  require("config.utils").check_and_update_color_scheme()
-end, { ["repeat"] = -1 })
-
--- Highlight on yank
-api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
 })
 
 -- go to last loc when opening a buffer
@@ -60,15 +31,16 @@ api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-api.nvim_create_autocmd("WinEnter", {
+-- Set color column on in active buffer
+local columnGrp = api.nvim_create_augroup("ColorColumn", { clear = true })
+api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   command = [[set colorcolumn=120]],
+  group = columnGrp
 })
-
-api.nvim_create_autocmd("WinLeave", {
+api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
   command = [[set colorcolumn=0]],
+  group = columnGrp
 })
-
-api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
 
 -- show cursor line only in active window
 local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
@@ -81,40 +53,6 @@ api.nvim_create_autocmd(
   { "InsertEnter", "WinLeave" },
   { pattern = "*", command = "set nocursorline", group = cursorGrp }
 )
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    -- change the background color of floating windows and borders.
-    vim.cmd("highlight NormalFloat guibg=none guifg=none")
-    vim.cmd("highlight FloatBorder guifg=" .. colors.fg .. " guibg=none")
-    vim.cmd("highlight NormalNC guibg=none guifg=none")
-    vim.cmd("highlight Comment guifg=#475558")
-  end,
-})
-
--- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
-  pattern = {
-    "PlenaryTestPopup",
-    "help",
-    "lspinfo",
-    "man",
-    "notify",
-    "qf",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
-    "neotest-output",
-    "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
-  },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-  end,
-})
 
 -- resize neovim split when terminal is resized
 vim.api.nvim_command("autocmd VimResized * wincmd =")
