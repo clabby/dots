@@ -1,1 +1,0 @@
-return { 'NoahTheDuke/vim-just' }
