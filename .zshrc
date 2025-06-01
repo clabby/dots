@@ -50,6 +50,7 @@ export PATH="$PATH:$HOME/.foundry/bin"
 export PATH="$PATH:$HOME/.huff/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
 export OP_MAINNET_ANTON=http://anton.clab.by:8547
@@ -69,17 +70,16 @@ export OP_MONOREPO="$HOME/dev/optimism/monorepo"
 
 eval "$(cast completions zsh)"
 eval "$(gh completion -s zsh)"
-eval "$(gt completion zsh)"
-eval "$(just --completions zsh)"
+eval "$(just --completions bash)"
+eval "$(jj util completion zsh)"
 
 # -------
 # ALIASES
 # -------
 
-# Graphite
-alias gs="gt sync"
-alias gco="gt co"
-alias gsr="gt restack"
+# jj
+alias j="jj"
+alias ju="jjui"
 
 # Cargo
 alias cg="cargo"
@@ -104,8 +104,16 @@ alias p="pnpm"
 # lazygit
 alias lg="lazygit"
 
-# SSH
-alias sa="ssh ben@anton.clab.by"
+# git
+alias g="git"
+alias gco="git checkout"
+alias gcn="git checkout -b"
+alias gcod="git checkout develop"
+alias gpod="git pull origin develop"
+alias gcom="git checkout main"
+alias gpom="git pull origin main"
+alias gcoM="git checkout master"
+alias gpoM="git pull origin master"
 
 # Tmux
 function t {
