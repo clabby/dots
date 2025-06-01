@@ -1,0 +1,7 @@
+theme = "clabby"
+font-family="JetBrainsMonoNL Nerd Font Mono"
+window-title-font-family="JetBrainsMonoNL Nerd Font Mono"
+macos-icon = "custom-style"
+macos-icon-frame = "beige"
+macos-icon-ghost-color = "#A9B665"
+macos-icon-screen-color = "#1D2021"
