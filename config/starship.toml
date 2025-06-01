@@ -5,9 +5,11 @@ $golang\
 $username\
 [@](bold black)\
 $directory\
-$git_branch \
-$git_status\
-$git_commit\
+[:](bold black)\
+${custom.git_branch}\
+${custom.git_status}\
+${custom.git_commit}\
+${custom.jj}\
 $cmd_duration
 $character\
 """
@@ -37,7 +39,7 @@ style = 'bold blue'
 [git_branch]
 symbol = ' '
 style = 'bold yellow'
-format = '[:](bold black)[$branch]($style)'
+format = '[$branch]($style)'
 
 [git_commit]
 tag_disabled = false
@@ -52,3 +54,43 @@ format = '[$symbol($version)]($style) '
 
 [golang]
 format = '[$symbol($version)]($style) '
+
+[custom.git_branch]
+when = true
+command = "jj root --ignore-working-copy >/dev/null 2>&1 || starship module git_branch"
+
+[custom.git_status]
+when = true
+command = "jj root --ignore-working-copy >/dev/null 2>&1 || starship module git_status"
+
+[custom.git_commit]
+when = true
+command = "jj root --ignore-working-copy >/dev/null 2>&1 || starship module git_commit"
+
+# custom module for jj status
+[custom.jj]
+ignore_timeout = true
+description = "The current jj status"
+detect_folders = [".jj"]
+symbol = ""
+command = '''
+jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
+  separate(" ",
+    change_id.shortest(4),
+    bookmarks,
+    raw_escape_sequence("\x1b[1;33m") ++ "|",
+    concat(
+      if(conflict, "💥"),
+      if(divergent, "🚧"),
+      if(hidden, "👻"),
+      if(immutable, "🔒"),
+    ),
+    raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+    raw_escape_sequence("\x1b[1;32m") ++ coalesce(
+      description.first_line(),
+      "(no description set)",
+    ) ++ raw_escape_sequence("\x1b[0m"),
+  )
+'
+'''
+
