@@ -18,7 +18,3 @@ alacritty:
 nvim:
   rm -rf ~/.config/nvim
   cp -R ./config/nvim ~/.config
-
-# Install lazygit themes
-lazygit-themes:
-  cp -R ./config/lazygit ~/.config
