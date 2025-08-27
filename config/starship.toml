@@ -2,10 +2,11 @@ format = """
 $time\
 $rust\
 $golang\
+$zig\
 $username\
 [@](bold black)\
 $directory\
-[:](bold black)\
+${custom.vcs_colon}\
 ${custom.git_branch}\
 ${custom.git_status}\
 ${custom.git_commit}\
@@ -15,7 +16,7 @@ $character\
 """
 
 [character]
-success_symbol = '[](purple)'
+success_symbol = '[](bold purple)'
 error_symbol = '[](bold red)'
 
 [time]
@@ -55,6 +56,11 @@ format = '[$symbol($version)]($style) '
 [golang]
 format = '[$symbol($version)]($style) '
 
+[custom.vcs_colon]
+when = true
+command = "(jj root --ignore-working-copy >/dev/null 2>&1 || git rev-parse HEAD >/dev/null 2>&1) && echo -n ':'"
+format = '[$output](bold black)'
+
 [custom.git_branch]
 when = true
 command = "jj root --ignore-working-copy >/dev/null 2>&1 || starship module git_branch"
@@ -85,7 +91,7 @@ jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 -
       if(hidden, "👻"),
       if(immutable, "🔒"),
     ),
-    raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+    raw_escape_sequence("\x1b[1;31m") ++ if(empty, "(empty)"),
     raw_escape_sequence("\x1b[1;32m") ++ coalesce(
       description.first_line(),
       "(no description set)",
