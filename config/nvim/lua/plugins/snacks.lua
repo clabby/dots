@@ -25,7 +25,7 @@ return {
         enabled = false,
       },
       scope = {
-        enabled = false
+        enabled = true,
       }
     },
     input = { enabled = true },
@@ -100,7 +100,7 @@ return {
     { "gr",         function() Snacks.picker.lsp_references() end,                          nowait = true,                     desc = "References" },
     { "gI",         function() Snacks.picker.lsp_implementations() end,                     desc = "Goto Implementation" },
     { "gy",         function() Snacks.picker.lsp_type_definitions() end,                    desc = "Goto T[y]pe Definition" },
-    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",                               nowait = true,                     desc = "Code Actions" },
+    { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>",               nowait = true,                     desc = "Code Actions" },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                                    nowait = true,                     desc = "Rename" },
     { "<leader>lR", function() Snacks.picker.lsp_references() end,                          nowait = true,                     desc = "References" },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",                                    nowait = true,                     desc = "Format" },

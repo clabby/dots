@@ -14,7 +14,16 @@ return {
     config = function()
       require("lualine").setup({
         options = {
-          theme = "gruvbox-material",
+          theme = function()
+            -- pcall and fallback theme is to handle the case of theme switching/previewing
+            -- local _, t = pcall(
+            --   require,
+            --   "lualine.themes." .. (vim.o.background == "light" and "kanagawa-paper-canvas" or "kanagawa-paper-ink")
+            -- )
+
+            -- gruvbox-material auto-switches
+            return "gruvbox-material"
+          end,
           globalstatus = true,
           icons_enabled = true,
           component_separators = { left = icons.ui.VerticalDivider, right = icons.ui.VerticalDivider },
@@ -102,29 +111,30 @@ return {
           border = "curved",
           winblend = 0,
           highlights = {
-            border = "#151819",
+            border = "#F18634",
             background = "#151819",
           },
         },
         highlights = {
           FloatBorder = {
-            -- guifg = colors.subtext1,
+            guibg = "none",
+            guifg = "#D3859B",
           },
         },
       })
     end,
   },
   -- Barbequeue breadcrumbs
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {},
-  },
+  -- {
+  --   "utilyre/barbecue.nvim",
+  --   name = "barbecue",
+  --   version = "*",
+  --   dependencies = {
+  --     "SmiteshP/nvim-navic",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   opts = {},
+  -- },
   -- Which Key
   {
     "folke/which-key.nvim",

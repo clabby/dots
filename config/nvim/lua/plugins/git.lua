@@ -113,5 +113,5 @@ return {
         desc = "Toggle Diff View",
       }
     }
-  },
+  }
 }

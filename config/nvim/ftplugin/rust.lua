@@ -8,7 +8,7 @@ local bindings = {
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Declaration", nowait = true, remap = false },
     { "<leader>lL", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)", nowait = true, remap = false },
-    { "<leader>la", "<cmd>lua vim.cmd.RustLsp('codeAction')<cr>", desc = "Rust Code Action", nowait = true, remap = false },
+    { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Rust Code Action", nowait = true, remap = false },
     { "<leader>lc", "<cmd>lua require('config.utils').copyFilePathAndLineNumber()<CR>", desc = "Copy File Path and Line Number", nowait = true, remap = false },
     { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format", nowait = true, remap = false },

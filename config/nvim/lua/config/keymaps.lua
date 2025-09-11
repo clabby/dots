@@ -81,7 +81,7 @@ map(
   opts_with_desc("Toggle comment")
 )
 
--- Toggle Virtual Line Diagnostics
+-- Toggle Virtual Line/Text Diagnostics
 map(
   "n",
   "<leader>1",
