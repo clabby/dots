@@ -66,38 +66,24 @@ return {
             -- rust-analyzer language server configuration
             ["rust-analyzer"] = {
               diagnostics = {
-                enable = true,
-                experimental = {
-                  enable = true
-                }
+                enable = true
               },
               files = {
                 watcherExclude = {
                   ".git",
                   ".github",
                   "target",
-                  "book",
-                  "assets",
-                  "docker",
-                  "crates/protocol/registry/superchain-registry",
-                  "data",
-                  "monorepo"
+                  "docs",
                 },
                 excludeDirs = {
                   ".git",
                   ".github",
                   "target",
-                  "book",
-                  "assets",
-                  "docker",
-                  "crates/protocol/registry/superchain-registry",
-                  "data",
-                  "monorepo"
+                  "docs",
                 }
               },
               check = {
-                allTargets = true,
-                command = "clippy",
+                -- command = "clippy",
               },
               cargo = {
                 -- features = "all",
@@ -144,23 +130,6 @@ return {
     },
   },
   {
-    "saghen/blink.cmp",
-    opts = {
-      sources = {
-        -- add lazydev to your completion providers
-        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-        providers = {
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
-            -- make lazydev completions top priority (see `:h blink.cmp`)
-            score_offset = 100,
-          },
-        },
-      },
-    },
-  },
-  {
     "rachartier/tiny-code-action.nvim",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
@@ -177,5 +146,26 @@ return {
     opts = {
       picker = "snacks",
     },
+  },
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    config = function()
+      require("tiny-inline-diagnostic").setup({
+          preset = "powerline",
+          options = {
+              use_icons_from_diagnostic = true,
+              add_messages = {
+                  display_count = true,
+                  show_multiple_glyphs = false,
+              },
+              multilines = {
+                  enabled = true,
+              },
+          },
+      })
+      vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+    end,
   }
 }

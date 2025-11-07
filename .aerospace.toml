@@ -1,0 +1,115 @@
+# Reference: https://github.com/i3/i3/blob/next/etc/config
+
+# Start aerospace at login
+start-at-login = true
+
+# Start JankyBorders
+after-startup-command = [
+  'exec-and-forget borders active_color=0xff4E9ECF inactive_color=0xff494d64 width=7.5'
+]
+
+# Mouse follows focus when focused monitor changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = "move-mouse window-lazy-center"
+
+# https://nikitabobko.github.io/AeroSpace/guide.html#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+[gaps]
+    inner.horizontal = 15
+    inner.vertical =   15
+    outer.left =       15
+    outer.bottom =     15
+    outer.top =        15
+    outer.right =      15
+
+# Ghostty tab compat
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run=[
+  "layout tiling",
+  "move-node-to-workspace T"
+]
+
+[[on-window-detected]]
+if.app-id="com.apple.calendar"
+run=["move-node-to-workspace W"]
+
+[[on-window-detected]]
+if.app-id="com.tinyspeck.slackmacgap"
+run=["move-node-to-workspace W"]
+
+[[on-window-detected]]
+if.app-id="org.whispersystems.signal-desktop"
+run=["move-node-to-workspace M"]
+
+# Assign workspaces 6-9 to secondary monitor if available
+[workspace-to-monitor-force-assignment]
+T = 'main'
+B = 'main'
+W = 'main'
+M = 'main'
+S = 'main'
+L = ['secondary', 'main']
+
+[mode.main.binding]
+    alt-enter = '''exec-and-forget osascript \
+      -e 'tell application "Ghostty" to make new window' \
+      -e 'tell application "Ghostty" to activate'
+    '''
+    alt-b = '''exec-and-forget osascript \
+      -e 'tell application "Brave" to make new window' \
+      -e 'tell application "Brave" to activate'
+    '''
+
+    # i3 wraps focus by default
+    alt-left =  'focus --boundaries-action wrap-around-the-workspace left'
+    alt-down =  'focus --boundaries-action wrap-around-the-workspace down'
+    alt-up =    'focus --boundaries-action wrap-around-the-workspace up'
+    alt-right = 'focus --boundaries-action wrap-around-the-workspace right'
+
+    alt-shift-left = 'move left'
+    alt-shift-down = 'move down'
+    alt-shift-up = 'move up'
+    alt-shift-right = 'move right'
+
+    ctrl-alt-left = 'join-with left'
+    ctrl-alt-down = 'join-with down'
+    ctrl-alt-up = 'join-with up'
+    ctrl-alt-right = 'join-with right'
+
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+    alt-shift-space = 'layout floating tiling'
+
+    alt-f = 'fullscreen'
+
+    alt-1 = 'workspace T'
+    alt-2 = 'workspace B'
+    alt-3 = 'workspace W'
+    alt-leftSquareBracket = 'workspace M'
+    alt-rightSquareBracket = 'workspace S'
+    alt-backtick = 'workspace L'
+
+    alt-shift-1 = 'move-node-to-workspace T'
+    alt-shift-2 = 'move-node-to-workspace B'
+    alt-shift-3 = 'move-node-to-workspace W'
+    alt-shift-leftSquareBracket = 'move-node-to-workspace M'
+    alt-shift-rightSquareBracket = 'move-node-to-workspace S'
+    alt-shift-backtick = 'move-node-to-workspace L'
+
+    alt-shift-c = 'reload-config'
+
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    alt-tab = 'workspace-back-and-forth'
+
+    alt-s = 'mode service'
+
+[mode.service.binding]
+esc = 'mode main'
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']

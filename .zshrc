@@ -32,6 +32,11 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # zoxide
 eval "$(zoxide init zsh)"
 
@@ -46,23 +51,13 @@ export EDITOR='nvim'
 export MANPATH="/usr/local/man:$MANPATH"
 
 # Add local bins to path
-export PATH="$PATH:$HOME/.foundry/bin"
-export PATH="$PATH:$HOME/.huff/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/go/bin"
-
-export ETH_RPC=https://eth-mainnet.g.alchemy.com/v2/Y2SGiriVdroLNFmXB6TzCAOTV4RPbotK
-export OP_MAINNET_ANTON=http://anton.clab.by:8547
-export OP_SEPOLIA_ANTON=http://anton.clab.by:8548
-export ETH_ANTON=http://anton.clab.by:8545
-export SEPOLIA_ANTON=http://anton.clab.by:8546
-export ETH_RPC_URL=$ETH_ANTON
+export PATH="$PATH:$HOME/.foundry/bin"
 
 # tmux colors
 export TERM=xterm-256color
-
-export OP_MONOREPO="$HOME/dev/optimism/monorepo"
 
 # -----------
 # Completions
@@ -77,13 +72,27 @@ eval "$(jj util completion zsh)"
 # ALIASES
 # -------
 
+# gm routine
+GM='
+  ███████ █████████████
+ ███░░███░░███░░███░░███
+░███ ░███ ░███ ░███ ░███
+░███ ░███ ░███ ░███ ░███
+░░███████ █████░███ █████
+ ░░░░░███░░░░░ ░░░ ░░░░░
+ ███ ░███
+░░██████
+ ░░░░░░
+ '
+alias gm='rustup update && (z neovim && git pull origin master && rm -rf build && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install) && echo "'$GM'"'
+
 # jj
 alias j="jj"
 alias ju="jjui"
 
 # Cargo
 alias cg="cargo"
-alias stone="cargo +nightly fmt -- && cargo +nightly clippy --all --all-features -- -D warnings"
+alias stone="cargo +nightly fmt -- && cargo clippy --all --all-features -- -D warnings"
 alias rock="cargo +nightly fmt"
 alias nt="cargo nextest"
 alias nnt="cargo +nightly nextest"
@@ -114,6 +123,11 @@ alias gcom="git checkout main"
 alias gpom="git pull origin main"
 alias gcoM="git checkout master"
 alias gpoM="git pull origin master"
+
+# Grep
+function rgg {
+    rg $@ --json | delta
+}
 
 # Tmux
 function t {
@@ -146,40 +160,6 @@ wttr() {
     fi
 }
 
-# Forge shortcuts
-ft() {
-    if [ $# -ge 1 ]; then
-        forge test "$@"
-    else
-        forge test
-    fi
-}
-ftt() {
-    if [ $# -ge 1 ]; then
-        forge test --match-test "$@"
-    fi
-}
-ftc() {
-    if [ $# -ge 1 ]; then
-        forge test --match-contract "$@"
-    fi
-}
-
-# Forge ETH RPCs
-rpc() {
-    if [ "$1" = "eth" ]; then
-        export ETH_RPC_URL=$ETH_ANTON
-    elif [ "$1" = "sepolia" ]; then
-        export ETH_RPC_URL=$SEPOLIA_ANTON
-    elif [ "$1" = "op" ]; then
-        export ETH_RPC_URL=$OP_MAINNET_ANTON
-    elif [ "$1" = "op-sepolia" ]; then
-        export ETH_RPC_URL=$OP_SEPOLIA_ANTON
-    else
-        export ETH_RPC_URL=""
-    fi
-}
-
 # ------------
 # `gh` aliases
 # ------------
@@ -187,17 +167,17 @@ rpc() {
 # Search through all PRs that are open in the current repo and open the selected one in browser.
 alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
 
-# Search through all PRs that are open in the current repo and check the selected one out locally.
-alias prc="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout"
-
-# Search through all PRs that are open in the current repo and that I'm requested to review and
-# open the selected one in browser.
+# Search through all PRs that are open in the current repo and that I'm requested to review and open the selected one in browser.
 alias prr="GH_FORCE_TTY=100% gh pr list --search 'user-review-requested:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
 
-# Search through all open client-pod issues and open the selected one in browser.
+# Search through all open issues and open the selected one in browser.
 alias is="GH_FORCE_TTY=100% gh issue list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh issue view -w"
-# Search through all open client-pod issues assigned to me and open the selected one in browser.
+
+# Search through all open issues assigned to me and open the selected one in browser.
 alias isa="GH_FORCE_TTY=100% gh issue list -L 1000 --search 'assignee:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh issue view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh issue view -w"
+
+# Search through all PRs that are open in the current repo and check the selected one out locally.
+alias prc="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr checkout"
 
 alias gst="gh status"
 
@@ -205,15 +185,6 @@ alias gst="gh status"
 repo() {
     if type gh &> /dev/null; then
         gh repo view -w
-    else
-        echo "gh is not installed"
-    fi
-}
-
-# Open the github TUI
-ghd() {
-    if type gh &> /dev/null; then
-        gh dash
     else
         echo "gh is not installed"
     fi
@@ -240,3 +211,5 @@ xc() {
         xclip -selection clipboard
     fi
 }
+
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"

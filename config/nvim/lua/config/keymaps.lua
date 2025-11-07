@@ -29,6 +29,8 @@ map("v", ">", ">gv")
 -- Navigate buffers
 map("n", "]b", ":bnext<CR>", opts)
 map("n", "[b", ":bprevious<CR>", opts)
+map("n", "<leader>c", ":bd<CR>", opts_with_desc("Close buffer"))
+map("n", "<leader>bc", ":%bd|e#|bd#<CR>", opts_with_desc("Close all buffers except current"))
 
 -- paste over currently selected text without yanking it
 map("v", "p", '"_dp')
@@ -87,10 +89,8 @@ map(
   "<leader>1",
   function()
     local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
-    local virtual_text_enabled = vim.diagnostic.config().virtual_text
     vim.diagnostic.config({
       virtual_lines = not virtual_lines_enabled,
-      virtual_text = not virtual_text_enabled
     })
   end,
   opts_with_desc("Toggle LSP Lines diagnostics")

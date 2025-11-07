@@ -1,8 +1,8 @@
 local override_highlights = function()
-  vim.cmd('highlight Pmenu guibg=none')
-  vim.cmd('highlight PmenuExtra guibg=none')
-  vim.cmd('highlight FloatBorder guibg=none')
-  vim.cmd('highlight NormalFloat guibg=none')
+  vim.cmd("highlight Pmenu guibg=none")
+  vim.cmd("highlight PmenuExtra guibg=none")
+  vim.cmd("highlight FloatBorder guibg=none")
+  vim.cmd("highlight NormalFloat guibg=none")
 end
 
 return {
@@ -13,13 +13,14 @@ return {
     config = function()
       vim.g.gruvbox_material_transparent_background = 0
       vim.g.gruvbox_material_foreground = "mix"
-      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_background = "medium"
       vim.g.gruvbox_material_ui_contrast = "high"
       vim.g.gruvbox_material_float_style = "bright"
       vim.g.gruvbox_material_statusline_style = "mix" -- Options: "original", "material", "mix", "afterglow"
       vim.g.gruvbox_material_cursor = "auto"
 
       vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 0
       vim.g.gruvbox_material_dim_inactive_windows = 1
 
       vim.g.gruvbox_material_better_performance = 1
@@ -34,71 +35,96 @@ return {
       vim.api.nvim_set_hl(0, "SnacksPickerBorder", { bg = "none", fg = "#F18634" })
       vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { bg = "none", fg = "#F18634" })
 
-      override_highlights()
-    end,
-  },
-  {
-    "darianmorat/gruvdark.nvim",
-    enabled = false,
-    config = function()
-      -- vim.cmd.colorscheme("gruvdark")
-
-      override_highlights()
-    end
-  },
-  {
-    "Koalhack/darcubox-nvim",
-    enabled = false,
-    config = function()
-      -- vim.cmd("colorscheme darcubox")
-
-      override_highlights()
-    end
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    enabled = false,
-    config = function()
-      -- vim.cmd("colorscheme kanagawa-dragon")
+      -- Diagnostic virtual text
+      vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { bg = "none", fg = "#B0B846" })
+      vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "none", fg = "#80AA9D" })
+      vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "none", fg = "#D3869B" })
+      vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg = "#E9B144" })
+      vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#F2584B" })
 
       override_highlights()
     end,
   },
-  {
-    "thesimonho/kanagawa-paper.nvim",
-    enabled = true,
-    config = function()
-      -- vim.cmd("colorscheme kanagawa-paper-ink")
-
-      override_highlights()
-    end,
-  },
-  {
-    "catppuccin/nvim",
-    enabled = false,
-    name = "catppuccin",
-    config = function()
-      -- vim.cmd("colorscheme catppuccin")
-
-      override_highlights()
-    end,
-  },
-  {
-    "gthelding/monokai-pro.nvim",
-    enabled = false,
-    config = function()
-      require("monokai-pro").setup({
-        filter = "ristretto",
-        override = function()
-          return {
-            NonText = { fg = "#948a8b" },
-          }
-        end,
-      })
-
-      -- vim.cmd([[colorscheme monokai-pro]])
-
-      override_highlights()
-    end,
-  },
+  -- {
+  --   "uloco/bluloco.nvim",
+  --   dependencies = { "rktjmp/lush.nvim" },
+  --   config = function()
+  --     -- vim.cmd.colorscheme("bluloco-dark")
+  --
+  --     override_highlights()
+  --   end,
+  -- },
+  -- {
+  --   "projekt0n/github-nvim-theme",
+  --   name = "github-theme",
+  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     override_highlights()
+  --   end,
+  -- },
+  -- {
+  --   "darianmorat/gruvdark.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     -- vim.cmd.colorscheme("gruvdark")
+  --
+  --     override_highlights()
+  --   end
+  -- },
+  -- {
+  --   "Koalhack/darcubox-nvim",
+  --   enabled = false,
+  --   config = function()
+  --     -- vim.cmd("colorscheme darcubox")
+  --
+  --     override_highlights()
+  --   end
+  -- },
+  -- {
+  --   "rebelot/kanagawa.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     -- vim.cmd("colorscheme kanagawa-dragon")
+  --
+  --     override_highlights()
+  --   end,
+  -- },
+  -- {
+  --   "thesimonho/kanagawa-paper.nvim",
+  --   enabled = true,
+  --   config = function()
+  --     -- vim.cmd("colorscheme kanagawa-paper-ink")
+  --
+  --     override_highlights()
+  --   end,
+  -- },
+  -- {
+  --   "catppuccin/nvim",
+  --   enabled = false,
+  --   name = "catppuccin",
+  --   config = function()
+  --     -- vim.cmd("colorscheme catppuccin")
+  --
+  --     override_highlights()
+  --   end,
+  -- },
+  -- {
+  --   "gthelding/monokai-pro.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     require("monokai-pro").setup({
+  --       filter = "ristretto",
+  --       override = function()
+  --         return {
+  --           NonText = { fg = "#948a8b" },
+  --         }
+  --       end,
+  --     })
+  --
+  --     -- vim.cmd([[colorscheme monokai-pro]])
+  --
+  --     override_highlights()
+  --   end,
+  -- },
 }

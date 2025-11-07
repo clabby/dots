@@ -6,7 +6,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "meuter/lualine-so-fancy.nvim",
-      { "letieu/harpoon-lualine", version = "*" },
+      -- { "letieu/harpoon-lualine", version = "*" },
     },
     enabled = true,
     lazy = false,
@@ -69,7 +69,7 @@ return {
           },
           lualine_x = {
             "fancy_searchcount",
-            "harpoon2",
+            -- "harpoon2",
           },
           lualine_y = {
             "location",
@@ -90,6 +90,18 @@ return {
         extensions = { "lazy" },
       })
     end,
+  },
+  -- Bufferline
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        themable = true,
+        offsets = {
+          { filetype = "NvimTree", highlight = "NvimTreeNormal" },
+        },
+      }
+    },
   },
   -- ToggleTerm
   {
@@ -118,23 +130,12 @@ return {
         highlights = {
           FloatBorder = {
             guibg = "none",
-            guifg = "#D3859B",
+            guifg = "#F18634",
           },
         },
       })
     end,
   },
-  -- Barbequeue breadcrumbs
-  -- {
-  --   "utilyre/barbecue.nvim",
-  --   name = "barbecue",
-  --   version = "*",
-  --   dependencies = {
-  --     "SmiteshP/nvim-navic",
-  --     "nvim-tree/nvim-web-devicons",
-  --   },
-  --   opts = {},
-  -- },
   -- Which Key
   {
     "folke/which-key.nvim",
@@ -182,5 +183,12 @@ return {
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
+  },
+  -- Neovim notifications and LSP progress messages
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup {}
+    end
   },
 }

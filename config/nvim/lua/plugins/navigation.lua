@@ -17,22 +17,26 @@ return {
     end,
   },
   -- Harpoon
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   branch = "harpoon2",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function()
+  --     local harpoon = require("harpoon")
+  --     harpoon:setup()
+  --   end,
+  -- },
+  -- Fast buffer navigation
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local harpoon = require("harpoon")
-      harpoon:setup()
-    end,
-  },
-  -- Dart
-  {
-    'iofq/dart.nvim',
-    dependencies = {
-      'echasnovski/mini.nvim',        -- optional, icons provider
-      'nvim-tree/nvim-web-devicons'   -- optional, icons provider
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      labels = "asdfqwerzxcv", -- Limit labels to left side of the keyboard
     },
-    opts = {}                         -- see Configuration section
-  }
+    keys = {
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,   desc = "Flash" },
+      { "S",     mode = { "n", "x", "o" }, function() require("flash").remote() end, desc = "Remote Flash" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
 }

@@ -15,7 +15,7 @@ _prompt name='':
   esac
 
 # Install everything
-install-all: zshrc starship tmux ghostty nvim
+install-all: zshrc starship aerospace tmux ghostty nvim
 
 # Install the `.zshrc`
 zshrc: (_prompt 'zshrc')
@@ -24,6 +24,10 @@ zshrc: (_prompt 'zshrc')
 # Install the starship configuration
 starship: (_prompt 'starship config')
   cp ./config/starship.toml ~/.config/starship.toml
+
+# Install the aerospace configuration
+aerospace: (_prompt 'aerospace config')
+  cp -R ./config/.aerospace.toml ~/.aerospace.toml
 
 # Install the tmux configuration
 tmux: (_prompt 'tmux config')

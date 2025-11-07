@@ -12,6 +12,9 @@ My personal dotfiles
 ### Editor
 * [Neovim](https://github.com/neovim/neovim)
 
+### Window Manager
+* [aerospace](https://github.com/nikitabobko/AeroSpace)
+
 ### Terminal Multiplexer
 * [tmux](https://github.com/tmux/tmux)
 

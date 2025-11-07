@@ -36,6 +36,9 @@ return {
     picker = {
       enabled = true,
     },
+    gh = {
+      enabled = true,
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     statuscolumn = { enabled = true },
@@ -72,7 +75,7 @@ return {
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
     { "<leader>fz", function() Snacks.picker.zoxide() end,                                  desc = "Zoxide" },
     { "<leader>fw", function() Snacks.picker.grep() end,                                    desc = "Grep in project" },
-    { "<leader>fW", function() Snacks.picker.grep_word() end,                               desc = "Visual selection or word", mode = { "n", "x" } },
+    { "<leader>fW", function() Snacks.picker.grep_word() end,                               desc = "Visual selection or word",   mode = { "n", "x" } },
     { "<leader>fr", function() Snacks.picker.recent() end,                                  desc = "Recent" },
     { "<leader>fb", function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
     { '<leader>f"', function() Snacks.picker.registers() end,                               desc = "Registers" },
@@ -89,7 +92,12 @@ return {
     { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end,                   desc = "LSP Workspace Symbols" },
     -- git
     { "<leader>gl", function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
-    { "<leader>go", function() Snacks.gitbrowse() end,                                      desc = "Git Browse",               mode = { "n", "v" } },
+    { "<leader>go", function() Snacks.gitbrowse() end,                                      desc = "Git Browse",                 mode = { "n", "v" } },
+    -- GitHub
+    { "<leader>gi", function() Snacks.picker.gh_issue() end,                                desc = "GitHub Issues (open)" },
+    { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end,               desc = "GitHub Issues (all)" },
+    { "<leader>gp", function() Snacks.picker.gh_pr() end,                                   desc = "GitHub Pull Requests (open)" },
+    { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end,                  desc = "GitHub Pull Requests (all)" },
     -- Grep
     { "<C-s>",      function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffers" },
     -- UI
@@ -97,13 +105,13 @@ return {
     -- LSP
     { "gd",         function() Snacks.picker.lsp_definitions() end,                         desc = "Goto Definition" },
     { "gD",         function() Snacks.picker.lsp_declarations() end,                        desc = "Goto Declaration" },
-    { "gr",         function() Snacks.picker.lsp_references() end,                          nowait = true,                     desc = "References" },
+    { "gr",         function() Snacks.picker.lsp_references() end,                          nowait = true,                       desc = "References" },
     { "gI",         function() Snacks.picker.lsp_implementations() end,                     desc = "Goto Implementation" },
     { "gy",         function() Snacks.picker.lsp_type_definitions() end,                    desc = "Goto T[y]pe Definition" },
-    { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>",               nowait = true,                     desc = "Code Actions" },
-    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                                    nowait = true,                     desc = "Rename" },
-    { "<leader>lR", function() Snacks.picker.lsp_references() end,                          nowait = true,                     desc = "References" },
-    { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",                                    nowait = true,                     desc = "Format" },
+    { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>",               nowait = true,                       desc = "Code Actions" },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                                    nowait = true,                       desc = "Rename" },
+    { "<leader>lR", function() Snacks.picker.lsp_references() end,                          nowait = true,                       desc = "References" },
+    { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",                                    nowait = true,                       desc = "Format" },
 
     -- Zoxide nav
     { "<leader>z",  function() Snacks.zen() end,                                            desc = "Toggle Zen Mode" },
