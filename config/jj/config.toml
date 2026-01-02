@@ -1,0 +1,73 @@
+[user]
+name = "clabby"
+email = "ben@clab.by"
+
+[ui]
+editor = "nvim"
+default-command = ["log", "--no-pager"]
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
+
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "~/.ssh/id_ed25519.pub"
+
+[git]
+push-new-bookmarks = true
+
+[aliases]
+# general aliases
+l = ["log", "-r", "current"]
+ls = ["log", "-r", "currentn(5)"]
+la = ["log"]
+c = ["commit"]
+e = ["edit"]
+bc = ["bookmark", "create"]
+
+# git-like aliases
+f = ["git", "fetch"]
+rbt = ["rebase", "-s", "roots(trunk()..@)", "-d", "trunk()", "--skip-emptied"]
+sync = ["util", "exec", "--", "bash", "-c", """
+#!/bin/bash
+jj f
+jj rbt
+""", ""]
+
+[revset-aliases]
+'latestfive' = '(ancestors(immutable_heads().., 2) ~ parents(ancestors(immutable_heads().., 2), 5)) | present(trunk())'
+'stack(tip)' = "fork_point(trunk():: | tip)::tip | trunk() | tip-::"
+'expand(tip)' = "fork_point(trunk():: | tip):: | tip"
+
+[template-aliases]
+'format_timestamp(timestamp)' = 'timestamp.ago()'
+
+log_oneline_compact = '''
+if(root,
+  format_root_commit(self),
+  label(if(current_working_copy, "working_copy"),
+    concat(
+      separate(" ",
+        format_short_change_id_with_hidden_and_divergent_info(self),
+        format_short_commit_id(commit_id),
+        pad_end(10, truncate_end(10, author.email())),
+        pad_start(12, format_timestamp(commit_timestamp(self))),
+        bookmarks,
+        tags,
+        working_copies,
+        if(git_head, label("git_head", "git_head()")),
+        if(conflict, label("conflict", "conflict")),
+        if(config("ui.show-cryptographic-signatures").as_boolean(),
+          format_short_cryptographic_signature(signature)),
+        if(empty, label("empty", "(empty)")),
+        if(description,
+          description.first_line(),
+          label(if(empty, "empty"), description_placeholder),
+        ),
+      ) ++ "\n",
+    ),
+  )
+)
+'''

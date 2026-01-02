@@ -2,6 +2,9 @@
 # Shell configuration
 # -------------------
 
+# Edit input in $EDITOR
+bindkey '^n' edit-command-line
+
 # Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -73,18 +76,7 @@ eval "$(jj util completion zsh)"
 # -------
 
 # gm routine
-GM='
-  ███████ █████████████
- ███░░███░░███░░███░░███
-░███ ░███ ░███ ░███ ░███
-░███ ░███ ░███ ░███ ░███
-░░███████ █████░███ █████
- ░░░░░███░░░░░ ░░░ ░░░░░
- ███ ░███
-░░██████
- ░░░░░░
- '
-alias gm='rustup update && (z neovim && git pull origin master && rm -rf build && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install) && echo "'$GM'"'
+alias gm='rustup update && (z neovim && git pull origin master && rm -rf build && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install)'
 
 # jj
 alias j="jj"
@@ -151,7 +143,7 @@ alias ll="lsd -lh"
 alias lt="lsd --tree"
 
 # Wttr
-CITY="Atlanta"
+CITY="Amsterdam"
 wttr() {
     if [ "$1" = "-v2" ]; then
         curl -L "https://v2.wttr.in/$CITY?u"
@@ -185,6 +177,15 @@ alias gst="gh status"
 repo() {
     if type gh &> /dev/null; then
         gh repo view -w
+    else
+        echo "gh is not installed"
+    fi
+}
+
+# Create a new PR
+cpr() {
+    if type gh &> /dev/null; then
+        gh pr create --head $(jj log -r 'bookmarks() & ancestors(@)' -n 1 -T 'bookmarks ++ "\n"' --no-graph --color=never)
     else
         echo "gh is not installed"
     fi

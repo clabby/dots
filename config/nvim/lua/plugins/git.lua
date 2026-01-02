@@ -97,21 +97,15 @@ return {
     },
   },
   {
-    "sindrets/diffview.nvim",
-    event = "VeryLazy",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    keys = {
-      {
-        "<leader>gd",
-        function()
-          if next(require('diffview.lib').views) == nil then
-            vim.cmd('DiffviewOpen')
-          else
-            vim.cmd('DiffviewClose')
-          end
-        end,
-        desc = "Toggle Diff View",
-      }
-    }
+    "clabby/difftastic.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    config = function()
+      require("difftastic-nvim").setup({
+        download = true,     -- Auto-download pre-built binary
+      })
+
+      vim.keymap.set("n", "<leader>gdd", "<cmd>Difft @<cr>", { desc = "Diff current revision against parent" })
+      vim.keymap.set("n", "<leader>gdm", "<cmd>Difft trunk()..@<cr>", { desc = "Diff stack against trunk" })
+    end,
   },
 }

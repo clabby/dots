@@ -5,7 +5,7 @@ start-at-login = true
 
 # Start JankyBorders
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff4E9ECF inactive_color=0xff494d64 width=7.5'
+  'exec-and-forget borders active_color=0xffF18534 inactive_color=0xff494d64 width=4 hidpi=on order=above'
 ]
 
 # Mouse follows focus when focused monitor changes
@@ -27,22 +27,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # Ghostty tab compat
 [[on-window-detected]]
 if.app-id="com.mitchellh.ghostty"
-run=[
-  "layout tiling",
-  "move-node-to-workspace T"
-]
-
-[[on-window-detected]]
-if.app-id="com.apple.calendar"
-run=["move-node-to-workspace W"]
-
-[[on-window-detected]]
-if.app-id="com.tinyspeck.slackmacgap"
-run=["move-node-to-workspace W"]
-
-[[on-window-detected]]
-if.app-id="org.whispersystems.signal-desktop"
-run=["move-node-to-workspace M"]
+run=["layout tiling"]
 
 # Assign workspaces 6-9 to secondary monitor if available
 [workspace-to-monitor-force-assignment]

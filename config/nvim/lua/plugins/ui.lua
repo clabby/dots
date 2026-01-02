@@ -6,7 +6,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "meuter/lualine-so-fancy.nvim",
-      -- { "letieu/harpoon-lualine", version = "*" },
+      { "letieu/harpoon-lualine", version = "*" },
     },
     enabled = true,
     lazy = false,
@@ -15,12 +15,6 @@ return {
       require("lualine").setup({
         options = {
           theme = function()
-            -- pcall and fallback theme is to handle the case of theme switching/previewing
-            -- local _, t = pcall(
-            --   require,
-            --   "lualine.themes." .. (vim.o.background == "light" and "kanagawa-paper-canvas" or "kanagawa-paper-ink")
-            -- )
-
             -- gruvbox-material auto-switches
             return "gruvbox-material"
           end,
@@ -69,7 +63,7 @@ return {
           },
           lualine_x = {
             "fancy_searchcount",
-            -- "harpoon2",
+            "harpoon2",
           },
           lualine_y = {
             "location",
@@ -90,18 +84,6 @@ return {
         extensions = { "lazy" },
       })
     end,
-  },
-  -- Bufferline
-  {
-    "akinsho/bufferline.nvim",
-    opts = {
-      options = {
-        themable = true,
-        offsets = {
-          { filetype = "NvimTree", highlight = "NvimTreeNormal" },
-        },
-      }
-    },
   },
   -- ToggleTerm
   {

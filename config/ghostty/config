@@ -1,7 +1,12 @@
-theme = "clabby"
-font-family="JetBrainsMonoNL Nerd Font Mono"
-window-title-font-family="JetBrainsMonoNL Nerd Font Mono"
-macos-icon = "custom-style"
-macos-icon-frame = "beige"
-macos-icon-ghost-color = "#A9B665"
-macos-icon-screen-color = "#1D2021"
+theme = light:"clabby-light",dark:"clabby"
+
+font-family="CommitMono"
+font-size = 16
+
+window-title-font-family="CommitMono"
+window-theme="system"
+
+background-opacity = 1
+macos-titlebar-style = hidden
+
+custom-shader = ./shaders/cursor_warp.glsl
