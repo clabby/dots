@@ -8,7 +8,7 @@ local bindings = {
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Declaration", nowait = true, remap = false },
     { "<leader>lL", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)", nowait = true, remap = false },
-    { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Rust Code Action", nowait = true, remap = false },
+    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Rust Code Action", nowait = true, remap = false },
     { "<leader>lc", "<cmd>lua require('config.utils').copyFilePathAndLineNumber()<CR>", desc = "Copy File Path and Line Number", nowait = true, remap = false },
     { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format", nowait = true, remap = false },
@@ -18,6 +18,7 @@ local bindings = {
     { "<leader>lo", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type Definition", nowait = true, remap = false },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename all references", nowait = true, remap = false },
     { "<leader>ls", "<cmd>Trouble symbols toggle win.position=left focus=false<cr>", desc = "Display Signature Information", nowait = true, remap = false },
+
     -- Rust
     { "<leader>r", group = "Rust", nowait = true, remap = false },
     { "<leader>rR", "<cmd>RustLsp reloadWorkspace<cr>", desc = "Reload cargo workspace", nowait = true, remap = false },
@@ -25,6 +26,8 @@ local bindings = {
     { "<leader>rp", "<cmd>RustLsp parentModule<cr>", desc = "Go to parent module", nowait = true, remap = false },
     { "<leader>rr", "<cmd>RustLsp runnables<cr>", desc = "Rust Runnables", nowait = true, remap = false },
     { "<leader>rt", "<cmd>RustLsp openCargo<cr>", desc = "Open Cargo.toml", nowait = true, remap = false },
+    { "<leader>rd", "<cmd>RustLsp openDocs<cr>", desc = "Open docs", nowait = true, remap = false },
+
     -- Rust Crates
     { "<leader>C", group = "Rust Crates", nowait = true, remap = false },
     { "<leader>CA", "<cmd>lua require('crates').upgrade_all_crates(true)<CR>", desc = "Upgrade All Crates", nowait = true, remap = false },

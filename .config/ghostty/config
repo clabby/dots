@@ -1,12 +1,10 @@
 theme = light:"clabby-light",dark:"clabby"
-
-font-family="CommitMono"
+font-family="JetBrainsMono Nerd Font Mono"
 font-size = 16
-
-window-title-font-family="CommitMono"
-window-theme="system"
-
 background-opacity = 1
+
+window-title-font-family="JetBrainsMono Nerd Font Mono"
+window-theme="system"
 macos-titlebar-style = hidden
 
 custom-shader = ./shaders/cursor_warp.glsl

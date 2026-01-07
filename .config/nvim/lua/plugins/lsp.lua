@@ -150,22 +150,4 @@ return {
       vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
     end,
   },
-  -- {
-  --   "rachartier/tiny-code-action.nvim",
-  --   dependencies = {
-  --     { "nvim-lua/plenary.nvim" },
-  --
-  --     -- Snacks picker
-  --     {
-  --       "folke/snacks.nvim",
-  --       opts = {
-  --         terminal = {},
-  --       }
-  --     }
-  --   },
-  --   event = "LspAttach",
-  --   opts = {
-  --     picker = "snacks",
-  --   },
-  -- },
 }

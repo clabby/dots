@@ -91,9 +91,10 @@ return {
         'snacks_dashboard',
         'snacks_notif',
         'snacks_win',
+        'fidget',
       }
 
-      -- Auto-install parsers and enable highlighting on FileType
+      -- Enable highlighting on FileType
       vim.api.nvim_create_autocmd('FileType', {
         group = group,
         desc = 'Enable treesitter highlighting and indentation (non-blocking)',
@@ -116,9 +117,6 @@ return {
             -- Queue for async loading
             table.insert(parsers_pending, { buf = buf, lang = lang })
           end
-
-          -- Auto-install missing parsers (async, no-op if already installed)
-          ts.install({ lang })
         end,
       })
     end,

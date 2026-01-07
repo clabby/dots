@@ -81,6 +81,7 @@ alias gm='rustup update && (z neovim && git pull origin master && rm -rf build &
 # jj
 alias j="jj"
 alias ju="jjui"
+source ~/jdd.sh
 
 # Cargo
 alias cg="cargo"
@@ -143,7 +144,7 @@ alias ll="lsd -lh"
 alias lt="lsd --tree"
 
 # Wttr
-CITY="Amsterdam"
+CITY="Atlanta"
 wttr() {
     if [ "$1" = "-v2" ]; then
         curl -L "https://v2.wttr.in/$CITY?u"
@@ -158,6 +159,29 @@ wttr() {
 
 # Search through all PRs that are open in the current repo and open the selected one in browser.
 alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+
+prd() {
+    open_pr="$(GH_FORCE_TTY=100% gh pr list -L 1000 |
+        fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 |
+        cut -d' ' -f1 |
+        tr -d '#' |
+        xargs gh pr view --json baseRefName,headRefName,headRepository,headRepositoryOwner
+    )"
+
+    local base_ref=$(echo $open_pr | jq -r '.baseRefName')
+    local head_ref=$(echo $open_pr | jq -r '.headRefName')
+    local head_repo_name=$(echo $open_pr | jq -r '.headRepository.name')
+    local head_repo_owner=$(echo $open_pr | jq -r '.headRepositoryOwner.login')
+    local head_repo="$head_repo_owner/$head_repo_name"
+
+    local local_ref="refs/remotes/prd/${head_repo//\//_}/$head_ref"
+    git fetch "https://github.com/$head_repo.git" "$head_ref:$local_ref" --quiet || {
+        echo "Failed to fetch $head_repo:$head_ref"
+        return 1
+    }
+
+    nvim -c "Difft $base_ref@origin..$local_ref@origin"
+}
 
 # Search through all PRs that are open in the current repo and that I'm requested to review and open the selected one in browser.
 alias prr="GH_FORCE_TTY=100% gh pr list --search 'user-review-requested:@me' | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
@@ -214,3 +238,15 @@ xc() {
 }
 
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# opencode
+export PATH=/Users/ben/.opencode/bin:$PATH
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/Users/ben/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<

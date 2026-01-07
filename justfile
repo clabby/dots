@@ -14,30 +14,6 @@ _prompt name='':
             exit 1;;
   esac
 
-# Install everything
-install-all: zshrc starship aerospace tmux ghostty nvim
-
-# Install the `.zshrc`
-zshrc: (_prompt 'zshrc')
-  cp ./.zshrc ~/.zshrc
-
-# Install the starship configuration
-starship: (_prompt 'starship config')
-  cp ./config/starship.toml ~/.config/starship.toml
-
-# Install the aerospace configuration
-aerospace: (_prompt 'aerospace config')
-  cp -R ./config/.aerospace.toml ~/.aerospace.toml
-
-# Install the tmux configuration
-tmux: (_prompt 'tmux config')
-  cp ./.tmux.conf ~/.tmux.conf
-
-# Install the ghostty configuration
-ghostty: (_prompt 'ghostty config')
-  cp -R ./config/ghostty/ ~/.config
-
-# Install the nvim configuration
-nvim: (_prompt 'nvim config')
-  rm -rf ~/.config/nvim
-  cp -R ./config/nvim ~/.config
+# Install configs
+install: (_prompt 'configs')
+  stow .

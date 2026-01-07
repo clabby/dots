@@ -2,6 +2,12 @@
 
 My personal dotfiles
 
+## Install
+
+```
+stow .
+```
+
 ## Dependencies
 
 ### Shell
@@ -21,13 +27,13 @@ My personal dotfiles
 ### Version Managers
 * [rustup](https://rustup.rs)
 * [nvm](https://github.com/nvm-sh/nvm)
-* [svm-rs](https://github.com/roynalnaruto/svm-rs)
 
-### CLI Tools
+### Tools
 * [jj](https://github.com/jj-vcs/jj)
   * [jjui](https://github.com/idursun/jjui)
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [delta](https://github.com/dandavison/delta)
+* [difftastic](https://github.com/Wilfred/difftastic/pull/936)
 * [lsd](https://github.com/Peltoche/lsd)
 * [fzf](https://github.com/junegunn/fzf)
 * [fd](https://github.com/sharkdp/fd)
@@ -42,15 +48,14 @@ My personal dotfiles
 * [dust](https://github.com/bootandy/dust)
 * [duf](https://github.com/muesli/duf)
 * [just](https://github.com/casey/just)
-* [tokio-console](https://github.com/tokio-rs/console)
-
-#### Misc CLI
-* [onefetch](https://github.com/o2sh/onefetch)
+* [ouch](https://github.com/ouch-org/ouch)
+* [mergiraf](https://mergiraf.org/)
 * [neofetch](https://github.com/dylanaraps/neofetch)
-* [slides](https://github.com/maaslalani/slides)
+* [presenterm](https://github.com/mfontanini/presenterm)
 * [mdbook](https://github.com/rust-lang/mdBook)
+* [lspmux](https://codeberg.org/p2502/lspmux)
 
-### Language Toolchains
+### Language Tools
 * [rust](https://rustup.rs/)
   * [cargo-expand](https://github.com/dtolnay/cargo-expand)
   * [cargo-nextest](https://nexte.st/)
@@ -58,17 +63,8 @@ My personal dotfiles
   * [cargo-clean-all](https://github.com/dnlmlr/cargo-clean-all)
   * [cargo-release](https://github.com/crate-ci/cargo-release)
   * [cargo-udeps](https://github.com/est31/cargo-udeps)
+  * [cargo-show-asm](https://github.com/pacak/cargo-show-asm)
+  * [cargo-samply](https://github.com/PhilippPolterauer/cargo-samply)
+  * [tokio-console](https://github.com/tokio-rs/console)
 * [golang](https://go.dev/learn/)
   * [gotestsum](https://github.com/gotestyourself/gotestsum)
-
-### ETH Development
-* [foundry](https://github.com/foundry-rs/foundry)
-
-## Install
-
-> **Note**
-> Make sure all dependencies are installed!
-
-```
-just install-all
-```

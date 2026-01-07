@@ -1,7 +1,13 @@
 [user]
-    # Insert your user config
-    # name = your name
-    # email = your email
+	name = clabby
+	email = ben@clab.by
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMJJVEjqv5y2ZlTnmDthN8Lqo17KwUs/M+Q/SrzZgZw5 ben@clab.by
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	format = ssh
 
 [core]
     pager = delta
@@ -10,11 +16,10 @@
     diffFilter = delta --color-only
 
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    navigate = true
+    line-numbers = true
+    dark = true
+    side-by-side = true
 
 [merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
+    conflictstyle = zdiff3
