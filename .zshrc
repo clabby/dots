@@ -81,7 +81,6 @@ alias gm='rustup update && (z neovim && git pull origin master && rm -rf build &
 # jj
 alias j="jj"
 alias ju="jjui"
-source ~/jdd.sh
 
 # Cargo
 alias cg="cargo"
