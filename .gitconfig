@@ -15,11 +15,16 @@
 [interactive]
     diffFilter = delta --color-only
 
+[diff]
+    colorMoved = default
+
 [delta]
     navigate = true
     line-numbers = true
     dark = true
     side-by-side = true
+    features = zebra-dark
+    map-styles = bold purple => syntax magenta, bold cyan => syntax blue
 
 [merge]
     conflictstyle = zdiff3

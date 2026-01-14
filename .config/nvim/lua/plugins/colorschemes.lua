@@ -13,7 +13,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
     if vim.g.colors_name == "gruvbox-material" then
       local config = vim.fn['gruvbox_material#get_configuration']()
-      local palette = vim.fn['gruvbox_material#get_palette'](config.background, config.foreground, config.colors_override)
+      local palette = vim.fn['gruvbox_material#get_palette'](config.background, config.foreground, config
+        .colors_override)
       local set_hl = vim.fn['gruvbox_material#highlight']
       if vim.o.background == "dark" then
         -- Darker background
@@ -42,7 +43,7 @@ return {
       vim.g.gruvbox_material_statusline_style = "mix"
       vim.g.gruvbox_material_cursor = "auto"
       vim.g.gruvbox_material_enable_bold = 1
-      vim.g.gruvbox_material_enable_italic = 0
+      vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_dim_inactive_windows = 1
       vim.g.gruvbox_material_better_performance = 1
 
@@ -64,4 +65,10 @@ return {
       vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#F2584B" })
     end,
   },
+  {
+    "thesimonho/kanagawa-paper.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  }
 }

@@ -62,6 +62,10 @@ return {
           vim.keymap.set("n", "]]", require("gitsigns").next_hunk, { buffer = bufnr, desc = "Next git hunk" })
 
           vim.keymap.set("n", "[[", require("gitsigns").prev_hunk, { buffer = bufnr, desc = "Previous git hunk" })
+
+          -- Set `GitSignsChangeNr` HL
+          vim.api.nvim_set_hl(0, "GitSignsChangeNr", { link = "Orange" })
+          vim.api.nvim_set_hl(0, "GitSignsChange", { link = "Orange" })
         end,
       })
     end,
@@ -98,16 +102,19 @@ return {
   },
   {
     "clabby/difftastic.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim" },
     config = function()
       require("difftastic-nvim").setup({
-        download = true, -- Auto-download pre-built binary
-        hunk_wrap_file = true,
-        scroll_to_first_hunk = true,
+        download = true,
+        snacks_picker = {
+          enabled = true,
+        },
       })
 
       vim.keymap.set("n", "<leader>gdd", "<cmd>Difft @<cr>", { desc = "Diff current revision against parent" })
       vim.keymap.set("n", "<leader>gdm", "<cmd>Difft trunk()..@<cr>", { desc = "Diff stack against trunk" })
+      vim.keymap.set("n", "<leader>gdp", "<cmd>DifftPick<cr>", { desc = "Pick a revision to diff" })
+      vim.keymap.set("n", "<leader>gdr", "<cmd>DifftPickRange<cr>", { desc = "Pick a revision range to diff" })
     end,
   },
 }

@@ -13,7 +13,7 @@ return {
     "tpope/vim-sleuth",
   },
   -- Pairs
-   {
+  {
     'saghen/blink.pairs',
     version = '*',
 

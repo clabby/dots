@@ -111,18 +111,18 @@ map(
 -- Harpoon
 map(
   "n",
-  "<leader>hm",
+  "hm",
   function()
     local harpoon = require('harpoon')
     harpoon.ui:toggle_quick_menu(harpoon:list())
   end,
   opts_with_desc("Harpoon File")
 )
-map("n", "<leader>ha", function() require("harpoon"):list():add() end, opts_with_desc("Harpoon File"))
-map("n", "<leader>h1", function() require("harpoon"):list():select(1) end, opts_with_desc("Harpoon File #1"))
-map("n", "<leader>h2", function() require("harpoon"):list():select(2) end, opts_with_desc("Harpoon File #2"))
-map("n", "<leader>h3", function() require("harpoon"):list():select(3) end, opts_with_desc("Harpoon File #3"))
-map("n", "<leader>h4", function() require("harpoon"):list():select(4) end, opts_with_desc("Harpoon File #4"))
+map("n", "ha", function() require("harpoon"):list():add() end, opts_with_desc("Harpoon File"))
+map("n", "h1", function() require("harpoon"):list():select(1) end, opts_with_desc("Harpoon File #1"))
+map("n", "h2", function() require("harpoon"):list():select(2) end, opts_with_desc("Harpoon File #2"))
+map("n", "h3", function() require("harpoon"):list():select(3) end, opts_with_desc("Harpoon File #3"))
+map("n", "h4", function() require("harpoon"):list():select(4) end, opts_with_desc("Harpoon File #4"))
 
 -- JJUI
 map(

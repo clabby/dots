@@ -237,15 +237,4 @@ xc() {
 }
 
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
-# opencode
 export PATH=/Users/ben/.opencode/bin:$PATH
-
-# >>> juliaup initialize >>>
-
-# !! Contents within this block are managed by juliaup !!
-
-path=('/Users/ben/.juliaup/bin' $path)
-export PATH
-
-# <<< juliaup initialize <<<

@@ -5,7 +5,9 @@ email = "ben@clab.by"
 [ui]
 editor = "nvim"
 default-command = ["log", "--no-pager"]
-diff-formatter = ["difft", "--color=always", "$left", "$right"]
+# diff-formatter = ["difft", "--color=always", "$left", "$right"]
+pager = "delta"
+diff-formatter = ":git"
 
 [merge-tools.delta]
 diff-expected-exit-codes = [0, 1]
@@ -71,4 +73,4 @@ if(root,
 """
 
 [remotes.origin]
-auto-track-bookmarks = "*"
+auto-track-bookmarks = "cl/*"
