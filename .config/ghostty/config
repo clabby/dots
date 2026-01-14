@@ -7,4 +7,4 @@ window-title-font-family="JetBrainsMono Nerd Font Mono"
 window-theme="system"
 macos-titlebar-style = hidden
 
-custom-shader = ./shaders/cursor_warp.glsl
+custom-shader = ./shaders/cursor_tail.glsl

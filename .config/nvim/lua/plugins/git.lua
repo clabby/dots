@@ -103,6 +103,7 @@ return {
       require("difftastic-nvim").setup({
         download = true, -- Auto-download pre-built binary
         hunk_wrap_file = true,
+        scroll_to_first_hunk = true,
       })
 
       vim.keymap.set("n", "<leader>gdd", "<cmd>Difft @<cr>", { desc = "Diff current revision against parent" })

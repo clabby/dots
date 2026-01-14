@@ -15,13 +15,10 @@ behavior = "own"
 backend = "ssh"
 key = "~/.ssh/id_ed25519.pub"
 
-[git]
-push-new-bookmarks = true
-
 [aliases]
 # general aliases
-l = ["log", "-r", "current"]
-ls = ["log", "-r", "currentn(5)"]
+l = ["log", "-r", "stack(@)"]
+lb = ["log", "-r", "bms"]
 la = ["log"]
 c = ["commit"]
 e = ["edit"]
@@ -37,14 +34,15 @@ jj rbt
 """, ""]
 
 [revset-aliases]
-'latestfive' = '(ancestors(immutable_heads().., 2) ~ parents(ancestors(immutable_heads().., 2), 5)) | present(trunk())'
-'stack(tip)' = "fork_point(trunk():: | tip)::tip | trunk() | tip-::"
-'expand(tip)' = "fork_point(trunk():: | tip):: | tip"
+"latestfive" = "(ancestors(immutable_heads().., 2) ~ parents(ancestors(immutable_heads().., 2), 5)) | present(trunk())"
+"stack(tip)" = "fork_point(trunk():: | tip)::tip | trunk() | tip-::"
+"expand(tip)" = "fork_point(trunk():: | tip):: | tip"
+"bms" = "(bookmarks() & ancestors(immutable_heads().., 2)) | trunk()"
 
 [template-aliases]
-'format_timestamp(timestamp)' = 'timestamp.ago()'
+"format_timestamp(timestamp)" = "timestamp.ago()"
 
-log_oneline_compact = '''
+log_oneline_compact = """
 if(root,
   format_root_commit(self),
   label(if(current_working_copy, "working_copy"),
@@ -70,4 +68,7 @@ if(root,
     ),
   )
 )
-'''
+"""
+
+[remotes.origin]
+auto-track-bookmarks = "*"
