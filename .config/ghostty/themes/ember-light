@@ -1,0 +1,29 @@
+# Ember Light — warm ivory variant
+# Source: https://github.com/ember-theme/ember/blob/main/palette.json
+
+background = #e6dac4
+foreground = #282418
+cursor-color = #b84c30
+cursor-text = #e6dac4
+selection-background = #c8bca6
+selection-foreground = #282418
+
+# Normal colors (accents_light from palette.json)
+palette = 0=#282418
+palette = 1=#b84c30
+palette = 2=#4a6830
+palette = 3=#7a6820
+palette = 4=#3a6080
+palette = 5=#905050
+palette = 6=#386858
+palette = 7=#e6dac4
+
+# Bright colors (same as normal — Ember's muted philosophy)
+palette = 8=#282418
+palette = 9=#b84c30
+palette = 10=#4a6830
+palette = 11=#7a6820
+palette = 12=#3a6080
+palette = 13=#905050
+palette = 14=#386858
+palette = 15=#e6dac4

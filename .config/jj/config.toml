@@ -5,8 +5,7 @@ email = "ben@clab.by"
 [ui]
 editor = "nvim"
 default-command = ["log", "--no-pager"]
-# diff-formatter = ["difft", "--color=always", "$left", "$right"]
-pager = "delta"
+pager = ["hunk", "pager"]
 diff-formatter = ":git"
 
 [merge-tools.delta]

@@ -47,6 +47,7 @@ return {
         signs.numhl[severity[level]] = sign.hl
       end
 
+      -- vim.lsp.inlay_hint.enable(true)
       vim.diagnostic.config({
         virtual_text = true,
         severity_sort = true,
@@ -129,25 +130,25 @@ return {
       },
     },
   },
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
-    priority = 1000,
-    config = function()
-      require("tiny-inline-diagnostic").setup({
-        preset = "powerline",
-        options = {
-          use_icons_from_diagnostic = true,
-          add_messages = {
-            display_count = true,
-            show_multiple_glyphs = false,
-          },
-          multilines = {
-            enabled = true,
-          },
-        },
-      })
-      vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
-    end,
-  },
+  -- {
+  --   "rachartier/tiny-inline-diagnostic.nvim",
+  --   event = "VeryLazy",
+  --   priority = 1000,
+  --   config = function()
+  --     require("tiny-inline-diagnostic").setup({
+  --       preset = "powerline",
+  --       options = {
+  --         use_icons_from_diagnostic = true,
+  --         add_messages = {
+  --           display_count = true,
+  --           show_multiple_glyphs = false,
+  --         },
+  --         multilines = {
+  --           enabled = true,
+  --         },
+  --       },
+  --     })
+  --     vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+  --   end,
+  -- },
 }

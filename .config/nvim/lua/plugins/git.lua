@@ -103,12 +103,14 @@ return {
   {
     "clabby/difftastic.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "folke/snacks.nvim" },
+    -- dir = "/Users/ben/dev/rs/difft-nvim",
     config = function()
       require("difftastic-nvim").setup({
         download = true,
         snacks_picker = {
           enabled = true,
         },
+        -- highlight_mode = "difftastic"
       })
 
       vim.keymap.set("n", "<leader>gdd", "<cmd>Difft @<cr>", { desc = "Diff current revision against parent" })

@@ -88,10 +88,22 @@ map(
   "n",
   "<leader>1",
   function()
+    local virtual_text_enabled = vim.diagnostic.config().virtual_text
     local virtual_lines_enabled = vim.diagnostic.config().virtual_lines
     vim.diagnostic.config({
       virtual_lines = not virtual_lines_enabled,
+      virtual_text = not virtual_text_enabled,
     })
+  end,
+  opts_with_desc("Toggle LSP Lines diagnostics")
+)
+
+-- Toggle Inlay Hints
+map(
+  "n",
+  "<leader>2",
+  function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({0}),{0})
   end,
   opts_with_desc("Toggle LSP Lines diagnostics")
 )

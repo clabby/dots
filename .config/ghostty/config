@@ -1,10 +1,15 @@
-theme = light:"clabby-light",dark:"clabby"
-font-family="JetBrainsMono Nerd Font Mono"
+theme = light:"ember-light",dark:"ember"
+font-family="Berkeley Mono"
 font-size = 16
 background-opacity = 1
 
-window-title-font-family="JetBrainsMono Nerd Font Mono"
+# Window styling
+window-title-font-family="Berkeley Mono"
 window-theme="system"
 macos-titlebar-style = hidden
 
-custom-shader = ./shaders/cursor_tail.glsl
+# Cursor Styling
+cursor-style = block
+# custom-shader = ./shaders/cursor_tail.glsl
+
+bell-features = attention

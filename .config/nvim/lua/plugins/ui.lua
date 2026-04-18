@@ -15,8 +15,7 @@ return {
       require("lualine").setup({
         options = {
           theme = function()
-            -- gruvbox-material auto-switches
-            return "gruvbox-material"
+            return "auto"
           end,
           globalstatus = true,
           icons_enabled = true,
@@ -94,8 +93,7 @@ return {
         size = 20,
         open_mapping = [[<C-\>]],
         shade_filetypes = {},
-        shade_terminals = true,
-        shading_factor = 2,
+        shade_terminals = false,
         start_in_insert = true,
         persist_size = false,
         direction = "float",
@@ -104,16 +102,10 @@ return {
         float_opts = {
           border = "curved",
           winblend = 0,
-          highlights = {
-            border = "#F18634",
-            background = "#151819",
-          },
         },
         highlights = {
-          FloatBorder = {
-            guibg = "none",
-            guifg = "#F18634",
-          },
+          FloatBorder = { link = "FloatBorder" },
+          NormalFloat = { link = "NormalFloat" },
         },
       })
     end,

@@ -57,7 +57,6 @@ export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$HOME/.foundry/bin"
 
 # tmux colors
 export TERM=xterm-256color
@@ -66,7 +65,6 @@ export TERM=xterm-256color
 # Completions
 # -----------
 
-eval "$(cast completions zsh)"
 eval "$(gh completion -s zsh)"
 eval "$(just --completions bash)"
 eval "$(jj util completion zsh)"
@@ -89,6 +87,14 @@ alias rock="cargo +nightly fmt"
 alias nt="cargo nextest"
 alias nnt="cargo +nightly nextest"
 alias spring-clean="cargo clean-all --keep-days 7 ~ -y"
+
+function ck() {
+    cargo check -p "commonware-$1"
+}
+
+function cl() {
+    cargo clippy -p "commonware-$1" --all-features -- -D warnings
+}
 
 # Go
 alias gts="gotestsum --format=testname"
@@ -122,12 +128,62 @@ function rgg {
 }
 
 # Tmux
-function t {
-    if [ -n "$1" ]; then
-        tmux new -s "$1"
-    else
-        tmux new -s code
+function t() {
+    local session_name="${1:-$(basename "$PWD")}"
+
+    # If already inside tmux, don't nest
+    if [[ -n "$TMUX" ]]; then
+        echo "Already in a tmux session. Detach first or run from outside tmux."
+        return 1
     fi
+
+    # Attach if session already exists
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux attach-session -t "$session_name"
+        return
+    fi
+
+    tmux new-session -s "$session_name" -c "$PWD"
+}
+
+function nic() {
+    local session_name="${1:-$(basename "$PWD")}"
+
+    # If already inside tmux, don't nest
+    if [[ -n "$TMUX" ]]; then
+        echo "Already in a tmux session. Detach first or run from outside tmux."
+        return 1
+    fi
+
+    # Attach if session already exists
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux attach-session -t "$session_name"
+        return
+    fi
+
+    # Create session (pane 1: will become neovim)
+    tmux new-session -d -s "$session_name" -c "$PWD" -x "$(tput cols)" -y "$(tput lines)"
+
+    # Split the top pane right for amp (30% width)
+    tmux split-window -h -t "$session_name":0.0 -c "$PWD" -l "30%"
+
+    # Pane layout: 1=neovim (top-left), 2=amp (top-right)
+    tmux send-keys -t "$session_name":0.0 'nvim' C-m
+    tmux send-keys -t "$session_name":0.1 'amp' C-m
+
+    # Focus on neovim pane
+    tmux select-pane -t "$session_name":0.0
+
+    tmux attach-session -t "$session_name"
+}
+
+function knic() {
+    local session_name="${1:-$(basename "$PWD")}"
+
+    tmux kill-session -t "$session_name" 2>/dev/null || {
+        echo "No tmux session named '$session_name' found."
+        return 1
+    }
 }
 
 # Cat
