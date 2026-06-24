@@ -3,7 +3,7 @@ return {
   {
     "stevearc/oil.nvim",
     opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "JezerM/oil-lsp-diagnostics.nvim" },
     config = function()
       require("oil").setup {
         float = {
@@ -14,6 +14,23 @@ return {
           show_hidden = true,
         }
       }
+
+      require("oil-lsp-diagnostics").setup({
+        count = true,
+        parent_dirs = true,
+        diagnostic_colors = {
+          error = "DiagnosticError",
+          warn  = "DiagnosticWarn",
+          info  = "DiagnosticInfo",
+          hint  = "DiagnosticHint",
+        },
+        diagnostic_symbols = {
+          error = "",
+          warn = "",
+          info = "",
+          hint = "󰌶",
+        }
+      })
     end,
   },
   -- Harpoon
@@ -25,6 +42,10 @@ return {
       local harpoon = require("harpoon")
       harpoon:setup()
     end,
+  },
+  -- Fast buffer navigation
+  {
+    "tjgao/quickbuf.nvim"
   },
   -- Fast buffer navigation
   {

@@ -1,4 +1,4 @@
-theme = light:"ember-light",dark:"ember"
+theme = light:"clabby-light",dark:"clabby"
 font-family="Berkeley Mono"
 font-size = 16
 background-opacity = 1

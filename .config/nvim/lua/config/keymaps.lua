@@ -6,6 +6,12 @@ local opts_with_desc = function(description)
   return { desc = description, unpack(opts) }
 end
 
+-- Disable arrow keys in all modes
+-- local keys = {'<Up>', '<Down>', '<Left>', '<Right>'}
+-- for _, key in ipairs(keys) do
+--     vim.keymap.set({'n', 'i', 'v', 'x'}, key, '<nop>', {noremap = true, silent = true})
+-- end
+
 -- Keep cursor centered when scrolling
 map("n", "<C-d>", "<C-d>zz", opts)
 map("n", "<C-u>", "<C-u>zz", opts)

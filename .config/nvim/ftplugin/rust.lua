@@ -12,7 +12,6 @@ local bindings = {
     { "<leader>lc", "<cmd>lua require('config.utils').copyFilePathAndLineNumber()<CR>", desc = "Copy File Path and Line Number", nowait = true, remap = false },
     { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Definition", nowait = true, remap = false },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", desc = "Format", nowait = true, remap = false },
-    { "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "Implementation", nowait = true, remap = false },
     { "<leader>lk", "<cmd>lua vim.cmd.RustLsp { 'hover', 'actions' }<cr>", desc = "Hover", nowait = true, remap = false },
     { "<leader>ll", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics (Trouble)", nowait = true, remap = false },
     { "<leader>lo", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type Definition", nowait = true, remap = false },

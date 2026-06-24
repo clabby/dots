@@ -18,12 +18,13 @@ key = "~/.ssh/id_ed25519.pub"
 
 [aliases]
 # general aliases
-l = ["log", "-r", "stack(@)"]
-lb = ["log", "-r", "bms"]
+l = ["log", "-r", "stack(@)", "--no-pager"]
+lb = ["log", "-r", "bms", "--no-pager"]
 la = ["log"]
 c = ["commit"]
 e = ["edit"]
 bc = ["bookmark", "create"]
+dm = ["diff", "-r", "trunk()..@"]
 
 # git-like aliases
 f = ["git", "fetch"]

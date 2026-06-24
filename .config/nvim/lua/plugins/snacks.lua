@@ -56,17 +56,18 @@ return {
     {
       "<leader>o",
       function()
-        Snacks.picker.buffers({
-          win = {
-            input = {
-              keys = {
-                ["dd"] = "bufdelete",
-                ["<c-d>"] = { "bufdelete", mode = { "n", "i" } },
-              },
-            },
-            list = { keys = { ["dd"] = "bufdelete" } },
-          },
-        })
+        vim.cmd("QuickBuf", { desc = "Quick Buffer Explorer" })
+        -- Snacks.picker.buffers({
+        --   win = {
+        --     input = {
+        --       keys = {
+        --         ["dd"] = "bufdelete",
+        --         ["<c-d>"] = { "bufdelete", mode = { "n", "i" } },
+        --       },
+        --     },
+        --     list = { keys = { ["dd"] = "bufdelete" } },
+        --   },
+        -- })
       end,
       desc = "Buffers",
     },
@@ -111,6 +112,7 @@ return {
     { "<leader>la", "<cmd>lua require('tiny-code-action').code_action()<cr>",               nowait = true,                       desc = "Code Actions" },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                                    nowait = true,                       desc = "Rename" },
     { "<leader>lR", function() Snacks.picker.lsp_references() end,                          nowait = true,                       desc = "References" },
+    { "<leader>li", function() Snacks.picker.lsp_implementations() end,                     nowait = true,                       desc = "Implementations" },
     { "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>",                                    nowait = true,                       desc = "Format" },
 
     -- Zoxide nav

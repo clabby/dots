@@ -85,7 +85,7 @@ return {
       vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "none", fg = "#E9B144" })
       vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "none", fg = "#F2584B" })
 
-      -- vim.cmd.colorscheme("gruvbox-material")
+      vim.cmd.colorscheme("gruvbox-material")
     end,
   },
   {
@@ -122,7 +122,7 @@ return {
       require("ember").setup({
         variant = "ember-auto",
       })
-      vim.cmd("colorscheme ember-auto")
+      -- vim.cmd("colorscheme ember-auto")
     end,
   }
 }
