@@ -1,5 +1,1 @@
 --target=~
---ignore=.stowrc
---ignore=/.jj
---ignore=/.git
---ignore=DS_Store

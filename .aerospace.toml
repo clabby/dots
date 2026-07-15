@@ -1,4 +1,5 @@
 # Reference: https://github.com/i3/i3/blob/next/etc/config
+config-version = 2
 
 # Start aerospace at login
 start-at-login = true
@@ -11,6 +12,7 @@ after-startup-command = [
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 on-focus-changed = "move-mouse window-lazy-center"
+# focus-follows-mouse.enabled = true
 
 # https://nikitabobko.github.io/AeroSpace/guide.html#normalization
 enable-normalization-flatten-containers = true
@@ -39,6 +41,14 @@ W = 'main'
 M = 'main'
 S = 'main'
 L = ['secondary', 'main']
+
+# [workspace-to-normalization]
+# T = 'bsp'
+# B = 'bsp'
+# W = 'bsp'
+# M = 'bsp'
+# S = 'bsp'
+# L = 'bsp'
 
 [mode.main.binding]
     alt-enter = '''exec-and-forget osascript \
@@ -79,12 +89,12 @@ L = ['secondary', 'main']
     alt-rightSquareBracket = 'workspace S'
     alt-backtick = 'workspace L'
 
-    alt-shift-1 = 'move-node-to-workspace T'
-    alt-shift-2 = 'move-node-to-workspace B'
-    alt-shift-3 = 'move-node-to-workspace W'
-    alt-shift-leftSquareBracket = 'move-node-to-workspace M'
-    alt-shift-rightSquareBracket = 'move-node-to-workspace S'
-    alt-shift-backtick = 'move-node-to-workspace L'
+    alt-shift-1 = ['move-node-to-workspace T', 'workspace T']
+    alt-shift-2 = ['move-node-to-workspace B', 'workspace B']
+    alt-shift-3 = ['move-node-to-workspace W', 'workspace W']
+    alt-shift-leftSquareBracket = ['move-node-to-workspace M', 'workspace M']
+    alt-shift-rightSquareBracket = ['move-node-to-workspace S', 'workspace S']
+    alt-shift-backtick = ['move-node-to-workspace L', 'workspace L']
 
     alt-shift-c = 'reload-config'
 

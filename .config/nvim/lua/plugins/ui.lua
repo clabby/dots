@@ -165,4 +165,30 @@ return {
       require("fidget").setup {}
     end
   },
+  -- Global note
+  {
+    "backdround/global-note.nvim",
+    config = function()
+      local global_note = require("global-note")
+      global_note.setup()
+
+      vim.keymap.set("n", "<leader>n", global_note.toggle_note, {
+        desc = "Toggle global note",
+      })
+    end
+  },
+  -- Window separator highlights
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "WinLeave" },
+    config = function()
+      require("colorful-winsep").setup({
+        border = "single",
+        animate = {
+          enabled = false
+        },
+        highlight = "#D3859B",
+      })
+    end
+  }
 }

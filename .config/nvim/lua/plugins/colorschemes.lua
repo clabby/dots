@@ -124,5 +124,21 @@ return {
       })
       -- vim.cmd("colorscheme ember-auto")
     end,
+  },
+  {
+    "github-main-user/lytmode.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('lytmode').setup()
+    end
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- require('nordic').setup()
+    end
   }
 }

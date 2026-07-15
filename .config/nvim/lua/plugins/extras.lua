@@ -12,6 +12,12 @@ return {
   {
     "tpope/vim-sleuth",
   },
+  -- Auto-indent multi-line pastes
+  {
+    'nemanjamalesija/smart-paste.nvim',
+    event = 'VeryLazy',
+    config = true,
+  },
   -- Pairs
   {
     'saghen/blink.pairs',

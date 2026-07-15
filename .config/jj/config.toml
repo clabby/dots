@@ -34,6 +34,15 @@ sync = ["util", "exec", "--", "bash", "-c", """
 jj f
 jj rbt
 """, ""]
+clean-bookmarks = ["util", "exec", "--", "bash", "-c", """
+#!/bin/bash
+bookmarks=$(jj bookmark list -T 'if(remote, "", name ++ "\n")' | sort -u)
+visible=$(jj log --no-graph -T 'bookmarks.map(|b| if(b.remote(), "", b.name() ++ "\n"))' | sort -u)
+stale=$(comm -23 <(printf '%s\n' "$bookmarks") <(printf '%s\n' "$visible"))
+if [ -n "$stale" ]; then
+  printf '%s\n' "$stale" | xargs jj bookmark forget --
+fi
+""", ""]
 
 [revset-aliases]
 "latestfive" = "(ancestors(immutable_heads().., 2) ~ parents(ancestors(immutable_heads().., 2), 5)) | present(trunk())"

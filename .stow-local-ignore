@@ -1,0 +1,7 @@
+^/\.git$
+^/\.jj$
+^/\.stowrc$
+^/\.stow-local-ignore$
+(^|/)\.DS_Store$
+^/\.gitignore$
+^/README.md$

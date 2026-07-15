@@ -58,7 +58,7 @@ return {
   -- Rust
   {
     "mrcjkb/rustaceanvim",
-    version = "^7", -- Recommended
+    version = "^9", -- Recommended
     ft = { "rust" },
     config = function()
       vim.g.rustaceanvim = {

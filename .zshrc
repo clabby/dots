@@ -215,6 +215,9 @@ wttr() {
 # Search through all PRs that are open in the current repo and open the selected one in browser.
 alias prv="GH_FORCE_TTY=100% gh pr list -L 1000 | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
 
+# Search through all PRs that are open in the current repo and authored by me and open the selected one in browser.
+alias prm="GH_FORCE_TTY=100% gh pr list -L 1000 --author @me | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 | cut -d' ' -f1 | tr -d '#' | xargs gh pr view -w"
+
 prd() {
     open_pr="$(GH_FORCE_TTY=100% gh pr list -L 1000 |
         fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 4 |
