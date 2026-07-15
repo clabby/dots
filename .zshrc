@@ -297,3 +297,10 @@ xc() {
 
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH=/Users/ben/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/ben/.bun/_bun" ] && source "/Users/ben/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
