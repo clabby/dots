@@ -61,6 +61,9 @@ export PATH="$PATH:$HOME/go/bin"
 # tmux colors
 export TERM=xterm-256color
 
+# sccache
+export SCCACHE_CACHE_SIZE=50G
+
 # -----------
 # Completions
 # -----------
@@ -105,8 +108,8 @@ alias n="nvim -i NONE"
 # Misc
 alias c="clear"
 
-# PNPM
-alias p="pnpm"
+# Tailscale
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 # lazygit
 alias lg="lazygit"
@@ -164,12 +167,12 @@ function nic() {
     # Create session (pane 1: will become neovim)
     tmux new-session -d -s "$session_name" -c "$PWD" -x "$(tput cols)" -y "$(tput lines)"
 
-    # Split the top pane right for amp (30% width)
+    # Split the top pane right for tact (30% width)
     tmux split-window -h -t "$session_name":0.0 -c "$PWD" -l "30%"
 
-    # Pane layout: 1=neovim (top-left), 2=amp (top-right)
+    # Pane layout: 1=neovim (top-left), 2=tact (top-right)
     tmux send-keys -t "$session_name":0.0 'nvim' C-m
-    tmux send-keys -t "$session_name":0.1 'amp' C-m
+    tmux send-keys -t "$session_name":0.1 'tact' C-m
 
     # Focus on neovim pane
     tmux select-pane -t "$session_name":0.0

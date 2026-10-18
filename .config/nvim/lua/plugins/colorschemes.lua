@@ -7,7 +7,6 @@ end
 
 local accent_by_theme = {
   ["gruvbox-material"] = "#F18634",
-  ["ember-auto"] = { dark = "#E08060", light = "#b84c30" },
   ["kanagawa"] = "#7E9CD8",
   ["kanagawa-paper"] = "#7E9CD8",
 }
@@ -112,33 +111,6 @@ return {
       })
 
       -- vim.cmd.colorscheme("kanagawa")
-    end
-  },
-  {
-    "ember-theme/nvim",
-    name = "ember",
-    priority = 1000,
-    config = function()
-      require("ember").setup({
-        variant = "ember-auto",
-      })
-      -- vim.cmd("colorscheme ember-auto")
-    end,
-  },
-  {
-    "github-main-user/lytmode.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('lytmode').setup()
-    end
-  },
-  {
-    'AlexvZyl/nordic.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      -- require('nordic').setup()
     end
   }
 }

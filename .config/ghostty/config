@@ -1,7 +1,8 @@
 theme = light:"clabby-light",dark:"clabby"
 font-family="Berkeley Mono"
-font-size = 16
+font-size = 18
 background-opacity = 1
+adjust-cell-height = 15%
 
 # Window styling
 window-title-font-family="Berkeley Mono"

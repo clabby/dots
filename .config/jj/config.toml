@@ -12,9 +12,12 @@ diff-formatter = ":git"
 diff-expected-exit-codes = [0, 1]
 
 [signing]
-behavior = "own"
+behavior = "drop"
 backend = "ssh"
 key = "~/.ssh/id_ed25519.pub"
+
+[git]
+sign-on-push = true
 
 [aliases]
 # general aliases
@@ -25,6 +28,7 @@ c = ["commit"]
 e = ["edit"]
 bc = ["bookmark", "create"]
 dm = ["diff", "-r", "trunk()..@"]
+rb = ["rebase", "--onto", "trunk()", "-b"]
 
 # git-like aliases
 f = ["git", "fetch"]
